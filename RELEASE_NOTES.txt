@@ -1,21 +1,11 @@
-AndroidSidebar - RELEASE NOTES
-==============================
+# AndroidSidebar - RELEASE NOTES
 
-
-Version:        1.0.0
-Release date:   10.14.1015
---------------------------
+## Version 1.0.0 (14th Oct. 2015)
 
 The first stable release of the library, which provides the following utility classes:
 
-    -   The class Condition provides methods, which allow to ensure that variables or objects
-        fulfill certain conditions by throwing exceptions, if conditions are violated.
-
-    -   The class BitmapUtil provides methods, which allow to create and edit bitmaps.
-
-    -   The class ClassUtil provides methods, which allow to handle class names.
-
-    -   The class DisplayUtil provides methods, which are related to a device's display metrics.
-
-    -   The annotation VisibleForTesting can be used to mark types, constructors, methods or fields,
-        which are only part of a publicly exposed API for testing purposes.
+- The class Condition provides methods, which allow to ensure that variables or objects fulfill certain conditions by throwing exceptions, if conditions are violated.
+- The class BitmapUtil provides methods, which allow to create and edit bitmaps.
+- The class ClassUtil provides methods, which allow to handle class names.
+- The class DisplayUtil provides methods, which are related to a device's display metrics.
+- The annotation VisibleForTesting can be used to mark types, constructors, methods or fields, which are only part of a publicly exposed API for testing purposes.
