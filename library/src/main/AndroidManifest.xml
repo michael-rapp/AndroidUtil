@@ -14,13 +14,4 @@ General Public License for more details.
 You should have received a copy of the GNU Lesser General Public License along with this program. If
 not, see <http://www.gnu.org/licenses/>.
 -->
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="de.mrapp.android.util"
-    android:versionCode="1"
-    android:versionName="1.0.0">
-
-    <uses-sdk
-        android:minSdkVersion="1"
-        android:targetSdkVersion="23" />
-
-</manifest>
+<manifest package="de.mrapp.android.util"/>
