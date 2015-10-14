@@ -1,6 +1,6 @@
 # AndroidSidebar - RELEASE NOTES
 
-## Version 1.0.0 (Oct. 14th 2015)
+## Version 1.0.0 (Oct. 15th 2015)
 
 The first stable release of the library, which provides the following utility classes:
 

@@ -1,6 +1,6 @@
 # AndroidUtil - README
 
-"AndroidUtil" is an Android-library, which provides various utility classes for use in Android app development. I.a. the library currently provides the following features:
+"AndroidUtil" is an Android-library, which provides various utility classes for use in Android app development. The library currently provides the following features:
 
 - The class `Condition` provides methods, which allow to ensure that variables or objects fulfill certain conditions by throwing exceptions, if conditions are violated, e.g. when an object is null.
 - The class `BitmapUtil` provides methods, which allow to create and edit bitmaps, e.g. clipping them.
@@ -10,7 +10,7 @@
 
 ## License Agreement
 
-This project is distributed under the GNU Lesser Public License version 3.0 (GLPLv3). For further information about this license agreement's content please refer to its full version, which is available at http://www.gnu.org/licenses/.
+This project is distributed under the GNU Lesser Public License version 3.0 (GLPLv3). For further information about this license agreement's content please refer to its full version, which is available at http://www.gnu.org/licenses/lgpl.txt.
 
 ## Download
 
@@ -26,4 +26,4 @@ dependencies {
 
 ## Contact information
 
-For personal feedback or questions feel free to contact me via the mail address, which is mentioned on my [Github profile](https://github.com/michael-rapp). If you have found any bugs or want to post a feature request please use the [bugtracker](https://github.com/michael-rapp/AndroidUtil/issues) to report them.
+For personal feedback or questions feel free to contact me via the mail address, which is mentioned on my [Github profile](https://github.com/michael-rapp). If you have found any bugs or want to post a feature request, please use the [bugtracker](https://github.com/michael-rapp/AndroidUtil/issues) to report them.
