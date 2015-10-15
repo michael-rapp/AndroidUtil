@@ -24,6 +24,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 
 import static de.mrapp.android.util.Condition.ensureAtLeast;
@@ -110,7 +111,7 @@ public final class BitmapUtil {
      * @return The clipped bitmap as an instance of the class {@link Bitmap}
      */
     public static Bitmap clipCircle(@NonNull final Bitmap bitmap, final int borderWidth,
-                                    final int borderColor) {
+                                    @ColorInt final int borderColor) {
         ensureNotNull(bitmap, "The bitmap may not be null");
         return clipCircle(bitmap,
                 bitmap.getWidth() >= bitmap.getHeight() ? bitmap.getHeight() : bitmap.getWidth(),
@@ -136,7 +137,7 @@ public final class BitmapUtil {
      * @return The clipped bitmap as an instance of the class {@link Bitmap}
      */
     public static Bitmap clipCircle(@NonNull final Bitmap bitmap, final int size,
-                                    final int borderWidth, final int borderColor) {
+                                    final int borderWidth, @ColorInt final int borderColor) {
         ensureAtLeast(borderWidth, 0, "The border width must be at least 0");
         Bitmap clippedBitmap = clipCircle(bitmap, size);
         Bitmap result = Bitmap.createBitmap(clippedBitmap.getWidth(), clippedBitmap.getHeight(),
@@ -229,7 +230,7 @@ public final class BitmapUtil {
      * @return The clipped bitmap as an instance of the class {@link Bitmap}
      */
     public static Bitmap clipSquare(@NonNull final Bitmap bitmap, final int borderWidth,
-                                    final int borderColor) {
+                                    @ColorInt final int borderColor) {
         ensureNotNull(bitmap, "The bitmap may not be null");
         return clipSquare(bitmap,
                 bitmap.getWidth() >= bitmap.getHeight() ? bitmap.getHeight() : bitmap.getWidth(),
@@ -255,7 +256,7 @@ public final class BitmapUtil {
      * @return The clipped bitmap as an instance of the class {@link Bitmap}
      */
     public static Bitmap clipSquare(@NonNull final Bitmap bitmap, final int size,
-                                    final int borderWidth, final int borderColor) {
+                                    final int borderWidth, @ColorInt final int borderColor) {
         ensureAtLeast(borderWidth, 0, "The border width must be at least 0");
         Bitmap clippedBitmap = clipSquare(bitmap, size);
         Bitmap result = Bitmap.createBitmap(clippedBitmap.getWidth(), clippedBitmap.getHeight(),
@@ -350,7 +351,7 @@ public final class BitmapUtil {
      *         The color, which should be used for tinting, as an {@link Integer} value
      * @return The bitmap, which has been created, as an instance of the class {@link Bitmap}
      */
-    public static Bitmap tint(@NonNull final Bitmap bitmap, final int color) {
+    public static Bitmap tint(@NonNull final Bitmap bitmap, @ColorInt final int color) {
         ensureNotNull(bitmap, "The bitmap may not be null");
         Canvas canvas = new Canvas(bitmap);
         Paint paint = new Paint();
