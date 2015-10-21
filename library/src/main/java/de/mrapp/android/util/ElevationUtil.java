@@ -27,8 +27,8 @@ import static de.mrapp.android.util.Condition.ensureNotNull;
 import static de.mrapp.android.util.DisplayUtil.dpToPixels;
 
 /**
- * An utility class, which provides static methods, which allow to create drawables in order to
- * emulate elevations of views on pre-Lollipop devices.
+ * An utility class, which provides static methods, which allow to emulate elevations of views on
+ * pre-Lollipop devices.
  *
  * @author Michael Rapp
  * @since 1.1.0
@@ -133,8 +133,8 @@ public final class ElevationUtil {
     }
 
     /**
-     * Creates a new utility class, which provides static methods, which allow to create drawables
-     * in order to emulate elevations of views on pre-Lollipop devices.
+     * Creates a new utility class, which provides static methods, which allow to emulate elevations
+     * of views on pre-Lollipop devices.
      */
     private ElevationUtil() {
 
@@ -164,11 +164,35 @@ public final class ElevationUtil {
         ensureAtMaximum(elevation, 5, "The elevation must be at least 1");
         ensureNotNull(orientation, "The orientation may not be null");
         int[] shadowColors = getShadowColors(context, orientation);
-        int[] shadowWidths = getShadowWidths(context, orientation);
         int shadowColor = shadowColors[elevation - 1];
-        int shadowWidth = dpToPixels(context, Integer.valueOf(shadowWidths[elevation - 1]));
         return new GradientDrawable(getGradientOrientation(orientation),
                 new int[]{shadowColor, Color.TRANSPARENT});
+    }
+
+    /**
+     * Returns the width of the drawable, which can be used to emulate the shadow of an elevated
+     * view on pre-Lollipop devices.
+     *
+     * @param context
+     *         The context, which should be used, as an instance of the class {@link Context}. The
+     *         context may not be null
+     * @param elevation
+     *         The elevation, which should be emulated, in dp as an {@link Integer} value. The
+     *         elevation must be at least 1 and at maximum 5
+     * @param orientation
+     *         The orientation of the shadow in relation to the elevated view as a value of the enum
+     *         {@link Orientation}. The orientation may either be <code>LEFT</code>,
+     *         <code>RIGHT</code>, <code>TOP</code> or <code>BOTTOM</code>
+     * @return The width of the drawable in pixels as an {@link Integer} value
+     */
+    public static int getElevationShadowWidth(@NonNull final Context context, final int elevation,
+                                              final @NonNull Orientation orientation) {
+        ensureNotNull(context, "The context may not be null");
+        ensureAtLeast(elevation, 1, "The elevation must be at least 0");
+        ensureAtMaximum(elevation, 5, "The elevation must be at least 1");
+        ensureNotNull(orientation, "The orientation may not be null");
+        int[] shadowWidths = getShadowWidths(context, orientation);
+        return dpToPixels(context, Integer.valueOf(shadowWidths[elevation - 1]));
     }
 
 }
