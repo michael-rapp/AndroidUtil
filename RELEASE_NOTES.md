@@ -1,6 +1,6 @@
 # AndroidSidebar - RELEASE NOTES
 
-## Version 1.1.0 (Oct. 21th 2015)
+## Version 1.1.0 (Oct. 22th 2015)
 
 A feature release, which provides the following changes:
 
