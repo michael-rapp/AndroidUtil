@@ -6,6 +6,7 @@
 - The class `BitmapUtil` provides methods, which allow to create and edit bitmaps, e.g. clipping them.
 - The class `ClassUtil` provides methods, which allow to handle class names.
 - The class `DisplayUtil` provides methods, which are related to a device's display metrics, e.g. converting DP values to pixel values and vice versa.
+- The class `ElevationUtil` provides methods, which can be used to emulate elevations of views on pre-Lollipop devices.
 - The annotation `VisibleForTesting` can be used to mark types, constructors, methods or fields, which are only part of a publicly exposed API for testing purposes.
 
 ## License Agreement
@@ -20,7 +21,7 @@ Alternatively, the library can be added to your Android app as a Gradle dependen
 
 ```
 dependencies {
-    compile 'com.github.michael-rapp:android-util:1.0.0'
+    compile 'com.github.michael-rapp:android-util:1.1.0'
 }
 ```
 
