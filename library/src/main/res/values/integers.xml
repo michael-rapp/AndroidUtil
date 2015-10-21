@@ -16,26 +16,26 @@ not, see <http://www.gnu.org/licenses/>.
 -->
 <resources>
 
-    <string-array name="horizontal_elevation_shadow_widths">
+    <array name="horizontal_elevation_shadow_widths">
         <item>1</item>
         <item>3</item>
         <item>10</item>
         <item>14</item>
         <item>19</item>
-    </string-array>
-    <string-array name="top_elevation_shadow_widths">
+    </array>
+    <array name="top_elevation_shadow_widths">
         <item>1</item>
         <item>3</item>
         <item>10</item>
         <item>14</item>
         <item>19</item>
-    </string-array>
-    <string-array name="bottom_elevation_shadow_widths">
+    </array>
+    <array name="bottom_elevation_shadow_widths">
         <item>1</item>
         <item>3</item>
         <item>6</item>
         <item>10</item>
         <item>15</item>
-    </string-array>
+    </array>
 
 </resources>
