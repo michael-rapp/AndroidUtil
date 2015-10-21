@@ -78,9 +78,9 @@ public class ElevationUtilTest extends AndroidTestCase {
      * Ensures, that a {@link IllegalArgumentException} is thrown by the method, which allows to
      * create the shadow of an elevated view, if the elevation is less than 1.
      */
-    public final void testCreateElevationShadowThrowsExceptionWhenElevationIsLessThan1() {
+    public final void testCreateElevationShadowThrowsExceptionWhenElevationIsLessThan0() {
         try {
-            ElevationUtil.createElevationShadow(getContext(), 0, Orientation.BOTTOM);
+            ElevationUtil.createElevationShadow(getContext(), -1, Orientation.BOTTOM);
         } catch (IllegalArgumentException e) {
             return;
         }
@@ -163,9 +163,9 @@ public class ElevationUtilTest extends AndroidTestCase {
      * Ensures, that a {@link IllegalArgumentException} is thrown by the method, which allows to
      * retrieve the shadow width of an elevated view, if the elevation is less than 1.
      */
-    public final void testGetElevationShadowWidthThrowsExceptionWhenElevationIsLessThan1() {
+    public final void testGetElevationShadowWidthThrowsExceptionWhenElevationIsLessThan0() {
         try {
-            ElevationUtil.createElevationShadow(getContext(), 0, Orientation.BOTTOM);
+            ElevationUtil.createElevationShadow(getContext(), -1, Orientation.BOTTOM);
         } catch (IllegalArgumentException e) {
             return;
         }

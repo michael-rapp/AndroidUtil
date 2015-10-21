@@ -149,24 +149,30 @@ public final class ElevationUtil {
      *         context may not be null
      * @param elevation
      *         The elevation, which should be emulated, in dp as an {@link Integer} value. The
-     *         elevation must be at least 1 and at maximum 5
+     *         elevation must be at least 0 and at maximum 5
      * @param orientation
      *         The orientation of the shadow in relation to the elevated view as a value of the enum
      *         {@link Orientation}. The orientation may either be <code>LEFT</code>,
      *         <code>RIGHT</code>, <code>TOP</code> or <code>BOTTOM</code>
-     * @return The drawable, which has been created, as an instance of the class {@link Drawable}
+     * @return The drawable, which has been created, as an instance of the class {@link Drawable} or
+     * null, if the given elevation is 0
      */
     public static Drawable createElevationShadow(@NonNull final Context context,
                                                  final int elevation,
                                                  @NonNull final Orientation orientation) {
         ensureNotNull(context, "The context may not be null");
-        ensureAtLeast(elevation, 1, "The elevation must be at least 0");
+        ensureAtLeast(elevation, 0, "The elevation must be at least 0");
         ensureAtMaximum(elevation, 5, "The elevation must be at least 1");
         ensureNotNull(orientation, "The orientation may not be null");
-        int[] shadowColors = getShadowColors(context, orientation);
-        int shadowColor = shadowColors[elevation - 1];
-        return new GradientDrawable(getGradientOrientation(orientation),
-                new int[]{shadowColor, Color.TRANSPARENT});
+
+        if (elevation == 0) {
+            return null;
+        } else {
+            int[] shadowColors = getShadowColors(context, orientation);
+            int shadowColor = shadowColors[elevation - 1];
+            return new GradientDrawable(getGradientOrientation(orientation),
+                    new int[]{shadowColor, Color.TRANSPARENT});
+        }
     }
 
     /**
@@ -178,21 +184,27 @@ public final class ElevationUtil {
      *         context may not be null
      * @param elevation
      *         The elevation, which should be emulated, in dp as an {@link Integer} value. The
-     *         elevation must be at least 1 and at maximum 5
+     *         elevation must be at least 0 and at maximum 5
      * @param orientation
      *         The orientation of the shadow in relation to the elevated view as a value of the enum
      *         {@link Orientation}. The orientation may either be <code>LEFT</code>,
      *         <code>RIGHT</code>, <code>TOP</code> or <code>BOTTOM</code>
-     * @return The width of the drawable in pixels as an {@link Integer} value
+     * @return The width of the drawable in pixels as an {@link Integer} value or 0, if the given
+     * elevation is 0
      */
     public static int getElevationShadowWidth(@NonNull final Context context, final int elevation,
                                               final @NonNull Orientation orientation) {
         ensureNotNull(context, "The context may not be null");
-        ensureAtLeast(elevation, 1, "The elevation must be at least 0");
+        ensureAtLeast(elevation, 0, "The elevation must be at least 0");
         ensureAtMaximum(elevation, 5, "The elevation must be at least 1");
         ensureNotNull(orientation, "The orientation may not be null");
-        int[] shadowWidths = getShadowWidths(context, orientation);
-        return dpToPixels(context, Integer.valueOf(shadowWidths[elevation - 1]));
+
+        if (elevation == 0) {
+            return 0;
+        } else {
+            int[] shadowWidths = getShadowWidths(context, orientation);
+            return dpToPixels(context, Integer.valueOf(shadowWidths[elevation - 1]));
+        }
     }
 
 }
