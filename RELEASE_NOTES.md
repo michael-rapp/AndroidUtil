@@ -1,5 +1,11 @@
 # AndroidSidebar - RELEASE NOTES
 
+## Version 1.1.0 (Oct. 21th 2015)
+
+A feature release, which provides the following changes:
+
+- The class `ElevationUtil`, which provides methods, which allow to emulate elevations of views on pre-Lollipop devices, has been added.
+
 ## Version 1.0.0 (Oct. 15th 2015)
 
 The first stable release of the library, which provides the following utility classes:
