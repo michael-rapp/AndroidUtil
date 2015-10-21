@@ -122,9 +122,9 @@ public final class ElevationUtil {
             @NonNull final Orientation orientation) {
         switch (orientation) {
             case LEFT:
-                return GradientDrawable.Orientation.LEFT_RIGHT;
-            case RIGHT:
                 return GradientDrawable.Orientation.RIGHT_LEFT;
+            case RIGHT:
+                return GradientDrawable.Orientation.LEFT_RIGHT;
             case BOTTOM:
                 return GradientDrawable.Orientation.TOP_BOTTOM;
             default:
