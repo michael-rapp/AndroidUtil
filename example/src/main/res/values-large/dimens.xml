@@ -16,8 +16,7 @@ not, see <http://www.gnu.org/licenses/>.
 -->
 <resources>
 
-    <dimen name="shape_size">150dp</dimen>
-    <dimen name="shape_container_size">250dp</dimen>
-    <dimen name="elevation_seek_bar_margin">32dp</dimen>
+    <dimen name="shape_size">200dp</dimen>
+    <dimen name="shape_container_size">300dp</dimen>
 
 </resources>
