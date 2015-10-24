@@ -14,7 +14,7 @@
  */
 package de.mrapp.android.util;
 
-import android.graphics.drawable.Drawable;
+import android.graphics.Bitmap;
 import android.test.AndroidTestCase;
 
 import de.mrapp.android.util.ElevationUtil.Orientation;
@@ -28,28 +28,28 @@ public class ElevationUtilTest extends AndroidTestCase {
 
     /**
      * Tests the functionality of the method, which allows to create the shadow of an elevated view,
+     * if the elevation is 0.
+     */
+    public final void testCreateElevationShadowWithZeroElevation() {
+        Bitmap shadow = ElevationUtil.createElevationShadow(getContext(), 0, Orientation.LEFT);
+        assertNull(shadow);
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to create the shadow of an elevated view,
      * if the orientation is <code>LEFT</code>.
      */
     public final void testCreateElevationShadowWithLeftOrientation() {
-        Drawable shadow = ElevationUtil.createElevationShadow(getContext(), 1, Orientation.LEFT);
+        Bitmap shadow = ElevationUtil.createElevationShadow(getContext(), 1, Orientation.LEFT);
         assertNotNull(shadow);
     }
 
     /**
      * Tests the functionality of the method, which allows to create the shadow of an elevated view,
-     * if the orientation is <code>RIGHT</code>.
+     * if the orientation is <code>TOP_LEFT</code>.
      */
-    public final void testCreateElevationShadowWithRightOrientation() {
-        Drawable shadow = ElevationUtil.createElevationShadow(getContext(), 1, Orientation.RIGHT);
-        assertNotNull(shadow);
-    }
-
-    /**
-     * Tests the functionality of the method, which allows to create the shadow of an elevated view,
-     * if the orientation is <code>BOTTOM</code>.
-     */
-    public final void testCreateElevationShadowWithBottomOrientation() {
-        Drawable shadow = ElevationUtil.createElevationShadow(getContext(), 1, Orientation.BOTTOM);
+    public final void testCreateElevationShadowWithTopLeftOrientation() {
+        Bitmap shadow = ElevationUtil.createElevationShadow(getContext(), 1, Orientation.TOP_LEFT);
         assertNotNull(shadow);
     }
 
@@ -58,7 +58,54 @@ public class ElevationUtilTest extends AndroidTestCase {
      * if the orientation is <code>TOP</code>.
      */
     public final void testCreateElevationShadowWithTopOrientation() {
-        Drawable shadow = ElevationUtil.createElevationShadow(getContext(), 1, Orientation.TOP);
+        Bitmap shadow = ElevationUtil.createElevationShadow(getContext(), 1, Orientation.TOP);
+        assertNotNull(shadow);
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to create the shadow of an elevated view,
+     * if the orientation is <code>TOP_RIGHT</code>.
+     */
+    public final void testCreateElevationShadowWithTopRightOrientation() {
+        Bitmap shadow = ElevationUtil.createElevationShadow(getContext(), 1, Orientation.TOP_RIGHT);
+        assertNotNull(shadow);
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to create the shadow of an elevated view,
+     * if the orientation is <code>RIGHT</code>.
+     */
+    public final void testCreateElevationShadowWithRightOrientation() {
+        Bitmap shadow = ElevationUtil.createElevationShadow(getContext(), 1, Orientation.RIGHT);
+        assertNotNull(shadow);
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to create the shadow of an elevated view,
+     * if the orientation is <code>BOTTOM_RIGHT</code>.
+     */
+    public final void testCreateElevationShadowWithBottomRightOrientation() {
+        Bitmap shadow =
+                ElevationUtil.createElevationShadow(getContext(), 1, Orientation.BOTTOM_RIGHT);
+        assertNotNull(shadow);
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to create the shadow of an elevated view,
+     * if the orientation is <code>BOTTOM</code>.
+     */
+    public final void testCreateElevationShadowWithBottomOrientation() {
+        Bitmap shadow = ElevationUtil.createElevationShadow(getContext(), 1, Orientation.BOTTOM);
+        assertNotNull(shadow);
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to create the shadow of an elevated view,
+     * if the orientation is <code>BOTTOM_LEFT</code>.
+     */
+    public final void testCreateElevationShadowWithBottomLeftOrientation() {
+        Bitmap shadow =
+                ElevationUtil.createElevationShadow(getContext(), 1, Orientation.BOTTOM_LEFT);
         assertNotNull(shadow);
     }
 
@@ -88,11 +135,13 @@ public class ElevationUtilTest extends AndroidTestCase {
 
     /**
      * Ensures, that a {@link IllegalArgumentException} is thrown by the method, which allows to
-     * create the shadow of an elevated view, if the elevation is greater than 5.
+     * create the shadow of an elevated view, if the elevation is greater than the constant
+     * <code>MAX_ELEVATION</code>.
      */
-    public final void testCreateElevationShadowThrowsExceptionWhenElevationIsGreaterThan5() {
+    public final void testCreateElevationShadowThrowsExceptionWhenElevationIsGreaterThanMaxElevation() {
         try {
-            ElevationUtil.createElevationShadow(getContext(), 6, Orientation.BOTTOM);
+            ElevationUtil.createElevationShadow(getContext(), ElevationUtil.MAX_ELEVATION + 1,
+                    Orientation.BOTTOM);
         } catch (IllegalArgumentException e) {
             return;
         }
@@ -103,91 +152,6 @@ public class ElevationUtilTest extends AndroidTestCase {
      * the shadow of an elevated view, if the orientation is null.
      */
     public final void testCreateElevationShadowThrowsExceptionWhenOrientationIsNull() {
-        try {
-            ElevationUtil.createElevationShadow(getContext(), 1, null);
-        } catch (NullPointerException e) {
-            return;
-        }
-    }
-
-    /**
-     * Tests the functionality of the method, which allows to retrieve the width of the shadow of an
-     * elevated view, if the orientation is <code>LEFT</code>.
-     */
-    public final void testGetElevationShadowWidthWithLeftOrientation() {
-        int shadowWidth = ElevationUtil.getElevationShadowWidth(getContext(), 1, Orientation.LEFT);
-        assertTrue(shadowWidth > 0);
-    }
-
-    /**
-     * Tests the functionality of the method, which allows to retrieve the width of the shadow of an
-     * elevated view, if the orientation is <code>RIGHT</code>.
-     */
-    public final void testGetElevationShadowWidthWithRightOrientation() {
-        int shadowWidth = ElevationUtil.getElevationShadowWidth(getContext(), 1, Orientation.RIGHT);
-        assertTrue(shadowWidth > 0);
-    }
-
-    /**
-     * Tests the functionality of the method, which allows to retrieve the width of the shadow of an
-     * elevated view, if the orientation is <code>TOP</code>.
-     */
-    public final void testGetElevationShadowWidthWithTopOrientation() {
-        int shadowWidth = ElevationUtil.getElevationShadowWidth(getContext(), 1, Orientation.TOP);
-        assertTrue(shadowWidth > 0);
-    }
-
-    /**
-     * Tests the functionality of the method, which allows to retrieve the width of the shadow of an
-     * elevated view, if the orientation is <code>BOTTOM</code>.
-     */
-    public final void testGetElevationShadowWidthWithBottomOrientation() {
-        int shadowWidth =
-                ElevationUtil.getElevationShadowWidth(getContext(), 1, Orientation.BOTTOM);
-        assertTrue(shadowWidth > 0);
-    }
-
-    /**
-     * Ensures, that a {@link NullPointerException} is thrown by the method, which allows to
-     * retrieve the shadow width of an elevated view, if the context is null.
-     */
-    public final void testGetElevationShadowWidthThrowsExceptionWhenContextIsNull() {
-        try {
-            ElevationUtil.createElevationShadow(null, 1, Orientation.BOTTOM);
-        } catch (NullPointerException e) {
-            return;
-        }
-    }
-
-    /**
-     * Ensures, that a {@link IllegalArgumentException} is thrown by the method, which allows to
-     * retrieve the shadow width of an elevated view, if the elevation is less than 1.
-     */
-    public final void testGetElevationShadowWidthThrowsExceptionWhenElevationIsLessThan0() {
-        try {
-            ElevationUtil.createElevationShadow(getContext(), -1, Orientation.BOTTOM);
-        } catch (IllegalArgumentException e) {
-            return;
-        }
-    }
-
-    /**
-     * Ensures, that a {@link IllegalArgumentException} is thrown by the method, which allows to
-     * retrieve the shadow width of an elevated view, if the elevation is greater than 5.
-     */
-    public final void testGetElevationShadowWidthThrowsExceptionWhenElevationIsGreaterThan5() {
-        try {
-            ElevationUtil.createElevationShadow(getContext(), 6, Orientation.BOTTOM);
-        } catch (IllegalArgumentException e) {
-            return;
-        }
-    }
-
-    /**
-     * Ensures, that a {@link NullPointerException} is thrown by the method, which allows to
-     * retrieve the shadow width of an elevated view, if the orientation is null.
-     */
-    public final void testGetElevationShadowWidthThrowsExceptionWhenOrientationIsNull() {
         try {
             ElevationUtil.createElevationShadow(getContext(), 1, null);
         } catch (NullPointerException e) {
