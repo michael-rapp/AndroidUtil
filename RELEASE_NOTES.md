@@ -1,5 +1,11 @@
 # AndroidSidebar - RELEASE NOTES
 
+## Version 1.2.0 (Oct. 24th 2015)
+
+A feature release, which provides the following changes:
+
+- The class `ElevationUtil` has been re-implemented. Shadows are now rendered as bitmaps and a wider range of elevations is now available. Furthermore, rendering shadows, which are located at the corners of an elevated view, is now also supported. 
+
 ## Version 1.1.0 (Oct. 22th 2015)
 
 A feature release, which provides the following changes:
