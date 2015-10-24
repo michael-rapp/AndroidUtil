@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+AndroidUtil Copyright 2015 Michael Rapp
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU
+Lesser General Public License as published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License along with this program. If
+not, see <http://www.gnu.org/licenses/>.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:popupTheme="@style/ToolbarPopupTheme"
+        app:theme="@style/ToolbarTheme"/>
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/elevation_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/elevation_seek_bar"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/elevation_text_view_margin"
+            android:textAppearance="?android:textAppearanceMedium"/>
+
+        <SeekBar
+            android:id="@+id/elevation_seek_bar"
+            android:layout_width="@dimen/shape_size"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/shape"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/elevation_seek_bar_margin"
+            android:max="@integer/max_elevation"/>
+
+        <View
+            android:id="@+id/shape"
+            android:layout_width="@dimen/shape_size"
+            android:layout_height="@dimen/shape_size"
+            android:layout_centerInParent="true"
+            android:background="?colorPrimary"/>
+
+        <ImageView
+            android:id="@+id/elevation_left"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/shape_size"
+            android:layout_alignTop="@+id/shape"
+            android:layout_toLeftOf="@+id/shape"
+            android:scaleType="fitXY"/>
+
+        <ImageView
+            android:id="@+id/elevation_top_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/shape"
+            android:layout_toLeftOf="@+id/shape"/>
+
+        <ImageView
+            android:id="@+id/elevation_top"
+            android:layout_width="@dimen/shape_size"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/shape"
+            android:layout_alignLeft="@+id/shape"
+            android:scaleType="fitXY"/>
+
+        <ImageView
+            android:id="@+id/elevation_top_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/shape"
+            android:layout_toRightOf="@+id/shape"/>
+
+        <ImageView
+            android:id="@+id/elevation_right"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/shape_size"
+            android:layout_alignTop="@+id/shape"
+            android:layout_toRightOf="@+id/shape"
+            android:scaleType="fitXY"/>
+
+        <ImageView
+            android:id="@+id/elevation_bottom_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/shape"
+            android:layout_toRightOf="@+id/shape"/>
+
+        <ImageView
+            android:id="@+id/elevation_bottom"
+            android:layout_width="@dimen/shape_size"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/shape"
+            android:layout_below="@+id/shape"
+            android:scaleType="fitXY"/>
+
+        <ImageView
+            android:id="@+id/elevation_bottom_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/shape"
+            android:layout_toLeftOf="@+id/shape"/>
+
+    </RelativeLayout>
+
+</LinearLayout>
