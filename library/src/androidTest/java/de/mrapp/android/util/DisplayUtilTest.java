@@ -56,6 +56,36 @@ public class DisplayUtilTest extends AndroidTestCase {
     }
 
     /**
+     * Tests the functionality of the method, which allows to convert an {@link Long} value, which
+     * is measured in pixels, into a value, which is measured in dp.
+     */
+    public final void testPixelsToDpWithLongParameter() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.DONUT) {
+            long pixels = 5L;
+            long dp = DisplayUtil.pixelsToDp(getContext(), pixels);
+            DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
+            assertEquals(
+                    Math.round(pixels / (displayMetrics.densityDpi / DisplayUtil.PIXEL_DP_RATIO)),
+                    dp);
+        }
+    }
+
+    /**
+     * Ensures that a {@link NullPointerException} is thrown by the method, which allows to convert
+     * an {@link Long} value, which is measured in pixels, into a value, which is measured in dp, if
+     * the context is null.
+     */
+    public final void testPixelsToDpWithLongParameterThrowsException() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.DONUT) {
+            try {
+                DisplayUtil.pixelsToDp(null, 0L);
+            } catch (NullPointerException e) {
+                return;
+            }
+        }
+    }
+
+    /**
      * Tests the functionality of the method, which allows to convert a {@link Float} value, which
      * is measured in pixels, into a value, which is measured in dp.
      */
@@ -77,6 +107,34 @@ public class DisplayUtilTest extends AndroidTestCase {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.DONUT) {
             try {
                 DisplayUtil.pixelsToDp(null, 0f);
+            } catch (NullPointerException e) {
+                return;
+            }
+        }
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to convert a {@link Double} value, which
+     * is measured in pixels, into a value, which is measured in dp.
+     */
+    public final void testPixelsToDpWithDoubleParameter() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.DONUT) {
+            double pixels = 5.5d;
+            double dp = DisplayUtil.pixelsToDp(getContext(), pixels);
+            DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
+            assertEquals(pixels / (displayMetrics.densityDpi / DisplayUtil.PIXEL_DP_RATIO), dp);
+        }
+    }
+
+    /**
+     * Ensures that a {@link NullPointerException} is thrown by the method, which allows to convert
+     * a {@link Double} value, which is measured in pixels, into a value, which is measured in dp,
+     * if the context is null.
+     */
+    public final void testPixelsToDpWithDoubleParameterThrowsException() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.DONUT) {
+            try {
+                DisplayUtil.pixelsToDp(null, 0d);
             } catch (NullPointerException e) {
                 return;
             }
@@ -113,6 +171,35 @@ public class DisplayUtilTest extends AndroidTestCase {
     }
 
     /**
+     * Tests the functionality of the method, which allows to convert an {@link Long} value, which
+     * is measured in dp, into a value, which is measured in pixels.
+     */
+    public final void testDpToPixelsWithLongParameter() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.DONUT) {
+            long dp = 5L;
+            long pixels = DisplayUtil.dpToPixels(getContext(), dp);
+            DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
+            assertEquals(Math.round(dp * (displayMetrics.densityDpi / DisplayUtil.PIXEL_DP_RATIO)),
+                    pixels);
+        }
+    }
+
+    /**
+     * Ensures that a {@link NullPointerException} is thrown by the method, which allows to convert
+     * an {@link Long} value, which is measured in dp into a value, which is measured in pixels, if
+     * the context is null.
+     */
+    public final void testDpToPixelsWithLongParameterThrowsException() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.DONUT) {
+            try {
+                DisplayUtil.dpToPixels(null, 0L);
+            } catch (NullPointerException e) {
+                return;
+            }
+        }
+    }
+
+    /**
      * Tests the functionality of the method, which allows to convert a {@link Float} value, which
      * is measured in dp, into a value, which is measured in pixels.
      */
@@ -134,6 +221,34 @@ public class DisplayUtilTest extends AndroidTestCase {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.DONUT) {
             try {
                 DisplayUtil.dpToPixels(null, 0.0f);
+            } catch (NullPointerException e) {
+                return;
+            }
+        }
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to convert a {@link Double} value, which
+     * is measured in dp, into a value, which is measured in pixels.
+     */
+    public final void testDpToPixelsWithDoubleParameter() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.DONUT) {
+            double dp = 5.5d;
+            double pixels = DisplayUtil.dpToPixels(getContext(), dp);
+            DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
+            assertEquals(dp * (displayMetrics.densityDpi / DisplayUtil.PIXEL_DP_RATIO), pixels);
+        }
+    }
+
+    /**
+     * Ensures that a {@link NullPointerException} is thrown by the method, which allows to convert
+     * a {@link Double} value, which is measured in dp into a value, which is measured in pixels, if
+     * the context is null.
+     */
+    public final void testDpToPixelsWithDoubleParameterThrowsException() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.DONUT) {
+            try {
+                DisplayUtil.dpToPixels(null, 0.0d);
             } catch (NullPointerException e) {
                 return;
             }

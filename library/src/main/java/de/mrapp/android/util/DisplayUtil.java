@@ -59,7 +59,27 @@ public class DisplayUtil {
      */
     @TargetApi(Build.VERSION_CODES.DONUT)
     public static int pixelsToDp(@NonNull final Context context, final int pixels) {
-        return Math.round(pixelsToDp(context, (float) pixels));
+        ensureNotNull(context, "The context may not be null");
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        return Math.round(pixels / (displayMetrics.densityDpi / PIXEL_DP_RATIO));
+    }
+
+    /**
+     * Converts an {@link Long} value, which is measured in pixels, into a value, which is measured
+     * in dp.
+     *
+     * @param context
+     *         The context, which should be used to retrieve the device's display metrics, as an
+     *         instance of the class {@link Context}. The context may not be null
+     * @param pixels
+     *         The pixel value, which should be converted, as an {@link Long} value
+     * @return The calculated dp value as an {@link Long} value. The value might be rounded
+     */
+    @TargetApi(Build.VERSION_CODES.DONUT)
+    public static long pixelsToDp(@NonNull final Context context, final long pixels) {
+        ensureNotNull(context, "The context may not be null");
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        return Math.round(pixels / (displayMetrics.densityDpi / PIXEL_DP_RATIO));
     }
 
     /**
@@ -81,6 +101,24 @@ public class DisplayUtil {
     }
 
     /**
+     * Converts a {@link Double} value, which is measured in pixels, into a value, which is measured
+     * in dp.
+     *
+     * @param context
+     *         The context, which should be used to retrieve the device's display metrics, as an
+     *         instance of the class {@link Context}. The context may not be null
+     * @param pixels
+     *         The pixel value, which should be converted, as a {@link Double} value
+     * @return The calculated dp value as a {@link Double} value
+     */
+    @TargetApi(Build.VERSION_CODES.DONUT)
+    public static double pixelsToDp(@NonNull final Context context, final double pixels) {
+        ensureNotNull(context, "The context may not be null");
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        return pixels / (displayMetrics.densityDpi / PIXEL_DP_RATIO);
+    }
+
+    /**
      * Converts an {@link Integer} value, which is measured in dp, into a value, which is measured
      * in pixels.
      *
@@ -93,7 +131,27 @@ public class DisplayUtil {
      */
     @TargetApi(Build.VERSION_CODES.DONUT)
     public static int dpToPixels(@NonNull final Context context, final int dp) {
-        return Math.round(dpToPixels(context, (float) dp));
+        ensureNotNull(context, "The context may not be null");
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        return Math.round(dp * (displayMetrics.densityDpi / PIXEL_DP_RATIO));
+    }
+
+    /**
+     * Converts an {@link Integer} value, which is measured in dp, into a value, which is measured
+     * in pixels.
+     *
+     * @param context
+     *         The context, which should be used to retrieve the device's display metrics, as an
+     *         instance of the class {@link Context}. The context may not be null
+     * @param dp
+     *         The dp value, which should be converted, as an {@link Integer} value
+     * @return The calculated pixel value as an {@link Integer} value. The value might be rounded
+     */
+    @TargetApi(Build.VERSION_CODES.DONUT)
+    public static long dpToPixels(@NonNull final Context context, final long dp) {
+        ensureNotNull(context, "The context may not be null");
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        return Math.round(dp * (displayMetrics.densityDpi / PIXEL_DP_RATIO));
     }
 
     /**
@@ -109,6 +167,24 @@ public class DisplayUtil {
      */
     @TargetApi(Build.VERSION_CODES.DONUT)
     public static float dpToPixels(@NonNull final Context context, final float dp) {
+        ensureNotNull(context, "The context may not be null");
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        return dp * (displayMetrics.densityDpi / PIXEL_DP_RATIO);
+    }
+
+    /**
+     * Converts a {@link Double} value, which is measured in dp, into a value, which is measured in
+     * pixels.
+     *
+     * @param context
+     *         The context, which should be used to retrieve the device's display metrics, as an
+     *         instance of the class {@link Context}. The context may not be null
+     * @param dp
+     *         The dp value, which should be converted, as a {@link Double} value
+     * @return The calculated pixel value as a {@link Double} value
+     */
+    @TargetApi(Build.VERSION_CODES.DONUT)
+    public static double dpToPixels(@NonNull final Context context, final double dp) {
         ensureNotNull(context, "The context may not be null");
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         return dp * (displayMetrics.densityDpi / PIXEL_DP_RATIO);
