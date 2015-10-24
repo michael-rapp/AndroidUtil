@@ -4,7 +4,8 @@
 
 A feature release, which provides the following changes:
 
-- The class `ElevationUtil` has been re-implemented. Shadows are now rendered as bitmaps and a wider range of elevations is now available. Furthermore, rendering shadows, which are located at the corners of an elevated view, is now also supported. 
+- The class `ElevationUtil` has been re-implemented. Shadows are now rendered as bitmaps and a wider range of elevations is now available. Furthermore, rendering shadows, which are located at the corners of an elevated view, is now also supported.
+- An example app, which demonstrates the appearance emulated elevations, has been added.
 
 ## Version 1.1.0 (Oct. 22th 2015)
 
