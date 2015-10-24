@@ -29,7 +29,6 @@ not, see <http://www.gnu.org/licenses/>.
         app:theme="@style/ToolbarTheme"/>
 
     <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -64,6 +63,8 @@ not, see <http://www.gnu.org/licenses/>.
             android:layout_height="@dimen/shape_size"
             android:layout_alignTop="@+id/shape"
             android:layout_toLeftOf="@+id/shape"
+            android:layout_toStartOf="@+id/shape"
+            android:contentDescription="@null"
             android:scaleType="fitXY"/>
 
         <ImageView
@@ -71,7 +72,9 @@ not, see <http://www.gnu.org/licenses/>.
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@+id/shape"
-            android:layout_toLeftOf="@+id/shape"/>
+            android:layout_toLeftOf="@+id/shape"
+            android:layout_toStartOf="@+id/shape"
+            android:contentDescription="@null"/>
 
         <ImageView
             android:id="@+id/elevation_top"
@@ -79,6 +82,8 @@ not, see <http://www.gnu.org/licenses/>.
             android:layout_height="wrap_content"
             android:layout_above="@+id/shape"
             android:layout_alignLeft="@+id/shape"
+            android:layout_alignStart="@+id/shape"
+            android:contentDescription="@null"
             android:scaleType="fitXY"/>
 
         <ImageView
@@ -86,14 +91,18 @@ not, see <http://www.gnu.org/licenses/>.
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@+id/shape"
-            android:layout_toRightOf="@+id/shape"/>
+            android:layout_toEndOf="@+id/shape"
+            android:layout_toRightOf="@+id/shape"
+            android:contentDescription="@null"/>
 
         <ImageView
             android:id="@+id/elevation_right"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/shape_size"
             android:layout_alignTop="@+id/shape"
+            android:layout_toEndOf="@+id/shape"
             android:layout_toRightOf="@+id/shape"
+            android:contentDescription="@null"
             android:scaleType="fitXY"/>
 
         <ImageView
@@ -101,14 +110,18 @@ not, see <http://www.gnu.org/licenses/>.
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/shape"
-            android:layout_toRightOf="@+id/shape"/>
+            android:layout_toEndOf="@+id/shape"
+            android:layout_toRightOf="@+id/shape"
+            android:contentDescription="@null"/>
 
         <ImageView
             android:id="@+id/elevation_bottom"
             android:layout_width="@dimen/shape_size"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/shape"
+            android:layout_alignStart="@+id/shape"
             android:layout_below="@+id/shape"
+            android:contentDescription="@null"
             android:scaleType="fitXY"/>
 
         <ImageView
@@ -116,7 +129,9 @@ not, see <http://www.gnu.org/licenses/>.
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/shape"
-            android:layout_toLeftOf="@+id/shape"/>
+            android:layout_toLeftOf="@+id/shape"
+            android:layout_toStartOf="@+id/shape"
+            android:contentDescription="@null"/>
 
     </RelativeLayout>
 
