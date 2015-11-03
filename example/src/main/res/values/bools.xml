@@ -16,8 +16,6 @@ not, see <http://www.gnu.org/licenses/>.
 -->
 <resources>
 
-    <string name="app_name">AndroidUtil Example</string>
-    <string name="elevation" formatted="false">Elevation: %ddp</string>
-    <string name="parallel_light">Use parallel illumination</string>
+    <bool name="use_parallel_light_by_default">false</bool>
 
 </resources>

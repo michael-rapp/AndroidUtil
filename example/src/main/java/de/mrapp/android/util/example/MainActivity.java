@@ -17,6 +17,9 @@ package de.mrapp.android.util.example;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
@@ -42,6 +45,11 @@ public class MainActivity extends AppCompatActivity {
      * The text view, which displays the current elevation.
      */
     private TextView elevationTextView;
+
+    /**
+     * The checkbox, which allows to specify, if parallel light should be emulated, or not.
+     */
+    private CheckBox parallelLightCheckBox;
 
     /**
      * The image view, which is used to display the shadow, which is located besides the left edge
@@ -109,6 +117,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
+     * Returns, whether parallel light should be emulated by default, or not.
+     *
+     * @return True, if parallel light should be emulated by default, false otherwise
+     */
+    private boolean isParallelLightUsedByDefault() {
+        return getResources().getBoolean(R.bool.use_parallel_light_by_default);
+    }
+
+    /**
      * Creates and returns a listener, which allows to adjust the elevation, when the value of a
      * seek bar has been changed.
      *
@@ -121,17 +138,28 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(final SeekBar seekBar, final int progress,
                                           final boolean fromUser) {
-                adaptElevation(progress);
+                adaptElevation(progress, parallelLightCheckBox.isChecked());
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
+            public void onStartTrackingTouch(final SeekBar seekBar) {
 
             }
 
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
+            public void onStopTrackingTouch(final SeekBar seekBar) {
 
+            }
+
+        };
+    }
+
+    private OnCheckedChangeListener createCheckBoxListener() {
+        return new OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(final CompoundButton buttonView, final boolean isChecked) {
+                adaptElevation(elevationSeekBar.getProgress(), isChecked);
             }
 
         };
@@ -142,21 +170,27 @@ public class MainActivity extends AppCompatActivity {
      *
      * @param elevation
      *         The elevation, which should be set, in dp as an {@link Integer} value
+     * @param parallelLight
+     *         True, if parallel light should be emulated, false otherwise
      */
-    private void adaptElevation(final int elevation) {
+    private void adaptElevation(final int elevation, final boolean parallelLight) {
         elevationTextView.setText(String.format(getString(R.string.elevation), elevation));
-        elevationLeft.setImageBitmap(createElevationShadow(this, elevation, Orientation.LEFT));
-        elevationTopLeft
-                .setImageBitmap(createElevationShadow(this, elevation, Orientation.TOP_LEFT));
-        elevationTop.setImageBitmap(createElevationShadow(this, elevation, Orientation.TOP));
-        elevationTopRight
-                .setImageBitmap(createElevationShadow(this, elevation, Orientation.TOP_RIGHT));
-        elevationRight.setImageBitmap(createElevationShadow(this, elevation, Orientation.RIGHT));
-        elevationBottomRight
-                .setImageBitmap(createElevationShadow(this, elevation, Orientation.BOTTOM_RIGHT));
-        elevationBottom.setImageBitmap(createElevationShadow(this, elevation, Orientation.BOTTOM));
-        elevationBottomLeft
-                .setImageBitmap(createElevationShadow(this, elevation, Orientation.BOTTOM_LEFT));
+        elevationLeft.setImageBitmap(
+                createElevationShadow(this, elevation, Orientation.LEFT, parallelLight));
+        elevationTopLeft.setImageBitmap(
+                createElevationShadow(this, elevation, Orientation.TOP_LEFT, parallelLight));
+        elevationTop.setImageBitmap(
+                createElevationShadow(this, elevation, Orientation.TOP, parallelLight));
+        elevationTopRight.setImageBitmap(
+                createElevationShadow(this, elevation, Orientation.TOP_RIGHT, parallelLight));
+        elevationRight.setImageBitmap(
+                createElevationShadow(this, elevation, Orientation.RIGHT, parallelLight));
+        elevationBottomRight.setImageBitmap(
+                createElevationShadow(this, elevation, Orientation.BOTTOM_RIGHT, parallelLight));
+        elevationBottom.setImageBitmap(
+                createElevationShadow(this, elevation, Orientation.BOTTOM, parallelLight));
+        elevationBottomLeft.setImageBitmap(
+                createElevationShadow(this, elevation, Orientation.BOTTOM_LEFT, parallelLight));
     }
 
     @Override
@@ -168,6 +202,9 @@ public class MainActivity extends AppCompatActivity {
         elevationSeekBar.setProgress(getDefaultElevation());
         elevationSeekBar.setOnSeekBarChangeListener(createSeekBarListener());
         elevationTextView = (TextView) findViewById(R.id.elevation_text_view);
+        parallelLightCheckBox = (CheckBox) findViewById(R.id.parallel_light_check_box);
+        parallelLightCheckBox.setChecked(isParallelLightUsedByDefault());
+        parallelLightCheckBox.setOnCheckedChangeListener(createCheckBoxListener());
         elevationLeft = (ImageView) findViewById(R.id.elevation_left);
         elevationTopLeft = (ImageView) findViewById(R.id.elevation_top_left);
         elevationTop = (ImageView) findViewById(R.id.elevation_top);
@@ -176,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
         elevationBottomRight = (ImageView) findViewById(R.id.elevation_bottom_right);
         elevationBottom = (ImageView) findViewById(R.id.elevation_bottom);
         elevationBottomLeft = (ImageView) findViewById(R.id.elevation_bottom_left);
-        adaptElevation(getDefaultElevation());
+        adaptElevation(getDefaultElevation(), isParallelLightUsedByDefault());
     }
 
 }

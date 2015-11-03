@@ -204,16 +204,19 @@ public final class ElevationUtil {
      *         The orientation of the shadow in relation to the elevated view as a value of the enum
      *         {@link Orientation}. The orientation may either be <code>TOP_LEFT</code>,
      *         <code>TOP_RIGHT</code>, <code>BOTTOM_LEFT</code> or <code>BOTTOM_RIGHT</code>
+     * @param parallelLight
+     *         True, if parallel light should be emulated, false otherwise
      * @return The bitmap, which has been created, as an instance of the class {@link Bitmap} or
      * null, if the given elevation is 0
      */
     private static Bitmap createEdgeShadow(@NonNull final Context context, final int elevation,
-                                           @NonNull final Orientation orientation) {
+                                           @NonNull final Orientation orientation,
+                                           final boolean parallelLight) {
         if (elevation == 0) {
             return null;
         } else {
-            float shadowWidth = getShadowWidth(context, elevation, orientation);
-            int shadowColor = getShadowColor(elevation, orientation);
+            float shadowWidth = getShadowWidth(context, elevation, orientation, parallelLight);
+            int shadowColor = getShadowColor(elevation, orientation, parallelLight);
             int bitmapWidth = (int) Math
                     .round((orientation == Orientation.LEFT || orientation == Orientation.RIGHT) ?
                             Math.ceil(shadowWidth) : 1);
@@ -249,18 +252,24 @@ public final class ElevationUtil {
      *         The orientation of the shadow in relation to the elevated view as a value of the enum
      *         {@link Orientation}. The orientation may either be <code>LEFT</code>,
      *         <code>TOP</code>, <code>RIGHT</code> or <code>BOTTOM</code>
+     * @param parallelLight
+     *         True, if parallel lighting should be emulated, false otherwise
      * @return The bitmap, which has been created, as an instance of the class {@link Bitmap} or
      * null, if the given elevation is 0
      */
     private static Bitmap createCornerShadow(@NonNull final Context context, final int elevation,
-                                             @NonNull final Orientation orientation) {
+                                             @NonNull final Orientation orientation,
+                                             final boolean parallelLight) {
         if (elevation == 0) {
             return null;
         } else {
-            float horizontalShadowWidth = getHorizontalShadowWidth(context, elevation, orientation);
-            float verticalShadowWidth = getVerticalShadowWidth(context, elevation, orientation);
-            int horizontalShadowColor = getHorizontalShadowColor(elevation, orientation);
-            int verticalShadowColor = getVerticalShadowColor(elevation, orientation);
+            float horizontalShadowWidth =
+                    getHorizontalShadowWidth(context, elevation, orientation, parallelLight);
+            float verticalShadowWidth =
+                    getVerticalShadowWidth(context, elevation, orientation, parallelLight);
+            int horizontalShadowColor =
+                    getHorizontalShadowColor(elevation, orientation, parallelLight);
+            int verticalShadowColor = getVerticalShadowColor(elevation, orientation, parallelLight);
             int bitmapWidth = (int) Math.round(Math.ceil(verticalShadowWidth));
             int bitmapHeight = (int) Math.round(Math.ceil(horizontalShadowWidth));
             int bitmapSize = Math.max(bitmapWidth, bitmapHeight);
@@ -364,18 +373,21 @@ public final class ElevationUtil {
      *         The orientation of the shadow in relation to the elevated view as a value of the enum
      *         {@link Orientation}. The orientation may either be <code>TOP_LEFT</code>,
      *         <code>TOP_RIGHT</code>, <code>BOTTOM_LEFT</code> or <code>BOTTOM_RIGHT</code>
+     * @param parallelLight
+     *         True, if the parallel light should be emulated, false otherwise
      * @return The width of the shadow in pixels as a {@link Float} value
      */
     private static float getHorizontalShadowWidth(@NonNull final Context context,
                                                   final int elevation,
-                                                  @NonNull final Orientation orientation) {
+                                                  @NonNull final Orientation orientation,
+                                                  final boolean parallelLight) {
         switch (orientation) {
             case TOP_LEFT:
             case TOP_RIGHT:
-                return getShadowWidth(context, elevation, Orientation.TOP);
+                return getShadowWidth(context, elevation, Orientation.TOP, parallelLight);
             case BOTTOM_LEFT:
             case BOTTOM_RIGHT:
-                return getShadowWidth(context, elevation, Orientation.BOTTOM);
+                return getShadowWidth(context, elevation, Orientation.BOTTOM, parallelLight);
             default:
                 throw new IllegalArgumentException("Invalid orientation: " + orientation);
         }
@@ -396,17 +408,20 @@ public final class ElevationUtil {
      *         The orientation of the shadow in relation to the elevated view as a value of the enum
      *         {@link Orientation}. The orientation may either be <code>TOP_LEFT</code>,
      *         <code>TOP_RIGHT</code>, <code>BOTTOM_LEFT</code> or <code>BOTTOM_RIGHT</code>
+     * @param parallelLight
+     *         True, if the parallel light should be emulated, false otherwise
      * @return The width of the shadow in pixels as a {@link Float} value
      */
     private static float getVerticalShadowWidth(@NonNull Context context, final int elevation,
-                                                @NonNull final Orientation orientation) {
+                                                @NonNull final Orientation orientation,
+                                                final boolean parallelLight) {
         switch (orientation) {
             case TOP_LEFT:
             case BOTTOM_LEFT:
-                return getShadowWidth(context, elevation, Orientation.LEFT);
+                return getShadowWidth(context, elevation, Orientation.LEFT, parallelLight);
             case TOP_RIGHT:
             case BOTTOM_RIGHT:
-                return getShadowWidth(context, elevation, Orientation.RIGHT);
+                return getShadowWidth(context, elevation, Orientation.RIGHT, parallelLight);
             default:
                 throw new IllegalArgumentException("Invalid orientation: " + orientation);
         }
@@ -426,29 +441,36 @@ public final class ElevationUtil {
      *         The orientation of the shadow in relation to the elevated view as a value of the enum
      *         {@link Orientation}. The orientation may either be <code>LEFT</code>,
      *         <code>TOP</code>, <code>RIGHT</code> or <code>BOTTOM</code>
+     * @param parallelLight
+     *         True, if parallel light should be emulated, false otherwise
      * @return The width of the shadow in pixels as a {@link Float} value
      */
     private static float getShadowWidth(@NonNull final Context context, final int elevation,
-                                        @NonNull final Orientation orientation) {
+                                        @NonNull final Orientation orientation,
+                                        final boolean parallelLight) {
         float referenceElevationWidth =
                 (float) elevation / (float) REFERENCE_ELEVATION * REFERENCE_SHADOW_WIDTH;
         float shadowWidth;
 
-        switch (orientation) {
-            case LEFT:
-                shadowWidth = referenceElevationWidth * LEFT_SCALE_FACTOR;
-                break;
-            case TOP:
-                shadowWidth = referenceElevationWidth * TOP_SCALE_FACTOR;
-                break;
-            case RIGHT:
-                shadowWidth = referenceElevationWidth * RIGHT_SCALE_FACTOR;
-                break;
-            case BOTTOM:
-                shadowWidth = referenceElevationWidth * BOTTOM_SCALE_FACTOR;
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid orientation: " + orientation);
+        if (parallelLight) {
+            shadowWidth = referenceElevationWidth * BOTTOM_SCALE_FACTOR;
+        } else {
+            switch (orientation) {
+                case LEFT:
+                    shadowWidth = referenceElevationWidth * LEFT_SCALE_FACTOR;
+                    break;
+                case TOP:
+                    shadowWidth = referenceElevationWidth * TOP_SCALE_FACTOR;
+                    break;
+                case RIGHT:
+                    shadowWidth = referenceElevationWidth * RIGHT_SCALE_FACTOR;
+                    break;
+                case BOTTOM:
+                    shadowWidth = referenceElevationWidth * BOTTOM_SCALE_FACTOR;
+                    break;
+                default:
+                    throw new IllegalArgumentException("Invalid orientation: " + orientation);
+            }
         }
 
         return dpToPixels(context, shadowWidth);
@@ -466,17 +488,20 @@ public final class ElevationUtil {
      *         The orientation of the shadow in relation to the elevated view as a value of the enum
      *         {@link Orientation}. The orientation may either be <code>TOP_LEFT</code>,
      *         <code>TOP_RIGHT</code>, <code>BOTTOM_LEFT</code> or <code>BOTTOM_RIGHT</code>
+     * @param parallelLight
+     *         True, if parallel light should be emulated, false otherwise
      * @return The color of the shadow as an {@link Integer} value
      */
     private static int getHorizontalShadowColor(final int elevation,
-                                                @NonNull final Orientation orientation) {
+                                                @NonNull final Orientation orientation,
+                                                final boolean parallelLight) {
         switch (orientation) {
             case TOP_LEFT:
             case TOP_RIGHT:
-                return getShadowColor(elevation, Orientation.TOP);
+                return getShadowColor(elevation, Orientation.TOP, parallelLight);
             case BOTTOM_LEFT:
             case BOTTOM_RIGHT:
-                return getShadowColor(elevation, Orientation.BOTTOM);
+                return getShadowColor(elevation, Orientation.BOTTOM, parallelLight);
             default:
                 throw new IllegalArgumentException("Invalid orientation: " + orientation);
         }
@@ -494,17 +519,20 @@ public final class ElevationUtil {
      *         The orientation of the shadow in relation to the elevated view as a value of the enum
      *         {@link Orientation}. The orientation may either be <code>TOP_LEFT</code>,
      *         <code>TOP_RIGHT</code>, <code>BOTTOM_LEFT</code> or <code>BOTTOM_RIGHT</code>
+     * @param parallelLight
+     *         True, if parallel light should be emulated, false otherwise
      * @return The color of the shadow as an {@link Integer} value
      */
     private static int getVerticalShadowColor(final int elevation,
-                                              @NonNull final Orientation orientation) {
+                                              @NonNull final Orientation orientation,
+                                              final boolean parallelLight) {
         switch (orientation) {
             case TOP_LEFT:
             case BOTTOM_LEFT:
-                return getShadowColor(elevation, Orientation.LEFT);
+                return getShadowColor(elevation, Orientation.LEFT, parallelLight);
             case TOP_RIGHT:
             case BOTTOM_RIGHT:
-                return getShadowColor(elevation, Orientation.RIGHT);
+                return getShadowColor(elevation, Orientation.RIGHT, parallelLight);
             default:
                 throw new IllegalArgumentException("Invalid orientation: " + orientation);
         }
@@ -521,26 +549,33 @@ public final class ElevationUtil {
      *         The orientation of the shadow in relation to the elevated view as a value of the enum
      *         {@link Orientation}. The orientation may either be <code>LEFT</code>,
      *         <code>TOP</code>, <code>RIGHT</code> or <code>BOTTOM</code>
+     * @param parallelLight
+     *         True, if parallel light should be emulated, false otherwise
      * @return The color of the shadow as an {@link Integer} value
      */
-    private static int getShadowColor(final int elevation, @NonNull final Orientation orientation) {
+    private static int getShadowColor(final int elevation, @NonNull final Orientation orientation,
+                                      final boolean parallelLight) {
         int alpha;
 
-        switch (orientation) {
-            case LEFT:
-                alpha = getShadowAlpha(elevation, MIN_LEFT_ALPHA, MAX_LEFT_ALPHA);
-                break;
-            case TOP:
-                alpha = getShadowAlpha(elevation, MIN_TOP_ALPHA, MAX_TOP_ALPHA);
-                break;
-            case RIGHT:
-                alpha = getShadowAlpha(elevation, MIN_RIGHT_ALPHA, MAX_RIGHT_ALPHA);
-                break;
-            case BOTTOM:
-                alpha = getShadowAlpha(elevation, MIN_BOTTOM_ALPHA, MAX_BOTTOM_ALPHA);
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid orientation: " + orientation);
+        if (parallelLight) {
+            alpha = getShadowAlpha(elevation, MIN_BOTTOM_ALPHA, MAX_BOTTOM_ALPHA);
+        } else {
+            switch (orientation) {
+                case LEFT:
+                    alpha = getShadowAlpha(elevation, MIN_LEFT_ALPHA, MAX_LEFT_ALPHA);
+                    break;
+                case TOP:
+                    alpha = getShadowAlpha(elevation, MIN_TOP_ALPHA, MAX_TOP_ALPHA);
+                    break;
+                case RIGHT:
+                    alpha = getShadowAlpha(elevation, MIN_RIGHT_ALPHA, MAX_RIGHT_ALPHA);
+                    break;
+                case BOTTOM:
+                    alpha = getShadowAlpha(elevation, MIN_BOTTOM_ALPHA, MAX_BOTTOM_ALPHA);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Invalid orientation: " + orientation);
+            }
         }
 
         return Color.argb(alpha, 0, 0, 0);
@@ -694,7 +729,9 @@ public final class ElevationUtil {
 
     /**
      * Creates and returns a bitmap, which can be used to emulate a shadow of an elevated view on
-     * pre-Lollipop devices.
+     * pre-Lollipop devices. By default a non-parallel illumination of the view is emulated, which
+     * causes the shadow at its bottom to appear a bit more intense than the shadows to its left and
+     * right and a lot more intense than the shadow at its top.
      *
      * @param context
      *         The context, which should be used, as an instance of the class {@link Context}. The
@@ -713,6 +750,35 @@ public final class ElevationUtil {
      */
     public static Bitmap createElevationShadow(@NonNull final Context context, final int elevation,
                                                @NonNull final Orientation orientation) {
+        return createElevationShadow(context, elevation, orientation, false);
+    }
+
+    /**
+     * Creates and returns a bitmap, which can be used to emulate a shadow of an elevated view on
+     * pre-Lollipop devices. This method furthermore allows to specify, whether parallel
+     * illumination of the view should be emulated, which causes the shadows at all of its sides to
+     * appear identically.
+     *
+     * @param context
+     *         The context, which should be used, as an instance of the class {@link Context}. The
+     *         context may not be null
+     * @param elevation
+     *         The elevation, which should be emulated, in dp as an {@link Integer} value. The
+     *         elevation must be at least 0 and at maximum the value of the constant
+     *         <code>MAX_ELEVATION</code>
+     * @param orientation
+     *         The orientation of the shadow in relation to the elevated view as a value of the enum
+     *         {@link Orientation}. The orientation may either be <code>LEFT</code>,
+     *         <code>RIGHT</code>, <code>TOP</code>, <code>BOTTOM</code>, <code>TOP_LEFT</code>,
+     *         <code>TOP_RIGHT</code>, <code>BOTTOM_LEFT</code> or <code>BOTTOM_RIGHT</code>
+     * @param parallelLight
+     *         True, if parallel light should be emulated, false otherwise
+     * @return The bitmap, which has been created, as an instance of the class {@link Bitmap} or
+     * null, if the given elevation is 0
+     */
+    public static Bitmap createElevationShadow(@NonNull final Context context, final int elevation,
+                                               @NonNull final Orientation orientation,
+                                               final boolean parallelLight) {
         ensureNotNull(context, "The context may not be null");
         ensureAtLeast(elevation, 0, "The elevation must be at least 0");
         ensureAtMaximum(elevation, MAX_ELEVATION,
@@ -724,12 +790,12 @@ public final class ElevationUtil {
             case TOP:
             case RIGHT:
             case BOTTOM:
-                return createEdgeShadow(context, elevation, orientation);
+                return createEdgeShadow(context, elevation, orientation, parallelLight);
             case TOP_LEFT:
             case TOP_RIGHT:
             case BOTTOM_LEFT:
             case BOTTOM_RIGHT:
-                return createCornerShadow(context, elevation, orientation);
+                return createCornerShadow(context, elevation, orientation, parallelLight);
             default:
                 throw new IllegalArgumentException("Invalid orientation: " + orientation);
         }

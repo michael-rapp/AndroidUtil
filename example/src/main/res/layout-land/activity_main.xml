@@ -149,6 +149,14 @@ not, see <http://www.gnu.org/licenses/>.
                     android:layout_margin="@dimen/elevation_seek_bar_margin"
                     android:max="@integer/max_elevation"/>
 
+                <CheckBox
+                    android:id="@+id/parallel_light_check_box"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/parallel_light"
+                    android:textColor="?android:textColorSecondary"/>
+
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
