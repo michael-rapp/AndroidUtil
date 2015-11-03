@@ -1,5 +1,11 @@
 # AndroidSidebar - RELEASE NOTES
 
+## Version 1.2.1 (Nov. 3rd 2015)
+
+A minor release, which introduces the following changes:
+
+- A method, which allows to specify, whether parallel illumination should be used, when emulating the shadow of an elevated view, has been added to the class `ElevationUtil`. When using parallel lightning, the shadows at all sides of the view appear identically.
+
 ## Version 1.2.0 (Oct. 24th 2015)
 
 A feature release, which provides the following changes:
