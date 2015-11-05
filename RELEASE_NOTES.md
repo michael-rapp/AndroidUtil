@@ -1,5 +1,11 @@
 # AndroidSidebar - RELEASE NOTES
 
+## Version 1.2.2 (Nov. 5th 2015)
+
+A minor release, which introduces the following changes:
+
+- The view `ElevationShadowView`, which allows to visualize elevations within layouts, has been added.
+
 ## Version 1.2.1 (Nov. 3rd 2015)
 
 A minor release, which introduces the following changes:
