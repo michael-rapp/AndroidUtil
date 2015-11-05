@@ -52,42 +52,85 @@ public final class ElevationUtil {
         /**
          * If the shadow is located besides the left edge of the elevated view.
          */
-        LEFT,
+        LEFT(0),
 
         /**
          * If the shadow is located above the top edge of the elevated view.
          */
-        TOP,
+        TOP(1),
 
         /**
          * If the shadow is located besides the right edge of the elevated view.
          */
-        RIGHT,
+        RIGHT(2),
 
         /**
          * If the shadow is located below the bottom edge of the elevated view.
          */
-        BOTTOM,
+        BOTTOM(3),
 
         /**
          * If the shadow is located at the top left corner of the elevated view.
          */
-        TOP_LEFT,
+        TOP_LEFT(4),
 
         /**
          * If the shadow is located at the top right corner of the elevated view.
          */
-        TOP_RIGHT,
+        TOP_RIGHT(5),
 
         /**
          * If the shadow is located at the bottom left corner of the elevated view.
          */
-        BOTTOM_LEFT,
+        BOTTOM_LEFT(6),
 
         /**
          * If the shadow is located at the bottom right corner of the elevated view.
          */
-        BOTTOM_RIGHT
+        BOTTOM_RIGHT(7);
+
+        /**
+         * The value of the orientation.
+         */
+        private int value;
+
+        /**
+         * Creates a new orientation.
+         *
+         * @param value
+         *         The value of the orientation
+         */
+        Orientation(final int value) {
+            this.value = value;
+        }
+
+        /**
+         * Returns the value of the orientation.
+         *
+         * @return The value of the orientation as an {@link Integer} value
+         */
+        public final int getValue() {
+            return value;
+        }
+
+        /**
+         * Returns the orientation, which corresponds to a specific value.
+         *
+         * @param value
+         *         The value, the orientation, which should be returned, corresponds to, as an
+         *         {@link Integer} value
+         * @return The orientation, which corresponds to the given value, as a value of the enum
+         * {@link Orientation}
+         */
+        public static final Orientation fromValue(final int value) {
+            for (Orientation orientation : values()) {
+                if (orientation.getValue() == value) {
+                    return orientation;
+                }
+            }
+
+            throw new IllegalArgumentException("Invalid enum value: " + value);
+        }
 
     }
 
@@ -253,7 +296,7 @@ public final class ElevationUtil {
      *         {@link Orientation}. The orientation may either be <code>LEFT</code>,
      *         <code>TOP</code>, <code>RIGHT</code> or <code>BOTTOM</code>
      * @param parallelLight
-     *         True, if parallel lighting should be emulated, false otherwise
+     *         True, if parallel light should be emulated, false otherwise
      * @return The bitmap, which has been created, as an instance of the class {@link Bitmap} or
      * null, if the given elevation is 0
      */

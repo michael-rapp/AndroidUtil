@@ -16,6 +16,7 @@ not, see <http://www.gnu.org/licenses/>.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:custom="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
@@ -50,81 +51,77 @@ not, see <http://www.gnu.org/licenses/>.
                     android:layout_centerInParent="true"
                     android:background="?colorPrimary"/>
 
-                <ImageView
+                <de.mrapp.android.util.view.ElevationShadowView
                     android:id="@+id/elevation_left"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/shape_size"
                     android:layout_alignTop="@+id/shape"
                     android:layout_toLeftOf="@+id/shape"
                     android:layout_toStartOf="@+id/shape"
-                    android:contentDescription="@null"
-                    android:scaleType="fitXY"/>
+                    custom:shadowOrientation="left"/>
 
-                <ImageView
+                <de.mrapp.android.util.view.ElevationShadowView
                     android:id="@+id/elevation_top_left"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_above="@+id/shape"
                     android:layout_toLeftOf="@+id/shape"
                     android:layout_toStartOf="@+id/shape"
-                    android:contentDescription="@null"/>
+                    custom:shadowOrientation="top_left"/>
 
-                <ImageView
+                <de.mrapp.android.util.view.ElevationShadowView
                     android:id="@+id/elevation_top"
                     android:layout_width="@dimen/shape_size"
                     android:layout_height="wrap_content"
                     android:layout_above="@+id/shape"
                     android:layout_alignLeft="@+id/shape"
                     android:layout_alignStart="@+id/shape"
-                    android:contentDescription="@null"
-                    android:scaleType="fitXY"/>
+                    custom:shadowOrientation="top"/>
 
-                <ImageView
+                <de.mrapp.android.util.view.ElevationShadowView
                     android:id="@+id/elevation_top_right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_above="@+id/shape"
                     android:layout_toEndOf="@+id/shape"
                     android:layout_toRightOf="@+id/shape"
-                    android:contentDescription="@null"/>
+                    custom:shadowOrientation="top_right"/>
 
-                <ImageView
+                <de.mrapp.android.util.view.ElevationShadowView
                     android:id="@+id/elevation_right"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/shape_size"
                     android:layout_alignTop="@+id/shape"
                     android:layout_toEndOf="@+id/shape"
                     android:layout_toRightOf="@+id/shape"
-                    android:contentDescription="@null"
-                    android:scaleType="fitXY"/>
+                    custom:shadowOrientation="right"/>
 
-                <ImageView
+                <de.mrapp.android.util.view.ElevationShadowView
                     android:id="@+id/elevation_bottom_right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/shape"
                     android:layout_toEndOf="@+id/shape"
                     android:layout_toRightOf="@+id/shape"
-                    android:contentDescription="@null"/>
+                    custom:shadowOrientation="bottom_right"/>
 
-                <ImageView
+                <de.mrapp.android.util.view.ElevationShadowView
                     android:id="@+id/elevation_bottom"
                     android:layout_width="@dimen/shape_size"
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@+id/shape"
                     android:layout_alignStart="@+id/shape"
                     android:layout_below="@+id/shape"
-                    android:contentDescription="@null"
-                    android:scaleType="fitXY"/>
+                    custom:shadowOrientation="bottom"/>
 
-                <ImageView
+                <de.mrapp.android.util.view.ElevationShadowView
                     android:id="@+id/elevation_bottom_left"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/shape"
                     android:layout_toLeftOf="@+id/shape"
                     android:layout_toStartOf="@+id/shape"
-                    android:contentDescription="@null"/>
+                    custom:shadowOrientation="bottom_left"/>
 
             </RelativeLayout>
 
@@ -158,7 +155,9 @@ not, see <http://www.gnu.org/licenses/>.
                     android:textColor="?android:textColorSecondary"/>
 
             </LinearLayout>
+
         </LinearLayout>
+
     </RelativeLayout>
 
 </LinearLayout>

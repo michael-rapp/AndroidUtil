@@ -20,14 +20,11 @@ import android.support.v7.widget.Toolbar;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
-import de.mrapp.android.util.ElevationUtil.Orientation;
-
-import static de.mrapp.android.util.ElevationUtil.createElevationShadow;
+import de.mrapp.android.util.view.ElevationShadowView;
 
 /**
  * The example app's main activity.
@@ -55,49 +52,49 @@ public class MainActivity extends AppCompatActivity {
      * The image view, which is used to display the shadow, which is located besides the left edge
      * of the elevated view.
      */
-    private ImageView elevationLeft;
+    private ElevationShadowView elevationLeft;
 
     /**
      * The image view, which is used to display the shadow, which is located at the top left corner
      * of the elevated view.
      */
-    private ImageView elevationTopLeft;
+    private ElevationShadowView elevationTopLeft;
 
     /**
      * The image view, which is used to display the shadow, which is located above the top edge of
      * the elevated view.
      */
-    private ImageView elevationTop;
+    private ElevationShadowView elevationTop;
 
     /**
      * The image view, which is used to display the shadow, which is located at the top right corner
      * of the elevated view.
      */
-    private ImageView elevationTopRight;
+    private ElevationShadowView elevationTopRight;
 
     /**
      * The image view, which is used to display the shadow, which is located besides the right edge
      * of the elevated view.
      */
-    private ImageView elevationRight;
+    private ElevationShadowView elevationRight;
 
     /**
      * The image view, which is used to display the shadow, which is located at the bottom right
      * corner of the elevated view.
      */
-    private ImageView elevationBottomRight;
+    private ElevationShadowView elevationBottomRight;
 
     /**
      * The image view, which is used to display the shadow, which is located below the bottom edge
      * of the elevated view.
      */
-    private ImageView elevationBottom;
+    private ElevationShadowView elevationBottom;
 
     /**
      * The image view, which is used to display the shadow, which is located at the bottom left
      * corner of the elevated view.
      */
-    private ImageView elevationBottomLeft;
+    private ElevationShadowView elevationBottomLeft;
 
     /**
      * Initializes the activity's toolbar.
@@ -175,22 +172,22 @@ public class MainActivity extends AppCompatActivity {
      */
     private void adaptElevation(final int elevation, final boolean parallelLight) {
         elevationTextView.setText(String.format(getString(R.string.elevation), elevation));
-        elevationLeft.setImageBitmap(
-                createElevationShadow(this, elevation, Orientation.LEFT, parallelLight));
-        elevationTopLeft.setImageBitmap(
-                createElevationShadow(this, elevation, Orientation.TOP_LEFT, parallelLight));
-        elevationTop.setImageBitmap(
-                createElevationShadow(this, elevation, Orientation.TOP, parallelLight));
-        elevationTopRight.setImageBitmap(
-                createElevationShadow(this, elevation, Orientation.TOP_RIGHT, parallelLight));
-        elevationRight.setImageBitmap(
-                createElevationShadow(this, elevation, Orientation.RIGHT, parallelLight));
-        elevationBottomRight.setImageBitmap(
-                createElevationShadow(this, elevation, Orientation.BOTTOM_RIGHT, parallelLight));
-        elevationBottom.setImageBitmap(
-                createElevationShadow(this, elevation, Orientation.BOTTOM, parallelLight));
-        elevationBottomLeft.setImageBitmap(
-                createElevationShadow(this, elevation, Orientation.BOTTOM_LEFT, parallelLight));
+        elevationLeft.setShadowElevation(elevation);
+        elevationLeft.emulateParallelLight(parallelLight);
+        elevationTopLeft.setShadowElevation(elevation);
+        elevationTopLeft.emulateParallelLight(parallelLight);
+        elevationTop.setShadowElevation(elevation);
+        elevationTop.emulateParallelLight(parallelLight);
+        elevationTopRight.setShadowElevation(elevation);
+        elevationTopRight.emulateParallelLight(parallelLight);
+        elevationRight.setShadowElevation(elevation);
+        elevationRight.emulateParallelLight(parallelLight);
+        elevationBottomRight.setShadowElevation(elevation);
+        elevationBottomRight.emulateParallelLight(parallelLight);
+        elevationBottom.setShadowElevation(elevation);
+        elevationBottom.emulateParallelLight(parallelLight);
+        elevationBottomLeft.setShadowElevation(elevation);
+        elevationBottomLeft.emulateParallelLight(parallelLight);
     }
 
     @Override
@@ -205,14 +202,14 @@ public class MainActivity extends AppCompatActivity {
         parallelLightCheckBox = (CheckBox) findViewById(R.id.parallel_light_check_box);
         parallelLightCheckBox.setChecked(isParallelLightUsedByDefault());
         parallelLightCheckBox.setOnCheckedChangeListener(createCheckBoxListener());
-        elevationLeft = (ImageView) findViewById(R.id.elevation_left);
-        elevationTopLeft = (ImageView) findViewById(R.id.elevation_top_left);
-        elevationTop = (ImageView) findViewById(R.id.elevation_top);
-        elevationTopRight = (ImageView) findViewById(R.id.elevation_top_right);
-        elevationRight = (ImageView) findViewById(R.id.elevation_right);
-        elevationBottomRight = (ImageView) findViewById(R.id.elevation_bottom_right);
-        elevationBottom = (ImageView) findViewById(R.id.elevation_bottom);
-        elevationBottomLeft = (ImageView) findViewById(R.id.elevation_bottom_left);
+        elevationLeft = (ElevationShadowView) findViewById(R.id.elevation_left);
+        elevationTopLeft = (ElevationShadowView) findViewById(R.id.elevation_top_left);
+        elevationTop = (ElevationShadowView) findViewById(R.id.elevation_top);
+        elevationTopRight = (ElevationShadowView) findViewById(R.id.elevation_top_right);
+        elevationRight = (ElevationShadowView) findViewById(R.id.elevation_right);
+        elevationBottomRight = (ElevationShadowView) findViewById(R.id.elevation_bottom_right);
+        elevationBottom = (ElevationShadowView) findViewById(R.id.elevation_bottom);
+        elevationBottomLeft = (ElevationShadowView) findViewById(R.id.elevation_bottom_left);
         adaptElevation(getDefaultElevation(), isParallelLightUsedByDefault());
     }
 
