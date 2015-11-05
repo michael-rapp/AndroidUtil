@@ -28,63 +28,63 @@ public class ElevationUtilTest extends AndroidTestCase {
 
     /**
      * Tests the functionality of the method, which allows to create the shadow of an elevated view,
-     * if the elevation is 0.
+     * if the elevation is 0 and no parallel light is emulated.
      */
-    public final void testCreateElevationShadowWithZeroElevation() {
+    public final void testCreateElevationShadowWithZeroElevationAndNonParallelLight() {
         Bitmap shadow = ElevationUtil.createElevationShadow(getContext(), 0, Orientation.LEFT);
         assertNull(shadow);
     }
 
     /**
      * Tests the functionality of the method, which allows to create the shadow of an elevated view,
-     * if the orientation is <code>LEFT</code>.
+     * if the orientation is <code>LEFT</code> and no parallel light is emulated.
      */
-    public final void testCreateElevationShadowWithLeftOrientation() {
+    public final void testCreateElevationShadowWithLeftOrientationAndNonParallelLight() {
         Bitmap shadow = ElevationUtil.createElevationShadow(getContext(), 1, Orientation.LEFT);
         assertNotNull(shadow);
     }
 
     /**
      * Tests the functionality of the method, which allows to create the shadow of an elevated view,
-     * if the orientation is <code>TOP_LEFT</code>.
+     * if the orientation is <code>TOP_LEFT</code> and no parallel light is emulated.
      */
-    public final void testCreateElevationShadowWithTopLeftOrientation() {
+    public final void testCreateElevationShadowWithTopLeftOrientationAndNonParallelLight() {
         Bitmap shadow = ElevationUtil.createElevationShadow(getContext(), 1, Orientation.TOP_LEFT);
         assertNotNull(shadow);
     }
 
     /**
      * Tests the functionality of the method, which allows to create the shadow of an elevated view,
-     * if the orientation is <code>TOP</code>.
+     * if the orientation is <code>TOP</code> and no parallel light is emulated.
      */
-    public final void testCreateElevationShadowWithTopOrientation() {
+    public final void testCreateElevationShadowWithTopOrientationAndNonParallelLight() {
         Bitmap shadow = ElevationUtil.createElevationShadow(getContext(), 1, Orientation.TOP);
         assertNotNull(shadow);
     }
 
     /**
      * Tests the functionality of the method, which allows to create the shadow of an elevated view,
-     * if the orientation is <code>TOP_RIGHT</code>.
+     * if the orientation is <code>TOP_RIGHT</code> and no parallel light is emulated.
      */
-    public final void testCreateElevationShadowWithTopRightOrientation() {
+    public final void testCreateElevationShadowWithTopRightOrientationAndNonParallelLight() {
         Bitmap shadow = ElevationUtil.createElevationShadow(getContext(), 1, Orientation.TOP_RIGHT);
         assertNotNull(shadow);
     }
 
     /**
      * Tests the functionality of the method, which allows to create the shadow of an elevated view,
-     * if the orientation is <code>RIGHT</code>.
+     * if the orientation is <code>RIGHT</code> and no parallel light is emulated.
      */
-    public final void testCreateElevationShadowWithRightOrientation() {
+    public final void testCreateElevationShadowWithRightOrientationAndNonParallelLight() {
         Bitmap shadow = ElevationUtil.createElevationShadow(getContext(), 1, Orientation.RIGHT);
         assertNotNull(shadow);
     }
 
     /**
      * Tests the functionality of the method, which allows to create the shadow of an elevated view,
-     * if the orientation is <code>BOTTOM_RIGHT</code>.
+     * if the orientation is <code>BOTTOM_RIGHT</code> and no parallel light is emulated.
      */
-    public final void testCreateElevationShadowWithBottomRightOrientation() {
+    public final void testCreateElevationShadowWithBottomRightOrientationAndNonParallelLight() {
         Bitmap shadow =
                 ElevationUtil.createElevationShadow(getContext(), 1, Orientation.BOTTOM_RIGHT);
         assertNotNull(shadow);
@@ -92,18 +92,18 @@ public class ElevationUtilTest extends AndroidTestCase {
 
     /**
      * Tests the functionality of the method, which allows to create the shadow of an elevated view,
-     * if the orientation is <code>BOTTOM</code>.
+     * if the orientation is <code>BOTTOM</code> and no parallel light is emulated.
      */
-    public final void testCreateElevationShadowWithBottomOrientation() {
+    public final void testCreateElevationShadowWithBottomOrientationAndNonParallelLight() {
         Bitmap shadow = ElevationUtil.createElevationShadow(getContext(), 1, Orientation.BOTTOM);
         assertNotNull(shadow);
     }
 
     /**
      * Tests the functionality of the method, which allows to create the shadow of an elevated view,
-     * if the orientation is <code>BOTTOM_LEFT</code>.
+     * if the orientation is <code>BOTTOM_LEFT</code> and no parallel light is emulated.
      */
-    public final void testCreateElevationShadowWithBottomLeftOrientation() {
+    public final void testCreateElevationShadowWithBottomLeftOrientationAndNonParallelLight() {
         Bitmap shadow =
                 ElevationUtil.createElevationShadow(getContext(), 1, Orientation.BOTTOM_LEFT);
         assertNotNull(shadow);
@@ -111,9 +111,9 @@ public class ElevationUtilTest extends AndroidTestCase {
 
     /**
      * Ensures, that a {@link NullPointerException} is thrown by the method, which allows to create
-     * the shadow of an elevated view, if the context is null.
+     * the shadow of an elevated view without emulating parallel light, if the context is null.
      */
-    public final void testCreateElevationShadowThrowsExceptionWhenContextIsNull() {
+    public final void testCreateElevationShadowWithNonParallelLightThrowsExceptionWhenContextIsNull() {
         try {
             ElevationUtil.createElevationShadow(null, 1, Orientation.BOTTOM);
         } catch (NullPointerException e) {
@@ -123,9 +123,10 @@ public class ElevationUtilTest extends AndroidTestCase {
 
     /**
      * Ensures, that a {@link IllegalArgumentException} is thrown by the method, which allows to
-     * create the shadow of an elevated view, if the elevation is less than 1.
+     * create the shadow of an elevated view without emulating parallel light, if the elevation is
+     * less than 1.
      */
-    public final void testCreateElevationShadowThrowsExceptionWhenElevationIsLessThan0() {
+    public final void testCreateElevationShadowWithNonParallelLightThrowsExceptionWhenElevationIsLessThan0() {
         try {
             ElevationUtil.createElevationShadow(getContext(), -1, Orientation.BOTTOM);
         } catch (IllegalArgumentException e) {
@@ -135,10 +136,10 @@ public class ElevationUtilTest extends AndroidTestCase {
 
     /**
      * Ensures, that a {@link IllegalArgumentException} is thrown by the method, which allows to
-     * create the shadow of an elevated view, if the elevation is greater than the constant
-     * <code>MAX_ELEVATION</code>.
+     * create the shadow of an elevated view without emulating parallel light, if the elevation is
+     * greater than the constant <code>MAX_ELEVATION</code>.
      */
-    public final void testCreateElevationShadowThrowsExceptionWhenElevationIsGreaterThanMaxElevation() {
+    public final void testCreateElevationShadowWithNonParallelLightThrowsExceptionWhenElevationIsGreaterThanMaxElevation() {
         try {
             ElevationUtil.createElevationShadow(getContext(), ElevationUtil.MAX_ELEVATION + 1,
                     Orientation.BOTTOM);
@@ -149,11 +150,151 @@ public class ElevationUtilTest extends AndroidTestCase {
 
     /**
      * Ensures, that a {@link NullPointerException} is thrown by the method, which allows to create
-     * the shadow of an elevated view, if the orientation is null.
+     * the shadow of an elevated view without emulating parallel light, if the orientation is null.
      */
-    public final void testCreateElevationShadowThrowsExceptionWhenOrientationIsNull() {
+    public final void testCreateElevationShadowWithNonParallelLightThrowsExceptionWhenOrientationIsNull() {
         try {
             ElevationUtil.createElevationShadow(getContext(), 1, null);
+        } catch (NullPointerException e) {
+            return;
+        }
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to create the shadow of an elevated view,
+     * if the elevation is 0 and parallel light is emulated.
+     */
+    public final void testCreateElevationShadowWithZeroElevationAndParallelLight() {
+        Bitmap shadow =
+                ElevationUtil.createElevationShadow(getContext(), 0, Orientation.LEFT, true);
+        assertNull(shadow);
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to create the shadow of an elevated view,
+     * if the orientation is <code>LEFT</code> and parallel light is emulated.
+     */
+    public final void testCreateElevationShadowWithLeftOrientationAndParallelLight() {
+        Bitmap shadow =
+                ElevationUtil.createElevationShadow(getContext(), 1, Orientation.LEFT, true);
+        assertNotNull(shadow);
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to create the shadow of an elevated view,
+     * if the orientation is <code>TOP_LEFT</code> and parallel light is emulated.
+     */
+    public final void testCreateElevationShadowWithTopLeftOrientationAndParallelLight() {
+        Bitmap shadow =
+                ElevationUtil.createElevationShadow(getContext(), 1, Orientation.TOP_LEFT, true);
+        assertNotNull(shadow);
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to create the shadow of an elevated view,
+     * if the orientation is <code>TOP</code> and parallel light is emulated.
+     */
+    public final void testCreateElevationShadowWithTopOrientationAndParallelLight() {
+        Bitmap shadow = ElevationUtil.createElevationShadow(getContext(), 1, Orientation.TOP, true);
+        assertNotNull(shadow);
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to create the shadow of an elevated view,
+     * if the orientation is <code>TOP_RIGHT</code> and parallel light is emulated.
+     */
+    public final void testCreateElevationShadowWithTopRightOrientationAndParallelLight() {
+        Bitmap shadow =
+                ElevationUtil.createElevationShadow(getContext(), 1, Orientation.TOP_RIGHT, true);
+        assertNotNull(shadow);
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to create the shadow of an elevated view,
+     * if the orientation is <code>RIGHT</code> and parallel light is emulated.
+     */
+    public final void testCreateElevationShadowWithRightOrientationAndParallelLight() {
+        Bitmap shadow =
+                ElevationUtil.createElevationShadow(getContext(), 1, Orientation.RIGHT, true);
+        assertNotNull(shadow);
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to create the shadow of an elevated view,
+     * if the orientation is <code>BOTTOM_RIGHT</code> and parallel light is emulated.
+     */
+    public final void testCreateElevationShadowWithBottomRightOrientationAndParallelLight() {
+        Bitmap shadow = ElevationUtil
+                .createElevationShadow(getContext(), 1, Orientation.BOTTOM_RIGHT, true);
+        assertNotNull(shadow);
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to create the shadow of an elevated view,
+     * if the orientation is <code>BOTTOM</code> and parallel light is emulated.
+     */
+    public final void testCreateElevationShadowWithBottomOrientationAndParallelLight() {
+        Bitmap shadow =
+                ElevationUtil.createElevationShadow(getContext(), 1, Orientation.BOTTOM, true);
+        assertNotNull(shadow);
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to create the shadow of an elevated view,
+     * if the orientation is <code>BOTTOM_LEFT</code> and parallel light is emulated.
+     */
+    public final void testCreateElevationShadowWithBottomLeftOrientationAndParallelLight() {
+        Bitmap shadow =
+                ElevationUtil.createElevationShadow(getContext(), 1, Orientation.BOTTOM_LEFT, true);
+        assertNotNull(shadow);
+    }
+
+    /**
+     * Ensures, that a {@link NullPointerException} is thrown by the method, which allows to create
+     * the shadow of an elevated view with emulating parallel light, if the context is null.
+     */
+    public final void testCreateElevationShadowWithParallelLightThrowsExceptionWhenContextIsNull() {
+        try {
+            ElevationUtil.createElevationShadow(null, 1, Orientation.BOTTOM, true);
+        } catch (NullPointerException e) {
+            return;
+        }
+    }
+
+    /**
+     * Ensures, that a {@link IllegalArgumentException} is thrown by the method, which allows to
+     * create the shadow of an elevated view with emulating parallel light, if the elevation is less
+     * than 1.
+     */
+    public final void testCreateElevationShadowWithParallelLightThrowsExceptionWhenElevationIsLessThan0() {
+        try {
+            ElevationUtil.createElevationShadow(getContext(), -1, Orientation.BOTTOM, true);
+        } catch (IllegalArgumentException e) {
+            return;
+        }
+    }
+
+    /**
+     * Ensures, that a {@link IllegalArgumentException} is thrown by the method, which allows to
+     * create the shadow of an elevated view with emulating parallel light, if the elevation is
+     * greater than the constant <code>MAX_ELEVATION</code>.
+     */
+    public final void testCreateElevationShadowWithParallelLightThrowsExceptionWhenElevationIsGreaterThanMaxElevation() {
+        try {
+            ElevationUtil.createElevationShadow(getContext(), ElevationUtil.MAX_ELEVATION + 1,
+                    Orientation.BOTTOM, true);
+        } catch (IllegalArgumentException e) {
+            return;
+        }
+    }
+
+    /**
+     * Ensures, that a {@link NullPointerException} is thrown by the method, which allows to create
+     * the shadow of an elevated view with emulating parallel light, if the orientation is null.
+     */
+    public final void testCreateElevationShadowWithParallelLightThrowsExceptionWhenOrientationIsNull() {
+        try {
+            ElevationUtil.createElevationShadow(getContext(), 1, null, true);
         } catch (NullPointerException e) {
             return;
         }
