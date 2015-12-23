@@ -1,5 +1,11 @@
 # AndroidSidebar - RELEASE NOTES
 
+## Version 1.2.3 (Dec. 23th 2015)
+
+A bugfix release, which fixes the following issues:
+
+- https://github.com/michael-rapp/AndroidUtil/issues/1
+
 ## Version 1.2.2 (Nov. 5th 2015)
 
 A minor release, which introduces the following changes:
