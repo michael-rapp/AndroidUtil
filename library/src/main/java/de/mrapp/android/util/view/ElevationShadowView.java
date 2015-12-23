@@ -58,6 +58,18 @@ public class ElevationShadowView extends ImageView {
     private boolean emulateParallelLight;
 
     /**
+     * Initializes the view.
+     *
+     * @param attributeSet
+     *         The attribute set, the view's attributes should be obtained from, as an instance of
+     *         the type {@link AttributeSet}, or null, if no attributes should be obtained
+     */
+    private void initialize(@Nullable final AttributeSet attributeSet) {
+        obtainStyledAttributes(attributeSet);
+        adaptElevationShadow();
+    }
+
+    /**
      * Obtains the view's attributes from a specific attribute set.
      *
      * @param attributeSet
@@ -160,7 +172,7 @@ public class ElevationShadowView extends ImageView {
     public ElevationShadowView(@NonNull final Context context,
                                @Nullable final AttributeSet attributeSet) {
         super(context, attributeSet);
-        obtainStyledAttributes(attributeSet);
+        initialize(attributeSet);
     }
 
     /**
@@ -181,7 +193,7 @@ public class ElevationShadowView extends ImageView {
     public ElevationShadowView(@NonNull final Context context,
                                @Nullable final AttributeSet attributeSet, final int defaultStyle) {
         super(context, attributeSet, defaultStyle);
-        obtainStyledAttributes(attributeSet);
+        initialize(attributeSet);
     }
 
     /**
@@ -208,7 +220,7 @@ public class ElevationShadowView extends ImageView {
                                @Nullable final AttributeSet attributeSet, final int defaultStyle,
                                final int defaultStyleResource) {
         super(context, attributeSet, defaultStyle, defaultStyleResource);
-        obtainStyledAttributes(attributeSet);
+        initialize(attributeSet);
     }
 
     /**
