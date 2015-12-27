@@ -1,5 +1,12 @@
 # AndroidSidebar - RELEASE NOTES
 
+## Version 1.2.4 (Dec. 27th 2015)
+
+A minor release, which introduces the following changes:
+
+- Added `ensureFileExists`-method to class `Condition`.
+- Added `ensureFileIsDirectory`-method to class `Condition`.
+
 ## Version 1.2.3 (Dec. 23th 2015)
 
 A bugfix release, which fixes the following issues:
