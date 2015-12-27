@@ -14,15 +14,20 @@
  */
 package de.mrapp.android.util;
 
+import android.os.Build;
+import android.test.AndroidTestCase;
+
 import junit.framework.Assert;
-import junit.framework.TestCase;
+
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Tests the functionality of the class {@link Condition}.
  *
  * @author Michael Rapp
  */
-public class ConditionTest extends TestCase {
+public class ConditionTest extends AndroidTestCase {
 
     /**
      * Tests the functionality of the method, which allows to ensure that an object is not null, if
@@ -1085,6 +1090,166 @@ public class ConditionTest extends TestCase {
      */
     public final void testEnsureSmallerWithDoubleAndClassParametersThrowsNoException() {
         Condition.ensureSmaller(0d, 1d, "message", IndexOutOfBoundsException.class);
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to ensure that a {@link File} exists, if
+     * the file does not exist.
+     */
+    public final void testEnsureFileExistsThrowsException() {
+        String message = "message";
+        File file = new File(getContext().getFilesDir(), "test");
+
+        try {
+            Condition.ensureFileExists(file, message);
+            Assert.fail();
+        } catch (IllegalArgumentException e) {
+            assertEquals(message, e.getMessage());
+        }
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to ensure that a {@link File} exists, if
+     * the file does exist.
+     *
+     * @throws IOException
+     *         The exception, which is thrown, if an error occurs while creating the file
+     */
+    public final void testEnsureFileExistsThrowsNoException() throws IOException {
+        String message = "message";
+        File file = new File(getContext().getFilesDir(), "test");
+
+        try {
+            boolean created = file.createNewFile();
+            assertTrue(created);
+            Condition.ensureFileExists(file, message);
+        } finally {
+            file.delete();
+        }
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to ensure that a {@link File} exists and
+     * expects a class as a parameter, if the file does not exist.
+     */
+    public final void testEnsureFileExistsWithClassParameterThrowsException() {
+        String message = "message";
+        File file = new File(getContext().getFilesDir(), "test");
+
+        try {
+            Condition.ensureFileExists(file, message, IllegalStateException.class);
+            Assert.fail();
+        } catch (IllegalStateException e) {
+            assertEquals(message, e.getMessage());
+        }
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to ensure that a {@link File} exists and
+     * expects a class as a paramter, if the file does exist.
+     *
+     * @throws IOException
+     *         The exception, which is thrown, if an error occurs while creating the file
+     */
+    public final void testEnsureFileExistsWithClassParameterThrowsNoException() throws IOException {
+        String message = "message";
+        File file = new File(getContext().getFilesDir(), "test");
+
+        try {
+            boolean created = file.createNewFile();
+            assertTrue(created);
+            Condition.ensureFileExists(file, message, IllegalStateException.class);
+        } finally {
+            file.delete();
+        }
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to ensure that a {@link File} is a
+     * directory, if the file is not a directory.
+     *
+     * @throws IOException
+     *         The exception, which is thrown, if an error occurs while creating the file
+     */
+    public final void testEnsureFileIsDirectoryThrowsException() throws IOException {
+        String message = "message";
+        File file = new File(getContext().getFilesDir(), "test");
+
+        try {
+            boolean created = file.createNewFile();
+            assertTrue(created);
+            Condition.ensureFileIsDirectory(file, message);
+            Assert.fail();
+        } catch (IllegalArgumentException e) {
+            assertEquals(message, e.getMessage());
+        } finally {
+            file.delete();
+        }
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to ensure that a {@link File} is a
+     * directory, if the file is a directory.
+     *
+     * @throws IOException
+     *         The exception, which is thrown, if an error occurs while creating the file
+     */
+    public final void testEnsureFileIsDirectoryThrowsNoException() throws IOException {
+        String message = "message";
+        File file = new File(getContext().getFilesDir(), "test");
+
+        try {
+            boolean created = file.mkdirs();
+            assertTrue(created);
+            Condition.ensureFileIsDirectory(file, message);
+        } finally {
+            file.delete();
+        }
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to ensure that a {@link File} is a
+     * directory and expects a class as a parameter, if the file is not a directory.
+     *
+     * @throws IOException
+     *         The exception, which is thrown, if an error occurs while creating the file
+     */
+    public final void testEnsureFileIsDirectoryWithClassParameterThrowsException()
+            throws IOException {
+        String message = "message";
+        File file = new File(getContext().getFilesDir(), "test");
+
+        try {
+            boolean created = file.createNewFile();
+            assertTrue(created);
+            Condition.ensureFileIsDirectory(file, message, IllegalStateException.class);
+            Assert.fail();
+        } catch (IllegalStateException e) {
+            assertEquals(message, e.getMessage());
+        } finally {
+            file.delete();
+        }
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to ensure that a {@link File} is a
+     * directory and expects a class as a parameter, if the file is a directory.
+     *
+     * @throws IOException
+     *         The exception, which is thrown, if an error occurs while creating the file
+     */
+    public final void testEnsureFileIsDirectoryWithClassParameterThrowsNoException()
+            throws IOException {
+        String message = "message";
+        File file = new File(getContext().getFilesDir(), "test");
+
+        try {
+            boolean created = file.mkdirs();
+            assertTrue(created);
+            Condition.ensureFileIsDirectory(file, message, IllegalStateException.class);
+        } finally {
+            file.delete();
+        }
     }
 
 }
