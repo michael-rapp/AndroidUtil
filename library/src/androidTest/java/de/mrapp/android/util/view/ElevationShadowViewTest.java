@@ -108,23 +108,27 @@ public class ElevationShadowViewTest extends AndroidTestCase {
      * attribute set, a default style and a default style attribute as parameters.
      */
     public final void testConstructorWithContextAttributeSetAndDefaultStyleAndDefaultStyleAttributeParameters() {
-        Context context = getContext();
-        int defaultStyle = 0;
-        int defaultStyleAttribute = 0;
-        int elevation = pixelsToDp(context, context.getResources().getDimensionPixelSize(
-                R.dimen.elevation_shadow_view_shadow_elevation_default_value));
-        Orientation orientation = Orientation.fromValue(context.getResources()
-                .getInteger(R.integer.elevation_shadow_view_shadow_orientation_default_value));
-        boolean emulateParallelLight = context.getResources()
-                .getBoolean(R.bool.elevation_shadow_view_emulate_parallel_light_default_value);
-        XmlPullParser xmlPullParser = context.getResources().getXml(R.xml.elevation_shadow_view);
-        AttributeSet attributeSet = Xml.asAttributeSet(xmlPullParser);
-        ElevationShadowView elevationShadowView =
-                new ElevationShadowView(context, attributeSet, defaultStyle, defaultStyleAttribute);
-        assertEquals(context, elevationShadowView.getContext());
-        assertEquals(elevation, elevationShadowView.getShadowElevation());
-        assertEquals(orientation, elevationShadowView.getShadowOrientation());
-        assertEquals(emulateParallelLight, elevationShadowView.isParallelLightEmulated());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Context context = getContext();
+            int defaultStyle = 0;
+            int defaultStyleAttribute = 0;
+            int elevation = pixelsToDp(context, context.getResources().getDimensionPixelSize(
+                    R.dimen.elevation_shadow_view_shadow_elevation_default_value));
+            Orientation orientation = Orientation.fromValue(context.getResources()
+                    .getInteger(R.integer.elevation_shadow_view_shadow_orientation_default_value));
+            boolean emulateParallelLight = context.getResources()
+                    .getBoolean(R.bool.elevation_shadow_view_emulate_parallel_light_default_value);
+            XmlPullParser xmlPullParser =
+                    context.getResources().getXml(R.xml.elevation_shadow_view);
+            AttributeSet attributeSet = Xml.asAttributeSet(xmlPullParser);
+            ElevationShadowView elevationShadowView =
+                    new ElevationShadowView(context, attributeSet, defaultStyle,
+                            defaultStyleAttribute);
+            assertEquals(context, elevationShadowView.getContext());
+            assertEquals(elevation, elevationShadowView.getShadowElevation());
+            assertEquals(orientation, elevationShadowView.getShadowOrientation());
+            assertEquals(emulateParallelLight, elevationShadowView.isParallelLightEmulated());
+        }
     }
 
     /**
