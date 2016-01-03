@@ -16,7 +16,6 @@ import java.io.File;
 import static de.mrapp.android.util.Condition.ensureFileIsNoDirectory;
 import static de.mrapp.android.util.Condition.ensureNotEmpty;
 import static de.mrapp.android.util.Condition.ensureNotNull;
-import static de.mrapp.android.util.PermissionUtil.isPermissionGranted;
 
 /**
  * An utility class, which provides static methods, which allow to start system apps.
