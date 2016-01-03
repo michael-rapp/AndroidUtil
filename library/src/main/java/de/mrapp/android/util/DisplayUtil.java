@@ -51,8 +51,8 @@ public class DisplayUtil {
      * measured in dp.
      *
      * @param context
-     *         The context, which should be used to retrieve the device's display metrics, as an
-     *         instance of the class {@link Context}. The context may not be null
+     *         The context, which should be used, as an instance of the class {@link Context}. The
+     *         context may not be null
      * @param pixels
      *         The pixel value, which should be converted, as an {@link Integer} value
      * @return The calculated dp value as an {@link Integer} value. The value might be rounded
@@ -69,8 +69,8 @@ public class DisplayUtil {
      * in dp.
      *
      * @param context
-     *         The context, which should be used to retrieve the device's display metrics, as an
-     *         instance of the class {@link Context}. The context may not be null
+     *         The context, which should be used, as an instance of the class {@link Context}. The
+     *         context may not be null
      * @param pixels
      *         The pixel value, which should be converted, as an {@link Long} value
      * @return The calculated dp value as an {@link Long} value. The value might be rounded
@@ -87,8 +87,8 @@ public class DisplayUtil {
      * in dp.
      *
      * @param context
-     *         The context, which should be used to retrieve the device's display metrics, as an
-     *         instance of the class {@link Context}. The context may not be null
+     *         The context, which should be used, as an instance of the class {@link Context}. The
+     *         context may not be null
      * @param pixels
      *         The pixel value, which should be converted, as a {@link Float} value
      * @return The calculated dp value as a {@link Float} value
@@ -105,8 +105,8 @@ public class DisplayUtil {
      * in dp.
      *
      * @param context
-     *         The context, which should be used to retrieve the device's display metrics, as an
-     *         instance of the class {@link Context}. The context may not be null
+     *         The context, which should be used to, as an instance of the class {@link Context}.
+     *         The context may not be null
      * @param pixels
      *         The pixel value, which should be converted, as a {@link Double} value
      * @return The calculated dp value as a {@link Double} value
@@ -123,8 +123,8 @@ public class DisplayUtil {
      * in pixels.
      *
      * @param context
-     *         The context, which should be used to retrieve the device's display metrics, as an
-     *         instance of the class {@link Context}. The context may not be null
+     *         The context, which should be used, as an instance of the class {@link Context}. The
+     *         context may not be null
      * @param dp
      *         The dp value, which should be converted, as an {@link Integer} value
      * @return The calculated pixel value as an {@link Integer} value. The value might be rounded
@@ -141,8 +141,8 @@ public class DisplayUtil {
      * in pixels.
      *
      * @param context
-     *         The context, which should be used to retrieve the device's display metrics, as an
-     *         instance of the class {@link Context}. The context may not be null
+     *         The context, which should be used, as an instance of the class {@link Context}. The
+     *         context may not be null
      * @param dp
      *         The dp value, which should be converted, as an {@link Integer} value
      * @return The calculated pixel value as an {@link Integer} value. The value might be rounded
@@ -159,8 +159,8 @@ public class DisplayUtil {
      * pixels.
      *
      * @param context
-     *         The context, which should be used to retrieve the device's display metrics, as an
-     *         instance of the class {@link Context}. The context may not be null
+     *         The context, which should be used, as an instance of the class {@link Context}. The
+     *         context may not be null
      * @param dp
      *         The dp value, which should be converted, as a {@link Float} value
      * @return The calculated pixel value as a {@link Float} value
@@ -177,8 +177,8 @@ public class DisplayUtil {
      * pixels.
      *
      * @param context
-     *         The context, which should be used to retrieve the device's display metrics, as an
-     *         instance of the class {@link Context}. The context may not be null
+     *         The context, which should be used, as an instance of the class {@link Context}. The
+     *         context may not be null
      * @param dp
      *         The dp value, which should be converted, as a {@link Double} value
      * @return The calculated pixel value as a {@link Double} value
@@ -188,6 +188,20 @@ public class DisplayUtil {
         ensureNotNull(context, "The context may not be null");
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         return dp * (displayMetrics.densityDpi / PIXEL_DP_RATIO);
+    }
+
+    /**
+     * Returns the type of the device, depending on its display size.
+     *
+     * @param context
+     *         The context, which should be used, as an instance of the class {@link Context}. The
+     *         context may not be null
+     * @return The type of the device as a value of the enum {@link DeviceType}. The type may either
+     * be <code>PHONE</code>, <code>PHABLET</code> or <code>TABLET</code>
+     */
+    public static DeviceType getDeviceType(@NonNull final Context context) {
+        ensureNotNull(context, "The context may not be null");
+        return DeviceType.fromValue(context.getString(R.string.device_type));
     }
 
 }

@@ -50,7 +50,7 @@ public class DisplayUtilTest extends AndroidTestCase {
             try {
                 DisplayUtil.pixelsToDp(null, 0);
             } catch (NullPointerException e) {
-                return;
+
             }
         }
     }
@@ -80,7 +80,7 @@ public class DisplayUtilTest extends AndroidTestCase {
             try {
                 DisplayUtil.pixelsToDp(null, 0L);
             } catch (NullPointerException e) {
-                return;
+
             }
         }
     }
@@ -108,7 +108,7 @@ public class DisplayUtilTest extends AndroidTestCase {
             try {
                 DisplayUtil.pixelsToDp(null, 0f);
             } catch (NullPointerException e) {
-                return;
+
             }
         }
     }
@@ -136,7 +136,7 @@ public class DisplayUtilTest extends AndroidTestCase {
             try {
                 DisplayUtil.pixelsToDp(null, 0d);
             } catch (NullPointerException e) {
-                return;
+
             }
         }
     }
@@ -165,7 +165,7 @@ public class DisplayUtilTest extends AndroidTestCase {
             try {
                 DisplayUtil.dpToPixels(null, 0);
             } catch (NullPointerException e) {
-                return;
+
             }
         }
     }
@@ -194,7 +194,7 @@ public class DisplayUtilTest extends AndroidTestCase {
             try {
                 DisplayUtil.dpToPixels(null, 0L);
             } catch (NullPointerException e) {
-                return;
+
             }
         }
     }
@@ -222,7 +222,7 @@ public class DisplayUtilTest extends AndroidTestCase {
             try {
                 DisplayUtil.dpToPixels(null, 0.0f);
             } catch (NullPointerException e) {
-                return;
+
             }
         }
     }
@@ -250,9 +250,19 @@ public class DisplayUtilTest extends AndroidTestCase {
             try {
                 DisplayUtil.dpToPixels(null, 0.0d);
             } catch (NullPointerException e) {
-                return;
+
             }
         }
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to retrieve the type of the device,
+     * depending on its screen size.
+     */
+    public final void testGetDeviceType() {
+        String value = getContext().getString(R.string.device_type);
+        DeviceType deviceType = DeviceType.fromValue(value);
+        assertEquals(deviceType, DisplayUtil.getDeviceType(getContext()));
     }
 
 }
