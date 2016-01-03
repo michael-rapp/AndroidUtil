@@ -1,5 +1,5 @@
 /*
- * AndroidUtil Copyright 2015 Michael Rapp
+ * AndroidUtil Copyright 2015 - 2016 Michael Rapp
  *
  * This program is free software: you can redistribute it and/or modify it under the terms of the
  * GNU Lesser General Public License as published by the Free Software Foundation, either version 3
@@ -122,7 +122,7 @@ public final class ElevationUtil {
          * @return The orientation, which corresponds to the given value, as a value of the enum
          * {@link Orientation}
          */
-        public static final Orientation fromValue(final int value) {
+        public static Orientation fromValue(final int value) {
             for (Orientation orientation : values()) {
                 if (orientation.getValue() == value) {
                     return orientation;
