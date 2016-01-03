@@ -1,5 +1,12 @@
 # AndroidSidebar - RELEASE NOTES
 
+## Version 1.3.0 (Jan. 3rd 2016)
+
+A feature release, which introduces the following features:
+
+- Added `ensureFileIsNoDirectory`-method to class `Condition`.
+- Added `getDeviceType`-method to class `DisplayUtil`.
+
 ## Version 1.2.4 (Dec. 27th 2015)
 
 A minor release, which introduces the following changes:
