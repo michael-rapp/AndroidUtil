@@ -9,6 +9,7 @@ A feature release, which introduces the following features:
 - Added the utility class `AppUtil`, which provides methods, which allow to start system apps.
 - Added the utility class `PermissionUtil`, which provides methods, which allow to handle permissions.
 - Removed the annotation `@VisibleForTesting` as the annotation support library provides an identical one.
+- As the library does now depend on the Appcompat support library, the minimum SDK version has been increased to 7.
 
 ## Version 1.2.4 (Dec. 27th 2015)
 
