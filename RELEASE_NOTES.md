@@ -6,6 +6,9 @@ A feature release, which introduces the following features:
 
 - Added `ensureFileIsNoDirectory`-method to class `Condition`.
 - Added `getDeviceType`-method to class `DisplayUtil`.
+- Added the utility class `AppUtil`, which provides methods, which allow to start system apps.
+- Added the utility class `PermissionUtil`, which provides methods, which allow to handle permissions.
+- Removed the annotation `@VisibleForTesting` as the annotation support library provides an identical one.
 
 ## Version 1.2.4 (Dec. 27th 2015)
 
@@ -13,9 +16,6 @@ A minor release, which introduces the following changes:
 
 - Added `ensureFileExists`-method to class `Condition`.
 - Added `ensureFileIsDirectory`-method to class `Condition`.
-- Added the utility class `AppUtil`, which provides methods, which allow to start system apps.
-- Added the utility class `PermissionUtil`, which provides methods, which allow to handle permissions.
-- Removed the annotation `@VisibleForTesting` as the annotation support library provides an identical one.
 
 ## Version 1.2.3 (Dec. 23th 2015)
 
