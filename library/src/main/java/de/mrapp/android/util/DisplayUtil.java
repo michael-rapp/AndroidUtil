@@ -14,9 +14,7 @@
  */
 package de.mrapp.android.util;
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.util.DisplayMetrics;
@@ -124,7 +122,6 @@ public class DisplayUtil {
      *         The pixel value, which should be converted, as an {@link Integer} value
      * @return The calculated dp value as an {@link Integer} value. The value might be rounded
      */
-    @TargetApi(Build.VERSION_CODES.DONUT)
     public static int pixelsToDp(@NonNull final Context context, final int pixels) {
         ensureNotNull(context, "The context may not be null");
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
@@ -142,7 +139,6 @@ public class DisplayUtil {
      *         The pixel value, which should be converted, as an {@link Long} value
      * @return The calculated dp value as an {@link Long} value. The value might be rounded
      */
-    @TargetApi(Build.VERSION_CODES.DONUT)
     public static long pixelsToDp(@NonNull final Context context, final long pixels) {
         ensureNotNull(context, "The context may not be null");
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
@@ -160,7 +156,6 @@ public class DisplayUtil {
      *         The pixel value, which should be converted, as a {@link Float} value
      * @return The calculated dp value as a {@link Float} value
      */
-    @TargetApi(Build.VERSION_CODES.DONUT)
     public static float pixelsToDp(@NonNull final Context context, final float pixels) {
         ensureNotNull(context, "The context may not be null");
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
@@ -178,7 +173,6 @@ public class DisplayUtil {
      *         The pixel value, which should be converted, as a {@link Double} value
      * @return The calculated dp value as a {@link Double} value
      */
-    @TargetApi(Build.VERSION_CODES.DONUT)
     public static double pixelsToDp(@NonNull final Context context, final double pixels) {
         ensureNotNull(context, "The context may not be null");
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
@@ -196,7 +190,6 @@ public class DisplayUtil {
      *         The dp value, which should be converted, as an {@link Integer} value
      * @return The calculated pixel value as an {@link Integer} value. The value might be rounded
      */
-    @TargetApi(Build.VERSION_CODES.DONUT)
     public static int dpToPixels(@NonNull final Context context, final int dp) {
         ensureNotNull(context, "The context may not be null");
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
@@ -214,7 +207,6 @@ public class DisplayUtil {
      *         The dp value, which should be converted, as an {@link Integer} value
      * @return The calculated pixel value as an {@link Integer} value. The value might be rounded
      */
-    @TargetApi(Build.VERSION_CODES.DONUT)
     public static long dpToPixels(@NonNull final Context context, final long dp) {
         ensureNotNull(context, "The context may not be null");
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
@@ -232,7 +224,6 @@ public class DisplayUtil {
      *         The dp value, which should be converted, as a {@link Float} value
      * @return The calculated pixel value as a {@link Float} value
      */
-    @TargetApi(Build.VERSION_CODES.DONUT)
     public static float dpToPixels(@NonNull final Context context, final float dp) {
         ensureNotNull(context, "The context may not be null");
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
@@ -250,7 +241,6 @@ public class DisplayUtil {
      *         The dp value, which should be converted, as a {@link Double} value
      * @return The calculated pixel value as a {@link Double} value
      */
-    @TargetApi(Build.VERSION_CODES.DONUT)
     public static double dpToPixels(@NonNull final Context context, final double dp) {
         ensureNotNull(context, "The context may not be null");
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
