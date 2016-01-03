@@ -18,12 +18,47 @@ import android.os.Build;
 import android.test.AndroidTestCase;
 import android.util.DisplayMetrics;
 
+import junit.framework.Assert;
+
+import de.mrapp.android.util.DisplayUtil.DeviceType;
+
 /**
  * Tests the functionality of the class {@link DisplayUtil}.
  *
  * @author Michael Rapp
  */
 public class DisplayUtilTest extends AndroidTestCase {
+
+    /**
+     * Tests the functionality of the getValue-method of the enum {@link DeviceType}.
+     */
+    public final void testDeviceTypeGetValue() {
+        assertEquals("phone", DeviceType.PHONE.getValue());
+        assertEquals("phablet", DeviceType.PHABLET.getValue());
+        assertEquals("tablet", DeviceType.TABLET.getValue());
+    }
+
+    /**
+     * Tests the functionality of the fromValue-method of the enum {@link DeviceType}.
+     */
+    public final void testFromValue() {
+        assertEquals(DeviceType.PHONE, DeviceType.fromValue("phone"));
+        assertEquals(DeviceType.PHABLET, DeviceType.fromValue("phablet"));
+        assertEquals(DeviceType.TABLET, DeviceType.fromValue("tablet"));
+    }
+
+    /**
+     * Ensures, that an {@link IllegalArgumentException} is thrown by the fromValue-method of the
+     * enum {@link DeviceType}, if the given value is invalid.
+     */
+    public final void testFromValueThrowsException() {
+        try {
+            DeviceType.fromValue("foo");
+            Assert.fail();
+        } catch (IllegalArgumentException e) {
+
+        }
+    }
 
     /**
      * Tests the functionality of the method, which allows to convert an {@link Integer} value,
