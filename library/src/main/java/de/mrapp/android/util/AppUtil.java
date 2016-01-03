@@ -86,7 +86,7 @@ public final class AppUtil {
      *         The request code, which should be used to pass the captured picture to the given
      *         activity, as an {@link Integer} value
      */
-    public final void startGalleryApp(@NonNull final Activity activity, final int requestCode) {
+    public static void startGalleryApp(@NonNull final Activity activity, final int requestCode) {
         ensureNotNull(activity, "The activity may not be null");
         Intent intent =
                 new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -105,7 +105,7 @@ public final class AppUtil {
      *         {@link File}. The file may not be null. The file must exist and must not be a
      *         directory.
      */
-    public final void startGalleryApp(@NonNull final Activity activity, @NonNull final File file) {
+    public static void startGalleryApp(@NonNull final Activity activity, @NonNull final File file) {
         ensureNotNull(activity, "The activity may not be null");
         ensureNotNull(file, "The file may not be null");
         ensureFileIsNoDirectory(file, "The file must exist and must not be a directory");
@@ -126,7 +126,8 @@ public final class AppUtil {
      *         The URI, which should be shown, as a {@link String}. The URI may neither be null, nor
      *         empty
      */
-    public final void startWebBrowser(@NonNull final Activity activity, @NonNull final String uri) {
+    public static void startWebBrowser(@NonNull final Activity activity,
+                                       @NonNull final String uri) {
         ensureNotNull(uri, "The URI may not be null");
         ensureNotEmpty(uri, "The URI may not be empty");
         startWebBrowser(activity, Uri.parse(
@@ -145,7 +146,7 @@ public final class AppUtil {
      *         The URI, which should be shown, as an instance of the class {@link Uri}. The URI may
      *         not be null
      */
-    public final void startWebBrowser(@NonNull final Activity activity, @NonNull final Uri uri) {
+    public static void startWebBrowser(@NonNull final Activity activity, @NonNull final Uri uri) {
         ensureNotNull(activity, "The activity may not be null");
         ensureNotNull(uri, "The URI may not be null");
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
@@ -163,8 +164,8 @@ public final class AppUtil {
      *         The e-mail address, the e-mail should be sent to, as a {@link String}. The e-mail
      *         address may neither be null, nor empty
      */
-    public final void startMailClient(@NonNull final Activity activity,
-                                      @NonNull final String emailAddress) {
+    public static void startMailClient(@NonNull final Activity activity,
+                                       @NonNull final String emailAddress) {
         ensureNotNull(activity, "The activity may not be null");
         ensureNotNull(emailAddress, "The e-mail address may not be null");
         ensureNotEmpty(emailAddress, "The e-mail address may not be empty");
@@ -185,7 +186,7 @@ public final class AppUtil {
      *         The phone number, which should be called, as an {@link Integer} value
      */
     @RequiresPermission(Manifest.permission.SET_WALLPAPER)
-    public final void startDialer(@NonNull final Activity activity, final int phoneNumber) {
+    public static void startDialer(@NonNull final Activity activity, final int phoneNumber) {
         startDialer(activity, Integer.toString(phoneNumber));
     }
 
@@ -202,7 +203,7 @@ public final class AppUtil {
      *         The phone number, which should be called, as a {@link Long} value
      */
     @RequiresPermission(Manifest.permission.SET_WALLPAPER)
-    public final void startDialer(@NonNull final Activity activity, final long phoneNumber) {
+    public static void startDialer(@NonNull final Activity activity, final long phoneNumber) {
         startDialer(activity, Long.toString(phoneNumber));
     }
 
@@ -221,8 +222,8 @@ public final class AppUtil {
      */
     @RequiresPermission(Manifest.permission.SET_WALLPAPER)
     @SuppressWarnings("ResourceType")
-    public final void startDialer(@NonNull final Activity activity,
-                                  @NonNull final String phoneNumber) {
+    public static void startDialer(@NonNull final Activity activity,
+                                   @NonNull final String phoneNumber) {
         ensureNotNull(activity, "The activity may not be null");
         ensureNotNull(phoneNumber, "The phone number may not be null");
         ensureNotEmpty(phoneNumber, "The phone number may not be empty");
