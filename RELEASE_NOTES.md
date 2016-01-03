@@ -7,7 +7,7 @@ A feature release, which introduces the following features:
 - Added `ensureFileIsNoDirectory`-method to class `Condition`.
 - Added `getDeviceType`-method to class `DisplayUtil`.
 - Added the utility class `AppUtil`, which provides methods, which allow to start system apps.
-- Added the utility class `PermissionUtil`, which provides methods, which allow to handle permissions.
+- Added the utility class `PermissionUtil`, which provides methods, which allow to handle runtime permissions.
 - Removed the annotation `@VisibleForTesting` as the annotation support library provides an identical one.
 - As the library does now depend on the v4 support library, the minimum SDK version has been increased to 4.
 
