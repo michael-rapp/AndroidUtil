@@ -1,5 +1,5 @@
 /*
- * AndroidUtil Copyright 2015 Michael Rapp
+ * AndroidUtil Copyright 2015 - 2016 Michael Rapp
  *
  * This program is free software: you can redistribute it and/or modify it under the terms of the
  * GNU Lesser General Public License as published by the Free Software Foundation, either version 3
@@ -14,7 +14,6 @@
  */
 package de.mrapp.android.util;
 
-import android.os.Build;
 import android.test.AndroidTestCase;
 
 import junit.framework.Assert;
@@ -1247,6 +1246,94 @@ public class ConditionTest extends AndroidTestCase {
             boolean created = file.mkdirs();
             assertTrue(created);
             Condition.ensureFileIsDirectory(file, message, IllegalStateException.class);
+        } finally {
+            file.delete();
+        }
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to ensure that a {@link File} is not a
+     * directory, if the file is a directory.
+     *
+     * @throws IOException
+     *         The exception, which is thrown, if an error occurs while creating the file
+     */
+    public final void testEnsureFileIsNoDirectoryThrowsException() throws IOException {
+        String message = "message";
+        File file = new File(getContext().getFilesDir(), "test");
+
+        try {
+            boolean created = file.mkdirs();
+            assertTrue(created);
+            Condition.ensureFileIsNoDirectory(file, message);
+            Assert.fail();
+        } catch (IllegalArgumentException e) {
+            assertEquals(message, e.getMessage());
+        } finally {
+            file.delete();
+        }
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to ensure that a {@link File} is not a
+     * directory, if the file is not a directory.
+     *
+     * @throws IOException
+     *         The exception, which is thrown, if an error occurs while creating the file
+     */
+    public final void testEnsureFileIsNoDirectoryThrowsNoException() throws IOException {
+        String message = "message";
+        File file = new File(getContext().getFilesDir(), "test");
+
+        try {
+            boolean created = file.createNewFile();
+            assertTrue(created);
+            Condition.ensureFileIsNoDirectory(file, message);
+        } finally {
+            file.delete();
+        }
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to ensure that a {@link File} is not a
+     * directory and expects a class as a parameter, if the file is a directory.
+     *
+     * @throws IOException
+     *         The exception, which is thrown, if an error occurs while creating the file
+     */
+    public final void testEnsureFileIsNoDirectoryWithClassParameterThrowsException()
+            throws IOException {
+        String message = "message";
+        File file = new File(getContext().getFilesDir(), "test");
+
+        try {
+            boolean created = file.mkdirs();
+            assertTrue(created);
+            Condition.ensureFileIsNoDirectory(file, message, IllegalStateException.class);
+            Assert.fail();
+        } catch (IllegalStateException e) {
+            assertEquals(message, e.getMessage());
+        } finally {
+            file.delete();
+        }
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to ensure that a {@link File} is not a
+     * directory and expects a class as a parameter, if the file is not a directory.
+     *
+     * @throws IOException
+     *         The exception, which is thrown, if an error occurs while creating the file
+     */
+    public final void testEnsureFileIsNoDirectoryWithClassParameterThrowsNoException()
+            throws IOException {
+        String message = "message";
+        File file = new File(getContext().getFilesDir(), "test");
+
+        try {
+            boolean created = file.createNewFile();
+            assertTrue(created);
+            Condition.ensureFileIsNoDirectory(file, message, IllegalStateException.class);
         } finally {
             file.delete();
         }

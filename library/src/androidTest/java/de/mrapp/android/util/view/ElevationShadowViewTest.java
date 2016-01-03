@@ -1,5 +1,5 @@
 /*
- * AndroidUtil Copyright 2015 Michael Rapp
+ * AndroidUtil Copyright 2015 - 2016 Michael Rapp
  *
  * This program is free software: you can redistribute it and/or modify it under the terms of the
  * GNU Lesser General Public License as published by the Free Software Foundation, either version 3
@@ -37,7 +37,6 @@ import static de.mrapp.android.util.DisplayUtil.pixelsToDp;
  *
  * @author Michael Rapp
  */
-@TargetApi(Build.VERSION_CODES.CUPCAKE)
 public class ElevationShadowViewTest extends AndroidTestCase {
 
     /**

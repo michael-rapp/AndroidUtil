@@ -1,5 +1,5 @@
 /*
- * AndroidUtil Copyright 2015 Michael Rapp
+ * AndroidUtil Copyright 2015 - 2016 Michael Rapp
  *
  * This program is free software: you can redistribute it and/or modify it under the terms of the
  * GNU Lesser General Public License as published by the Free Software Foundation, either version 3
@@ -18,12 +18,47 @@ import android.os.Build;
 import android.test.AndroidTestCase;
 import android.util.DisplayMetrics;
 
+import junit.framework.Assert;
+
+import de.mrapp.android.util.DisplayUtil.DeviceType;
+
 /**
  * Tests the functionality of the class {@link DisplayUtil}.
  *
  * @author Michael Rapp
  */
 public class DisplayUtilTest extends AndroidTestCase {
+
+    /**
+     * Tests the functionality of the getValue-method of the enum {@link DeviceType}.
+     */
+    public final void testDeviceTypeGetValue() {
+        assertEquals("phone", DeviceType.PHONE.getValue());
+        assertEquals("phablet", DeviceType.PHABLET.getValue());
+        assertEquals("tablet", DeviceType.TABLET.getValue());
+    }
+
+    /**
+     * Tests the functionality of the fromValue-method of the enum {@link DeviceType}.
+     */
+    public final void testFromValue() {
+        assertEquals(DeviceType.PHONE, DeviceType.fromValue("phone"));
+        assertEquals(DeviceType.PHABLET, DeviceType.fromValue("phablet"));
+        assertEquals(DeviceType.TABLET, DeviceType.fromValue("tablet"));
+    }
+
+    /**
+     * Ensures, that an {@link IllegalArgumentException} is thrown by the fromValue-method of the
+     * enum {@link DeviceType}, if the given value is invalid.
+     */
+    public final void testFromValueThrowsException() {
+        try {
+            DeviceType.fromValue("foo");
+            Assert.fail();
+        } catch (IllegalArgumentException e) {
+
+        }
+    }
 
     /**
      * Tests the functionality of the method, which allows to convert an {@link Integer} value,
@@ -50,7 +85,7 @@ public class DisplayUtilTest extends AndroidTestCase {
             try {
                 DisplayUtil.pixelsToDp(null, 0);
             } catch (NullPointerException e) {
-                return;
+
             }
         }
     }
@@ -80,7 +115,7 @@ public class DisplayUtilTest extends AndroidTestCase {
             try {
                 DisplayUtil.pixelsToDp(null, 0L);
             } catch (NullPointerException e) {
-                return;
+
             }
         }
     }
@@ -108,7 +143,7 @@ public class DisplayUtilTest extends AndroidTestCase {
             try {
                 DisplayUtil.pixelsToDp(null, 0f);
             } catch (NullPointerException e) {
-                return;
+
             }
         }
     }
@@ -136,7 +171,7 @@ public class DisplayUtilTest extends AndroidTestCase {
             try {
                 DisplayUtil.pixelsToDp(null, 0d);
             } catch (NullPointerException e) {
-                return;
+
             }
         }
     }
@@ -165,7 +200,7 @@ public class DisplayUtilTest extends AndroidTestCase {
             try {
                 DisplayUtil.dpToPixels(null, 0);
             } catch (NullPointerException e) {
-                return;
+
             }
         }
     }
@@ -194,7 +229,7 @@ public class DisplayUtilTest extends AndroidTestCase {
             try {
                 DisplayUtil.dpToPixels(null, 0L);
             } catch (NullPointerException e) {
-                return;
+
             }
         }
     }
@@ -222,7 +257,7 @@ public class DisplayUtilTest extends AndroidTestCase {
             try {
                 DisplayUtil.dpToPixels(null, 0.0f);
             } catch (NullPointerException e) {
-                return;
+
             }
         }
     }
@@ -250,9 +285,19 @@ public class DisplayUtilTest extends AndroidTestCase {
             try {
                 DisplayUtil.dpToPixels(null, 0.0d);
             } catch (NullPointerException e) {
-                return;
+
             }
         }
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to retrieve the type of the device,
+     * depending on its screen size.
+     */
+    public final void testGetDeviceType() {
+        String value = getContext().getString(R.string.device_type);
+        DeviceType deviceType = DeviceType.fromValue(value);
+        assertEquals(deviceType, DisplayUtil.getDeviceType(getContext()));
     }
 
 }

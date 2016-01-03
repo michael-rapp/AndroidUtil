@@ -1,5 +1,5 @@
 /*
- * AndroidUtil Copyright 2015 Michael Rapp
+ * AndroidUtil Copyright 2015 - 2016 Michael Rapp
  *
  * This program is free software: you can redistribute it and/or modify it under the terms of the
  * GNU Lesser General Public License as published by the Free Software Foundation, either version 3
@@ -1133,6 +1133,49 @@ public final class Condition {
                                              @Nullable final String exceptionMessage,
                                              @NonNull final Class<? extends RuntimeException> exceptionClass) {
         if (!file.isDirectory()) {
+            throwException(exceptionMessage, exceptionClass);
+        }
+    }
+
+    /**
+     * Ensures, that a specific file does exist and is not a directory. Otherwise an {@link
+     * IllegalArgumentException} with a specific message is thrown.
+     *
+     * @param file
+     *         The file, which should be checked, as an instance of the class {@link File}. The file
+     *         may not be null
+     * @param exceptionMessage
+     *         The message of the exception, which is thrown, if the given file is a directory or
+     *         does not exist, as a {@link String} or null, if the exception should not have a
+     *         message
+     */
+    public static void ensureFileIsNoDirectory(@NonNull final File file,
+                                               @Nullable final String exceptionMessage) {
+        if (!file.isFile()) {
+            throw new IllegalArgumentException(exceptionMessage);
+        }
+    }
+
+    /**
+     * Ensures, that a specific file does exist and is not a directory. Otherwise an {@link
+     * IllegalArgumentException} with a specific message is thrown.
+     *
+     * @param file
+     *         The file, which should be checked, as an instance of the class {@link File}. The file
+     *         may not be null
+     * @param exceptionMessage
+     *         The message of the exception, which is thrown, if the given file is a directory or
+     *         does not exist, as a {@link String} or null, if the exception should not have a
+     *         message
+     * @param exceptionClass
+     *         The class of the runtime exception, which should be thrown, if the given file is a
+     *         directory or does not exist, as an instance of the class {@link Class}. The class may
+     *         not be null
+     */
+    public static void ensureFileIsNoDirectory(@NonNull final File file,
+                                               @Nullable final String exceptionMessage,
+                                               @NonNull final Class<? extends RuntimeException> exceptionClass) {
+        if (!file.isFile()) {
             throwException(exceptionMessage, exceptionClass);
         }
     }
