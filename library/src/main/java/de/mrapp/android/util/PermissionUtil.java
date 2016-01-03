@@ -15,7 +15,7 @@ import static de.mrapp.android.util.Condition.ensureNotEmpty;
 import static de.mrapp.android.util.Condition.ensureNotNull;
 
 /**
- * An utility class, which provides static methods, which allow to handle permissions.
+ * An utility class, which provides static methods, which allow to handle runtime permissions.
  *
  * @author Michael Rapp
  * @since 1.3.0
@@ -68,7 +68,7 @@ public final class PermissionUtil {
     }
 
     /**
-     * Creates a new utility class, which provides static methods, which allow to handle
+     * Creates a new utility class, which provides static methods, which allow to handle runtime
      * permissions.
      */
     private PermissionUtil() {
