@@ -37,7 +37,6 @@ import static de.mrapp.android.util.DisplayUtil.pixelsToDp;
  *
  * @author Michael Rapp
  */
-@TargetApi(Build.VERSION_CODES.CUPCAKE)
 public class ElevationShadowViewTest extends AndroidTestCase {
 
     /**

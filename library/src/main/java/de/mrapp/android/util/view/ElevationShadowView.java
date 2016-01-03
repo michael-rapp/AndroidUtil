@@ -39,7 +39,6 @@ import static de.mrapp.android.util.ElevationUtil.createElevationShadow;
  * @author Michael Rapp
  * @since 1.2.2
  */
-@TargetApi(Build.VERSION_CODES.CUPCAKE)
 public class ElevationShadowView extends ImageView {
 
     /**

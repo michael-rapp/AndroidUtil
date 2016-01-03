@@ -15,12 +15,10 @@
 package de.mrapp.android.util;
 
 import android.Manifest;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresPermission;
@@ -61,7 +59,6 @@ public final class AppUtil {
      *         The file, the captured picture should be saved to, as an instance of the class {@link
      *         File}. The file may not be null. The file must exist and must not be a directory.
      */
-    @TargetApi(Build.VERSION_CODES.CUPCAKE)
     public static void startCameraApp(@NonNull final Activity activity, final int requestCode,
                                       @NonNull final File file) {
         ensureNotNull(activity, "The activity may not be null");
