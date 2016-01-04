@@ -1,6 +1,12 @@
 # AndroidSidebar - RELEASE NOTES
 
-## Version 1.3.1 (Jan. 4rd 2016)
+## Version 1.3.2 (Jan. 4th 2016)
+
+A bugfix release, which fixes the following issues:
+
+- Faulty `@RequiresPermission` annotations of the `startDialer`-methods of the class `AppUtil` have been fixed.
+
+## Version 1.3.1 (Jan. 4th 2016)
 
 A minor release, which introduces the following changes:
 
