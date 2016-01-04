@@ -57,7 +57,7 @@ public final class BitmapUtil {
      *
      * @param imageDimensions
      *         A pair, which contains the width and height of the image, which should be
-     *         downsampled, as an instance of the class {@link Pair}. The pair may not be null
+     *         downsampled, as an instance of the class Pair. The pair may not be null
      * @param maxWidth
      *         The maximum width in pixels as an {@link Integer} value. The maximum width must be at
      *         least 1
@@ -448,7 +448,7 @@ public final class BitmapUtil {
      *         class {@link File}. The file may not be null. The file must exist and must not be a
      *         directory
      * @return A pair, which contains the width and height of the given image file, as an instance
-     * of the class {@link Pair}
+     * of the class Pair
      * @throws IOException
      *         The exception, which is thrown, if an error occurs while decoding the image file
      */
@@ -481,7 +481,7 @@ public final class BitmapUtil {
      *         an {@link Integer} value. The resource id must correspond to a valid drawable
      *         resource
      * @return A pair, which contains the width and height of the given image resource, as an
-     * instance of the class {@link Pair}
+     * instance of the class Pair
      * @throws IOException
      *         The exception, which is thrown, if an error occurs while decoding the image resource
      */
