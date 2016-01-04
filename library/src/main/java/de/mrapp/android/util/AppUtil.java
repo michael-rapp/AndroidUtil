@@ -185,7 +185,7 @@ public final class AppUtil {
      * @param phoneNumber
      *         The phone number, which should be called, as an {@link Integer} value
      */
-    @RequiresPermission(Manifest.permission.SET_WALLPAPER)
+    @RequiresPermission(Manifest.permission.CALL_PHONE)
     public static void startDialer(@NonNull final Activity activity, final int phoneNumber) {
         startDialer(activity, Integer.toString(phoneNumber));
     }
@@ -202,7 +202,7 @@ public final class AppUtil {
      * @param phoneNumber
      *         The phone number, which should be called, as a {@link Long} value
      */
-    @RequiresPermission(Manifest.permission.SET_WALLPAPER)
+    @RequiresPermission(Manifest.permission.CALL_PHONE)
     public static void startDialer(@NonNull final Activity activity, final long phoneNumber) {
         startDialer(activity, Long.toString(phoneNumber));
     }
@@ -220,7 +220,7 @@ public final class AppUtil {
      *         The phone number, which should be called, as a {@link String}. The phone number may
      *         neither be null, nor empty
      */
-    @RequiresPermission(Manifest.permission.SET_WALLPAPER)
+    @RequiresPermission(Manifest.permission.CALL_PHONE)
     @SuppressWarnings("ResourceType")
     public static void startDialer(@NonNull final Activity activity,
                                    @NonNull final String phoneNumber) {
