@@ -503,7 +503,7 @@ public final class BitmapUtil {
     }
 
     /**
-     * Loads a small-sized thumbnail of a specific image file while maintaining its aspect ratio.
+     * Loads a downsampled thumbnail of a specific image file while maintaining its aspect ratio.
      *
      * @param file
      *         The image file, which should be loaded, as an instance of the class {@link File}. The
@@ -536,7 +536,7 @@ public final class BitmapUtil {
     }
 
     /**
-     * Loads a small-sized thumbnail of a specific image resource while maintaining its aspect
+     * Loads a downsampled thumbnail of a specific image resource while maintaining its aspect
      * ratio.
      *
      * @param context
