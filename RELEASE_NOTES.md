@@ -1,5 +1,12 @@
 # AndroidSidebar - RELEASE NOTES
 
+## Version 1.3.1 (Jan. 4rd 2016)
+
+A minor release, which introduces the following changes:
+
+- Added `getImageDimension`-methods, which allow to retrieve the width and height of images, to the class `BitmapUtil`.
+- Added `loadThumbnail`-methods, which allow to load downsampled thumbnail of images, to the class `BitmapUtil`.
+
 ## Version 1.3.0 (Jan. 3rd 2016)
 
 A feature release, which introduces the following features:
