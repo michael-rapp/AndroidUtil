@@ -14,7 +14,9 @@
  */
 package de.mrapp.android.util;
 
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -25,9 +27,15 @@ import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
+import android.support.v4.util.Pair;
+
+import java.io.File;
+import java.io.IOException;
 
 import static de.mrapp.android.util.Condition.ensureAtLeast;
+import static de.mrapp.android.util.Condition.ensureFileIsNoDirectory;
 import static de.mrapp.android.util.Condition.ensureNotNull;
 
 /**
@@ -42,6 +50,42 @@ public final class BitmapUtil {
      * The angle of a complete arc.
      */
     private static final int COMPLETE_ARC_ANGLE = 360;
+
+    /**
+     * Calculates the sample size, which should be used to downsample an image to a maximum width
+     * and height.
+     *
+     * @param imageDimensions
+     *         A pair, which contains the width and height of the image, which should be
+     *         downsampled, as an instance of the class {@link Pair}. The pair may not be null
+     * @param maxWidth
+     *         The maximum width in pixels as an {@link Integer} value. The maximum width must be at
+     *         least 1
+     * @param maxHeight
+     *         The maximum height in pixels as an{@link Integer} value. The maximum height must be
+     *         at least 1
+     * @return The sample size, which has been calculated, as an {@link Integer} value
+     */
+    private static int getSampleSize(@NonNull final Pair<Integer, Integer> imageDimensions,
+                                     final int maxWidth, final int maxHeight) {
+        ensureNotNull(imageDimensions, "The image dimensions may not be null");
+        ensureAtLeast(1, maxWidth, "The maximum width must be at least 1");
+        ensureAtLeast(1, maxHeight, "The maximum height must be at least 1");
+        int width = imageDimensions.first;
+        int height = imageDimensions.second;
+        int sampleSize = 1;
+
+        if (width > maxWidth || height > maxHeight) {
+            int halfWidth = width / 2;
+            int halfHeight = height / 2;
+
+            while ((halfWidth / sampleSize) > maxWidth && (halfHeight / sampleSize) > maxHeight) {
+                sampleSize *= 2;
+            }
+        }
+
+        return sampleSize;
+    }
 
     /**
      * Creates a new utility class, which provides static methods, which allow to create and edit
@@ -193,6 +237,7 @@ public final class BitmapUtil {
      *         size must be at least 1
      * @return The clipped bitmap as an instance of the class {@link Bitmap}
      */
+    @SuppressWarnings("SuspiciousNameCombination")
     public static Bitmap clipSquare(@NonNull final Bitmap bitmap, final int size) {
         ensureNotNull(bitmap, "The bitmap may not be null");
         ensureAtLeast(size, 1, "The size must be at least 1");
@@ -393,6 +438,138 @@ public final class BitmapUtil {
         drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
         drawable.draw(canvas);
         return bitmap;
+    }
+
+    /**
+     * Returns the width and height of a specific image file.
+     *
+     * @param file
+     *         The image file, whose width and height should be returned, as an instance of the
+     *         class {@link File}. The file may not be null. The file must exist and must not be a
+     *         directory
+     * @return A pair, which contains the width and height of the given image file, as an instance
+     * of the class {@link Pair}
+     * @throws IOException
+     *         The exception, which is thrown, if an error occurs while decoding the image file
+     */
+    public static Pair<Integer, Integer> getImageDimensions(@NonNull final File file)
+            throws IOException {
+        ensureNotNull(file, "The file may not be null");
+        ensureFileIsNoDirectory(file, "The file must exist and must not be a directory");
+        String path = file.getPath();
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(path, options);
+        int width = options.outWidth;
+        int height = options.outHeight;
+
+        if (width == -1 || height == -1) {
+            throw new IOException("Failed to decode image \"" + path + "\"");
+        }
+
+        return Pair.create(width, height);
+    }
+
+    /**
+     * Returns the width and height of a specific image resource.
+     *
+     * @param context
+     *         The context, which should be used, as an instance of the class {@link Context}. The
+     *         context may not be null
+     * @param resourceId
+     *         The resource id of the image resource, whose width and height should be returned, as
+     *         an {@link Integer} value. The resource id must correspond to a valid drawable
+     *         resource
+     * @return A pair, which contains the width and height of the given image resource, as an
+     * instance of the class {@link Pair}
+     * @throws IOException
+     *         The exception, which is thrown, if an error occurs while decoding the image resource
+     */
+    public static Pair<Integer, Integer> getImageDimensions(@NonNull final Context context,
+                                                            @DrawableRes final int resourceId)
+            throws IOException {
+        ensureNotNull(context, "The context may not be null");
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeResource(context.getResources(), resourceId, options);
+        int width = options.outWidth;
+        int height = options.outHeight;
+
+        if (width == -1 || height == -1) {
+            throw new IOException("Failed to decode image resource with id " + resourceId);
+        }
+
+        return Pair.create(width, height);
+    }
+
+    /**
+     * Loads a small-sized thumbnail of a specific image file while maintaining its aspect ratio.
+     *
+     * @param file
+     *         The image file, which should be loaded, as an instance of the class {@link File}. The
+     *         file may not be null. The file must exist and must not be a directory
+     * @param maxWidth
+     *         The maximum width of the thumbnail in pixels as an {@link Integer} value. The maximum
+     *         width must be at least 1
+     * @param maxHeight
+     *         The maximum height of the thumbnail in pixels as an {@link Integer} value. The
+     *         maximum height must be at least 1
+     * @return The thumbnail, which has been loaded, as an instance of the class {@link Bitmap}
+     * @throws IOException
+     *         The exception, which is thrown, if an error occurs while decoding the image file
+     */
+    public static Bitmap loadThumbnail(@NonNull final File file, final int maxWidth,
+                                       final int maxHeight) throws IOException {
+        Pair<Integer, Integer> imageDimensions = getImageDimensions(file);
+        int sampleSize = getSampleSize(imageDimensions, maxWidth, maxHeight);
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = false;
+        options.inSampleSize = sampleSize;
+        String path = file.getAbsolutePath();
+        Bitmap thumbnail = BitmapFactory.decodeFile(path, options);
+
+        if (thumbnail == null) {
+            throw new IOException("Failed to decode image \"" + path + "\"");
+        }
+
+        return thumbnail;
+    }
+
+    /**
+     * Loads a small-sized thumbnail of a specific image resource while maintaining its aspect
+     * ratio.
+     *
+     * @param context
+     *         The context, which should be used, as an instance of the class {@link Context}. The
+     *         context may not be null
+     * @param resourceId
+     *         The resource id of the image resource, which should be loaded, as an {@link Integer}
+     *         value. The resource id must correspond to a valid drawable resource
+     * @param maxWidth
+     *         The maximum width of the thumbnail in pixels as an {@link Integer} value. The maximum
+     *         width must be at least 1
+     * @param maxHeight
+     *         The maximum height of the thumbnail in pixels as an {@link Integer} value. The
+     *         maximum height must be at least 1
+     * @return The thumbnail, which has been loaded, as an instance of the class {@link Bitmap}
+     * @throws IOException
+     *         The exception, which is thrown, if an error occurs while decoding the image resource
+     */
+    public static Bitmap loadThumbnail(@NonNull Context context, @DrawableRes final int resourceId,
+                                       final int maxWidth, final int maxHeight) throws IOException {
+        Pair<Integer, Integer> imageDimensions = getImageDimensions(context, resourceId);
+        int sampleSize = getSampleSize(imageDimensions, maxWidth, maxHeight);
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = false;
+        options.inSampleSize = sampleSize;
+        Bitmap thumbnail =
+                BitmapFactory.decodeResource(context.getResources(), resourceId, options);
+
+        if (thumbnail == null) {
+            throw new IOException("Failed to decode image resource with id " + resourceId);
+        }
+
+        return thumbnail;
     }
 
 }
