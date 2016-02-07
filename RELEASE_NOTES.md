@@ -1,5 +1,11 @@
 # AndroidSidebar - RELEASE NOTES
 
+## Version 1.4.0 (Feb. 7th 2016)
+
+A feature release, which provides the following changes:
+
+- The class `DragHelper`, which allows to recognize drag gestures have been added.
+
 ## Version 1.3.2 (Jan. 4th 2016)
 
 A bugfix release, which fixes the following issues:
