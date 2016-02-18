@@ -261,4 +261,20 @@ public class DisplayUtil {
         return DeviceType.fromValue(context.getString(R.string.device_type));
     }
 
+    /**
+     * Returns the height of the status bar, which is shown at the top of the display (containing
+     * the clock, battery indicator, etc.).
+     *
+     * @param context
+     *         The context, which should be used, as an instance of the class {@link Context}. The
+     *         context may not be null
+     * @return The height of the status bar in pixels as an {@link Integer} value
+     */
+    public static int getStatusBarHeight(@NonNull final Context context) {
+        ensureNotNull(context, "The context may not be null");
+        int resourceId =
+                context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        return resourceId > 0 ? context.getResources().getDimensionPixelSize(resourceId) : 0;
+    }
+
 }
