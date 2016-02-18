@@ -291,6 +291,14 @@ public class DisplayUtilTest extends AndroidTestCase {
     }
 
     /**
+     * Tests the functionality of the method, which allows to retrieve the orientation of the
+     * device.
+     */
+    public final void testGetOrientation() {
+        assertNotNull(DisplayUtil.getOrientation(getContext()));
+    }
+
+    /**
      * Tests the functionality of the method, which allows to retrieve the type of the device,
      * depending on its screen size.
      */
@@ -301,11 +309,37 @@ public class DisplayUtilTest extends AndroidTestCase {
     }
 
     /**
+     * Tests the functionality of the method, which allows to retrieve the width of the device's
+     * display.
+     */
+    public final void testGetDisplayWidth() {
+        assertTrue(DisplayUtil.getDisplayWidth(getContext()) > 0);
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to retrieve the height of the device's
+     * display.
+     */
+    public final void testGetDisplayHeight() {
+        assertTrue(DisplayUtil.getDisplayWidth(getContext()) > 0);
+    }
+
+    /**
      * Tests the functionality of the method, which allows to retrieve the height of the status
      * bar.
      */
     public final void testGetStatusBarHeight() {
         assertTrue(DisplayUtil.getStatusBarHeight(getContext()) > 0);
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to retrieve the height of the navigation
+     * bar.
+     */
+    public final void testGetNavigationBarHeight() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            assertTrue(DisplayUtil.getNavigationBarHeight(getContext()) >= 0);
+        }
     }
 
 }

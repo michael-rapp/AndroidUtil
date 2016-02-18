@@ -14,10 +14,16 @@
  */
 package de.mrapp.android.util;
 
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.Configuration;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.util.DisplayMetrics;
+import android.view.KeyCharacterMap;
+import android.view.KeyEvent;
+import android.view.ViewConfiguration;
 
 import static de.mrapp.android.util.Condition.ensureNotNull;
 
@@ -29,6 +35,28 @@ import static de.mrapp.android.util.Condition.ensureNotNull;
  * @since 1.0.0
  */
 public class DisplayUtil {
+
+    /**
+     * Contains all possible orientations of devices.
+     */
+    public enum Orientation {
+
+        /**
+         * When the device is in portrait mode.
+         */
+        PORTRAIT,
+
+        /**
+         * When the device is in landscape mode.
+         */
+        LANDSCAPE,
+
+        /**
+         * When the width and height of the device's display are equal.
+         */
+        SQUARE
+
+    }
 
     /**
      * Contains all possible types of devices, depending on their display size.
@@ -248,6 +276,40 @@ public class DisplayUtil {
     }
 
     /**
+     * Returns the orientation of the device.
+     *
+     * @param context
+     *         The context, which should be used, as an instance of the class {@link Context}. The
+     *         context may not be null
+     * @return The orientation of the device as a value of the enum {@link Orientation}. The
+     * orientation may either be <code>PORTRAIT</code>, <code>LANDSCAPE</code> or
+     * <code>SQUARE</code>
+     */
+    public static Orientation getOrientation(@NonNull final Context context) {
+        ensureNotNull(context, "The context may not be null");
+        int orientation = context.getResources().getConfiguration().orientation;
+
+        if (orientation == Configuration.ORIENTATION_UNDEFINED) {
+            int width = getDisplayWidth(context);
+            int height = getDisplayHeight(context);
+
+            if (width > height) {
+                return Orientation.LANDSCAPE;
+            } else if (width < height) {
+                return Orientation.PORTRAIT;
+            } else {
+                return Orientation.SQUARE;
+            }
+        } else if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            return Orientation.LANDSCAPE;
+        } else if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            return Orientation.PORTRAIT;
+        } else {
+            return Orientation.SQUARE;
+        }
+    }
+
+    /**
      * Returns the type of the device, depending on its display size.
      *
      * @param context
@@ -259,6 +321,32 @@ public class DisplayUtil {
     public static DeviceType getDeviceType(@NonNull final Context context) {
         ensureNotNull(context, "The context may not be null");
         return DeviceType.fromValue(context.getString(R.string.device_type));
+    }
+
+    /**
+     * Returns the width of the device's display.
+     *
+     * @param context
+     *         The context, which should be used, as an instance of the class {@link Context}. The
+     *         context may not be null
+     * @return The width of the device's display in pixels as an {@link Integer} value
+     */
+    public static int getDisplayWidth(@NonNull final Context context) {
+        ensureNotNull(context, "The context may not be null");
+        return context.getResources().getDisplayMetrics().widthPixels;
+    }
+
+    /**
+     * Returns the height of the device's display.
+     *
+     * @param context
+     *         The context, which should be used, as an instance of the class {@link Context}. The
+     *         context may not be null
+     * @return The height of the device's display in pixels as an {@link Integer} value
+     */
+    public static int getDisplayHeight(@NonNull final Context context) {
+        ensureNotNull(context, "The context may not be null");
+        return context.getResources().getDisplayMetrics().heightPixels;
     }
 
     /**
@@ -275,6 +363,44 @@ public class DisplayUtil {
         int resourceId =
                 context.getResources().getIdentifier("status_bar_height", "dimen", "android");
         return resourceId > 0 ? context.getResources().getDimensionPixelSize(resourceId) : 0;
+    }
+
+    /**
+     * Returns the height of the navigation bar, which is shown at the bottom of the display
+     * (containing for example back, home and recent apps soft-keys).
+     *
+     * @param context
+     *         The context, which should be used, as an instance of the class {@link Context}. The
+     *         context may not be null
+     * @return The height of the navigation bar in pixels as an {@link Integer} value or 0, if no
+     * navigation bar is shown
+     */
+    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+    public static int getNavigationBarHeight(@NonNull final Context context) {
+        ensureNotNull(context, "The context may not be null");
+        boolean hasMenuKey = ViewConfiguration.get(context).hasPermanentMenuKey();
+        boolean hasBackKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
+
+        if (!hasMenuKey && !hasBackKey) {
+            Orientation orientation = getOrientation(context);
+            int resourceId;
+
+            if (getDeviceType(context) == DeviceType.TABLET) {
+                resourceId = context.getResources().getIdentifier(
+                        orientation == Orientation.PORTRAIT ? "navigation_bar_height" :
+                                "navigation_bar_height_landscape", "dimen", "android");
+            } else {
+                resourceId = context.getResources().getIdentifier(
+                        orientation == Orientation.PORTRAIT ? "navigation_bar_height" :
+                                "navigation_bar_width", "dimen", "android");
+            }
+
+            if (resourceId > 0) {
+                return context.getResources().getDimensionPixelSize(resourceId);
+            }
+        }
+
+        return 0;
     }
 
 }
