@@ -300,4 +300,12 @@ public class DisplayUtilTest extends AndroidTestCase {
         assertEquals(deviceType, DisplayUtil.getDeviceType(getContext()));
     }
 
+    /**
+     * Tests the functionality of the method, which allows to retrieve the height of the status
+     * bar.
+     */
+    public final void testGetStatusBarHeight() {
+        assertTrue(DisplayUtil.getStatusBarHeight(getContext()) > 0);
+    }
+
 }
