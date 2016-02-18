@@ -1,5 +1,11 @@
 # AndroidSidebar - RELEASE NOTES
 
+## Version 1.4.1 (Feb. 18th 2016)
+
+A minor release, which introduces the following changes:
+
+- Added `getStatusBarHeight`-method to the class `DisplayUtil`.
+
 ## Version 1.4.0 (Feb. 7th 2016)
 
 A feature release, which provides the following changes:
