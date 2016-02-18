@@ -1,5 +1,13 @@
 # AndroidSidebar - RELEASE NOTES
 
+## Version 1.4.2 (Feb. 19th 2016)
+
+A minor release, which introduces the following changes:
+
+- Added `getDisplayWidth` and `getDisplayHeight`-methods to the class `DisplayUtil`.
+- Added `getOrientation`-method to the class `DisplayUtil`.
+- Added `getNavigationBarHeight`-method to the class `DisplayUtil`.
+
 ## Version 1.4.1 (Feb. 18th 2016)
 
 A minor release, which introduces the following changes:
