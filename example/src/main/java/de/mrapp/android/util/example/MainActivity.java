@@ -16,7 +16,6 @@ package de.mrapp.android.util.example;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -95,14 +94,6 @@ public class MainActivity extends AppCompatActivity {
      * corner of the elevated view.
      */
     private ElevationShadowView elevationBottomLeft;
-
-    /**
-     * Initializes the activity's toolbar.
-     */
-    private void initializeToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-    }
 
     /**
      * Returns the default elevation.
@@ -194,7 +185,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initializeToolbar();
         elevationSeekBar = (SeekBar) findViewById(R.id.elevation_seek_bar);
         elevationSeekBar.setProgress(getDefaultElevation());
         elevationSeekBar.setOnSeekBarChangeListener(createSeekBarListener());

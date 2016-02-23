@@ -14,141 +14,127 @@ General Public License for more details.
 You should have received a copy of the GNU Lesser General Public License along with this program. If
 not, see <http://www.gnu.org/licenses/>.
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              xmlns:custom="http://schemas.android.com/apk/res-auto"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:custom="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:popupTheme="@style/ToolbarPopupTheme"
-        app:theme="@style/ToolbarTheme"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        tools:ignore="UselessParent">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/elevation_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:orientation="vertical">
+            android:layout_gravity="center_horizontal"
+            android:textAppearance="?android:textAppearanceMedium"/>
 
-            <TextView
-                android:id="@+id/elevation_text_view"
+        <SeekBar
+            android:id="@+id/elevation_seek_bar"
+            android:layout_width="@dimen/shape_size"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="@dimen/elevation_seek_bar_margin"
+            android:max="@integer/max_elevation"/>
+
+        <CheckBox
+            android:id="@+id/parallel_light_check_box"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/parallel_light"
+            android:textColor="?android:textColorSecondary"/>
+
+        <RelativeLayout
+            android:layout_width="@dimen/shape_container_size"
+            android:layout_height="@dimen/shape_container_size">
+
+            <View
+                android:id="@+id/shape"
+                android:layout_width="@dimen/shape_size"
+                android:layout_height="@dimen/shape_size"
+                android:layout_centerInParent="true"
+                android:background="?colorPrimary"/>
+
+            <de.mrapp.android.util.view.ElevationShadowView
+                android:id="@+id/elevation_left"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/shape_size"
+                android:layout_alignTop="@+id/shape"
+                android:layout_toLeftOf="@+id/shape"
+                android:layout_toStartOf="@+id/shape"
+                custom:shadowOrientation="left"/>
+
+            <de.mrapp.android.util.view.ElevationShadowView
+                android:id="@+id/elevation_top_left"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:textAppearance="?android:textAppearanceMedium"/>
+                android:layout_above="@+id/shape"
+                android:layout_toLeftOf="@+id/shape"
+                android:layout_toStartOf="@+id/shape"
+                custom:shadowOrientation="top_left"/>
 
-            <SeekBar
-                android:id="@+id/elevation_seek_bar"
+            <de.mrapp.android.util.view.ElevationShadowView
+                android:id="@+id/elevation_top"
                 android:layout_width="@dimen/shape_size"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="@dimen/elevation_seek_bar_margin"
-                android:max="@integer/max_elevation"/>
+                android:layout_above="@+id/shape"
+                android:layout_alignLeft="@+id/shape"
+                android:layout_alignStart="@+id/shape"
+                custom:shadowOrientation="top"/>
 
-            <CheckBox
-                android:id="@+id/parallel_light_check_box"
+            <de.mrapp.android.util.view.ElevationShadowView
+                android:id="@+id/elevation_top_right"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="@string/parallel_light"
-                android:textColor="?android:textColorSecondary"/>
+                android:layout_above="@+id/shape"
+                android:layout_toEndOf="@+id/shape"
+                android:layout_toRightOf="@+id/shape"
+                custom:shadowOrientation="top_right"/>
 
-            <RelativeLayout
-                android:layout_width="@dimen/shape_container_size"
-                android:layout_height="@dimen/shape_container_size">
+            <de.mrapp.android.util.view.ElevationShadowView
+                android:id="@+id/elevation_right"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/shape_size"
+                android:layout_alignTop="@+id/shape"
+                android:layout_toEndOf="@+id/shape"
+                android:layout_toRightOf="@+id/shape"
+                custom:shadowOrientation="right"/>
 
-                <View
-                    android:id="@+id/shape"
-                    android:layout_width="@dimen/shape_size"
-                    android:layout_height="@dimen/shape_size"
-                    android:layout_centerInParent="true"
-                    android:background="?colorPrimary"/>
+            <de.mrapp.android.util.view.ElevationShadowView
+                android:id="@+id/elevation_bottom_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/shape"
+                android:layout_toEndOf="@+id/shape"
+                android:layout_toRightOf="@+id/shape"
+                custom:shadowOrientation="bottom_right"/>
 
-                <de.mrapp.android.util.view.ElevationShadowView
-                    android:id="@+id/elevation_left"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/shape_size"
-                    android:layout_alignTop="@+id/shape"
-                    android:layout_toLeftOf="@+id/shape"
-                    android:layout_toStartOf="@+id/shape"
-                    custom:shadowOrientation="left"/>
+            <de.mrapp.android.util.view.ElevationShadowView
+                android:id="@+id/elevation_bottom"
+                android:layout_width="@dimen/shape_size"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/shape"
+                android:layout_alignStart="@+id/shape"
+                android:layout_below="@+id/shape"
+                custom:shadowOrientation="bottom"/>
 
-                <de.mrapp.android.util.view.ElevationShadowView
-                    android:id="@+id/elevation_top_left"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_above="@+id/shape"
-                    android:layout_toLeftOf="@+id/shape"
-                    android:layout_toStartOf="@+id/shape"
-                    custom:shadowOrientation="top_left"/>
+            <de.mrapp.android.util.view.ElevationShadowView
+                android:id="@+id/elevation_bottom_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/shape"
+                android:layout_toLeftOf="@+id/shape"
+                android:layout_toStartOf="@+id/shape"
+                custom:shadowOrientation="bottom_left"/>
 
-                <de.mrapp.android.util.view.ElevationShadowView
-                    android:id="@+id/elevation_top"
-                    android:layout_width="@dimen/shape_size"
-                    android:layout_height="wrap_content"
-                    android:layout_above="@+id/shape"
-                    android:layout_alignLeft="@+id/shape"
-                    android:layout_alignStart="@+id/shape"
-                    custom:shadowOrientation="top"/>
+        </RelativeLayout>
 
-                <de.mrapp.android.util.view.ElevationShadowView
-                    android:id="@+id/elevation_top_right"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_above="@+id/shape"
-                    android:layout_toEndOf="@+id/shape"
-                    android:layout_toRightOf="@+id/shape"
-                    custom:shadowOrientation="top_right"/>
+    </LinearLayout>
 
-                <de.mrapp.android.util.view.ElevationShadowView
-                    android:id="@+id/elevation_right"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/shape_size"
-                    android:layout_alignTop="@+id/shape"
-                    android:layout_toEndOf="@+id/shape"
-                    android:layout_toRightOf="@+id/shape"
-                    custom:shadowOrientation="right"/>
-
-                <de.mrapp.android.util.view.ElevationShadowView
-                    android:id="@+id/elevation_bottom_right"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/shape"
-                    android:layout_toEndOf="@+id/shape"
-                    android:layout_toRightOf="@+id/shape"
-                    custom:shadowOrientation="bottom_right"/>
-
-                <de.mrapp.android.util.view.ElevationShadowView
-                    android:id="@+id/elevation_bottom"
-                    android:layout_width="@dimen/shape_size"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/shape"
-                    android:layout_alignStart="@+id/shape"
-                    android:layout_below="@+id/shape"
-                    custom:shadowOrientation="bottom"/>
-
-                <de.mrapp.android.util.view.ElevationShadowView
-                    android:id="@+id/elevation_bottom_left"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/shape"
-                    android:layout_toLeftOf="@+id/shape"
-                    android:layout_toStartOf="@+id/shape"
-                    custom:shadowOrientation="bottom_left"/>
-
-            </RelativeLayout>
-
-        </LinearLayout>
-
-    </RelativeLayout>
-
-</LinearLayout>
+</RelativeLayout>
