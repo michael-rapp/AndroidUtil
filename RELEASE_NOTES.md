@@ -5,7 +5,7 @@
 A minor release, which introduces the following changes:
 
 - The library is from now on distributed under the Apache License version 2.0. 
-- Minor changes have been the example app.
+- Minor changes of the example app.
 
 ## Version 1.4.2 (Feb. 19th 2016)
 
