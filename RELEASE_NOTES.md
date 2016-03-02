@@ -1,5 +1,13 @@
 # AndroidSidebar - RELEASE NOTES
 
+## Version 1.4.4. (Mar. 3rd 2016)
+
+A minor release, which introduces the following changes:
+
+- Added an `ensureNotEmpty`-method, which allows to ensure that an instance of the type `Iterable` is not empty, to the class `Condition`.
+- Added `ensureTrue`- and `ensureFalse`-methods to the class `Condition`.
+- Added the data structure `Triple`.
+
 ## Version 1.4.3 (Feb. 24th 2016)
 
 A minor release, which introduces the following changes:
