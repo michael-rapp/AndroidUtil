@@ -9,6 +9,7 @@
 - The class `ElevationUtil` provides methods, which can be used to emulate elevations of views on pre-Lollipop devices. The view `ElevationShadowView` can be used to easily visualize such an elevation within a layout.
 - The class `AppUtil` provides methods, which allow to start system apps.
 - The class `PermissionUtil` provides methods, which allow to handle runtime permissions.
+- The class `Triple` is a generic data structure, which eases to pass around a triple of three objects.
 
 ## License Agreement
 
