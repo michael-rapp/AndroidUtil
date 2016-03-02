@@ -30,6 +30,98 @@ import java.util.List;
 public class ConditionTest extends AndroidTestCase {
 
     /**
+     * Tests the functionality of the method, which allows to ensure that a boolean expression is
+     * true, if the boolean expression is not true.
+     */
+    public final void testEnsureTrueThrowsException() {
+        String message = "message";
+
+        try {
+            Condition.ensureTrue(false, message);
+            Assert.fail();
+        } catch (IllegalArgumentException e) {
+            assertEquals(message, e.getMessage());
+        }
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to ensure that a boolean expression is
+     * true, if the boolean expression is true.
+     */
+    public final void testEnsureTrueThrowsNoException() {
+        Condition.ensureTrue(true, "message");
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to ensure that a boolean expression is
+     * true and expects a class as a parameter, if the boolean expression is not true.
+     */
+    public final void testEnsureTrueWithClassParameterThrowsException() {
+        String message = "message";
+
+        try {
+            Condition.ensureTrue(false, message, IllegalStateException.class);
+            Assert.fail();
+        } catch (IllegalStateException e) {
+            assertEquals(message, e.getMessage());
+        }
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to ensure that a boolean expression is
+     * true and expects a class as a parameter, if the boolean expression is true.
+     */
+    public final void testEnsureTrueWithClassParameterThrowsNoException() {
+        Condition.ensureTrue(true, "message", IllegalStateException.class);
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to ensure that a boolean expression is
+     * false, if the boolean expression is not false.
+     */
+    public final void testEnsureFalseThrowsException() {
+        String message = "message";
+
+        try {
+            Condition.ensureFalse(true, message);
+            Assert.fail();
+        } catch (IllegalArgumentException e) {
+            assertEquals(message, e.getMessage());
+        }
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to ensure that a boolean expression is
+     * false, if the boolean expression is false.
+     */
+    public final void testEnsureFalseThrowsNoException() {
+        Condition.ensureFalse(false, "message");
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to ensure that a boolean expression is
+     * false and expects a class as a parameter, if the boolean expression is not false.
+     */
+    public final void testEnsureFalseWithClassParameterThrowsException() {
+        String message = "message";
+
+        try {
+            Condition.ensureFalse(true, message, IllegalStateException.class);
+            Assert.fail();
+        } catch (IllegalStateException e) {
+            assertEquals(message, e.getMessage());
+        }
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to ensure that a boolean expression is
+     * false and expects a class as a parameter, if the boolean expression is false.
+     */
+    public final void testEnsureFalseWithClassParameterThrowsNoException() {
+        Condition.ensureFalse(false, "message", IllegalStateException.class);
+    }
+
+    /**
      * Tests the functionality of the method, which allows to ensure that an object is not null, if
      * the object is null.
      */

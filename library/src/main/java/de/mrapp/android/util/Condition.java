@@ -66,6 +66,83 @@ public final class Condition {
     }
 
     /**
+     * Ensures, that a specific boolean expression is true. Otherwise an {@link
+     * IllegalArgumentException} is thrown.
+     *
+     * @param expression
+     *         The boolean expression, which should be checked, as a {@link Boolean} value
+     * @param exceptionMessage
+     *         The message of the exception, which is thrown, if the given boolean expression is not
+     *         true, as a {@link String} or null, if the exception should not have a message
+     */
+    public static void ensureTrue(final boolean expression,
+                                  @Nullable final String exceptionMessage) {
+        if (!expression) {
+            throw new IllegalArgumentException(exceptionMessage);
+        }
+    }
+
+    /**
+     * Ensures, that a specific boolean expression is true, Otherwise a specific {@link
+     * RuntimeException} is thrown.
+     *
+     * @param expression
+     *         The boolean expression, which should be checked, as a {@link Boolean} value
+     * @param exceptionMessage
+     *         The message of the exception, which is thrown, if the given boolean expression is not
+     *         true, as a {@link String} or null, if the exception should not have a message
+     * @param exceptionClass
+     *         The class of the runtime exception, which should be thrown, if the given boolean
+     *         expression is not true, as an instance of the class {@link Class}. The class may not
+     *         be null
+     */
+    public static void ensureTrue(final boolean expression, @Nullable final String exceptionMessage,
+                                  @NonNull final Class<? extends RuntimeException> exceptionClass) {
+        if (!expression) {
+            throwException(exceptionMessage, exceptionClass);
+        }
+    }
+
+    /**
+     * Ensures, that a specific boolean expression is false. Otherwise an {@link
+     * IllegalArgumentException} is thrown.
+     *
+     * @param expression
+     *         The boolean expression, which should be checked, as a {@link Boolean} value
+     * @param exceptionMessage
+     *         The message of the exception, which is thrown, if the given boolean expression is not
+     *         false, as a {@link String} or null, if the exception should not have a message
+     */
+    public static void ensureFalse(final boolean expression,
+                                   @Nullable final String exceptionMessage) {
+        if (expression) {
+            throw new IllegalArgumentException(exceptionMessage);
+        }
+    }
+
+    /**
+     * Ensures, that a specific boolean expression is false, Otherwise a specific {@link
+     * RuntimeException} is thrown.
+     *
+     * @param expression
+     *         The boolean expression, which should be checked, as a {@link Boolean} value
+     * @param exceptionMessage
+     *         The message of the exception, which is thrown, if the given boolean expression is not
+     *         false, as a {@link String} or null, if the exception should not have a message
+     * @param exceptionClass
+     *         The class of the runtime exception, which should be thrown, if the given boolean
+     *         expression is not false, as an instance of the class {@link Class}. The class may not
+     *         be null
+     */
+    public static void ensureFalse(final boolean expression,
+                                   @Nullable final String exceptionMessage,
+                                   @NonNull final Class<? extends RuntimeException> exceptionClass) {
+        if (expression) {
+            throwException(exceptionMessage, exceptionClass);
+        }
+    }
+
+    /**
      * Ensures that an object is not null. Otherwise a {@link NullPointerException} with a specific
      * message is thrown.
      *
