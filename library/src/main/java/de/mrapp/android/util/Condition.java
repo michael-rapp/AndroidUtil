@@ -1058,6 +1058,44 @@ public final class Condition {
     }
 
     /**
+     * Ensures, that a {@link Iterable} is not empty. Otherwise an {@link IllegalArgumentException}
+     * with a specific message is thrown.
+     *
+     * @param iterable
+     *         The iterable, which should be checked, as an instance of the type {@link Iterable}
+     * @param exceptionMessage
+     *         The message of the exception, which is thrown, if the given iterable is empty, as a
+     *         {@link String} or null, if the exception should not have a message
+     */
+    public static void ensureNotEmpty(final Iterable<?> iterable,
+                                      @Nullable final String exceptionMessage) {
+        if (!iterable.iterator().hasNext()) {
+            throw new IllegalArgumentException(exceptionMessage);
+        }
+    }
+
+    /**
+     * Ensures, that a {@link Iterable} is not empty. Otherwise a specific {@link RuntimeException}
+     * is thrown.
+     *
+     * @param iterable
+     *         The iterable, which should be checked, as an instance of the type {@link Iterable}
+     * @param exceptionMessage
+     *         The message of the exception, which is thrown, if the given iterable is empty, as a
+     *         {@link String} or null, if the exception should not have a message
+     * @param exceptionClass
+     *         The class of the runtime exception, which should be thrown, if the given iterable is
+     *         empty, as an instance of hte class {@link Class}. The class may not be null
+     */
+    public static void ensureNotEmpty(final Iterable<?> iterable,
+                                      @Nullable final String exceptionMessage,
+                                      @NonNull final Class<? extends RuntimeException> exceptionClass) {
+        if (!iterable.iterator().hasNext()) {
+            throwException(exceptionMessage, exceptionClass);
+        }
+    }
+
+    /**
      * Ensures, that a specific file exists. Otherwise an {@link IllegalArgumentException} with a
      * specific message is thrown.
      *

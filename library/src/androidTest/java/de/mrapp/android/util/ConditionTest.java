@@ -19,6 +19,8 @@ import junit.framework.Assert;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Tests the functionality of the class {@link Condition}.
@@ -1088,6 +1090,58 @@ public class ConditionTest extends AndroidTestCase {
      */
     public final void testEnsureSmallerWithDoubleAndClassParametersThrowsNoException() {
         Condition.ensureSmaller(0d, 1d, "message", IndexOutOfBoundsException.class);
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to ensure that an {@link Iterable} is not
+     * empty, if the iterable is empty.
+     */
+    public final void testEnsureIterableNotEmptyThrowsException() {
+        String message = "message";
+        List<Object> list = new LinkedList<>();
+
+        try {
+            Condition.ensureNotEmpty(list, message);
+            Assert.fail();
+        } catch (IllegalArgumentException e) {
+            assertEquals(message, e.getMessage());
+        }
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to ensure that an {@link Iterable} is not
+     * empty, if the iterable is not empty.
+     */
+    public final void testEnsureIterableNotEmptyThrowsNoException() {
+        List<Object> list = new LinkedList<>();
+        list.add(new Object());
+        Condition.ensureNotEmpty(list, "message");
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to ensure that an {@link Iterable} is not
+     * empty and expects a class as a parameter, if the iterable is empty.
+     */
+    public final void testEnsureIterableNotEmptyWithClassParameterThrowsException() {
+        String message = "message";
+        List<Object> list = new LinkedList<>();
+
+        try {
+            Condition.ensureNotEmpty(list, message, IllegalStateException.class);
+            Assert.fail();
+        } catch (IllegalStateException e) {
+            assertEquals(message, e.getMessage());
+        }
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to ensure that an {@link Iterable} is not
+     * empty and expects a class as a parameter, if the iterable is not empty.
+     */
+    public final void testEnsureIterableNotEmptyWithClassParameterThrowsNoException() {
+        List<Object> list = new LinkedList<>();
+        list.add(new Object());
+        Condition.ensureNotEmpty(list, "message", IllegalStateException.class);
     }
 
     /**
