@@ -1,5 +1,11 @@
 # AndroidSidebar - RELEASE NOTES
 
+## Version 1.4.5 (Mar. 17th 2016)
+
+A minor release, which introduces the following changes:
+
+- Added the class `ViewUtil`. It provides a `setBackground`-method, which allows to set the background of a view depending on the device's API level.
+
 ## Version 1.4.4. (Mar. 3rd 2016)
 
 A minor release, which introduces the following changes:
