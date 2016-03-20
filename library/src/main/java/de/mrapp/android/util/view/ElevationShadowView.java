@@ -17,6 +17,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build;
+import android.support.annotation.AttrRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
@@ -62,9 +63,19 @@ public class ElevationShadowView extends ImageView {
      * @param attributeSet
      *         The attribute set, the view's attributes should be obtained from, as an instance of
      *         the type {@link AttributeSet}, or null, if no attributes should be obtained
+     * @param defaultStyle
+     *         The default style to apply to this view. If 0, no style will be applied (beyond what
+     *         is included in the theme). This may either be an attribute resource, whose value will
+     *         be retrieved from the current theme, or an explicit style resource
+     * @param defaultStyleResource
+     *         A resource identifier of a style resource that supplies default values for the view,
+     *         used only if the default style is 0 or can not be found in the theme. Can be 0 to not
+     *         look for defaults
      */
-    private void initialize(@Nullable final AttributeSet attributeSet) {
-        obtainStyledAttributes(attributeSet);
+    private void initialize(@Nullable final AttributeSet attributeSet,
+                            @AttrRes final int defaultStyle,
+                            @StyleRes final int defaultStyleResource) {
+        obtainStyledAttributes(attributeSet, defaultStyle, defaultStyleResource);
         adaptElevationShadow();
     }
 
@@ -74,10 +85,21 @@ public class ElevationShadowView extends ImageView {
      * @param attributeSet
      *         The attribute set, the view's attributes should be obtained from, as an instance of
      *         the type {@link AttributeSet} or null, if no attributes should be obtained
+     * @param defaultStyle
+     *         The default style to apply to this view. If 0, no style will be applied (beyond what
+     *         is included in the theme). This may either be an attribute resource, whose value will
+     *         be retrieved from the current theme, or an explicit style resource
+     * @param defaultStyleResource
+     *         A resource identifier of a style resource that supplies default values for the view,
+     *         used only if the default style is 0 or can not be found in the theme. Can be 0 to not
+     *         look for defaults
      */
-    private void obtainStyledAttributes(@Nullable final AttributeSet attributeSet) {
-        TypedArray typedArray =
-                getContext().obtainStyledAttributes(attributeSet, R.styleable.ElevationShadowView);
+    private void obtainStyledAttributes(@Nullable final AttributeSet attributeSet,
+                                        @AttrRes final int defaultStyle,
+                                        @StyleRes final int defaultStyleResource) {
+        TypedArray typedArray = getContext()
+                .obtainStyledAttributes(attributeSet, R.styleable.ElevationShadowView, defaultStyle,
+                        defaultStyleResource);
 
         try {
             obtainShadowElevation(typedArray);
@@ -171,7 +193,7 @@ public class ElevationShadowView extends ImageView {
     public ElevationShadowView(@NonNull final Context context,
                                @Nullable final AttributeSet attributeSet) {
         super(context, attributeSet);
-        initialize(attributeSet);
+        initialize(attributeSet, 0, 0);
     }
 
     /**
@@ -185,15 +207,15 @@ public class ElevationShadowView extends ImageView {
      *         The attribute set, the view's attributes should be obtained from, as an instance of
      *         the type {@link AttributeSet} or null, if no attributes should be obtained
      * @param defaultStyle
-     *         The default style to apply to this preference. If 0, no style will be applied (beyond
-     *         what is included in the theme). This may either be an attribute resource, whose value
-     *         will be retrieved from the current theme, or an explicit style resource
+     *         The default style to apply to this view. If 0, no style will be applied (beyond what
+     *         is included in the theme). This may either be an attribute resource, whose value will
+     *         be retrieved from the current theme, or an explicit style resource
      */
     public ElevationShadowView(@NonNull final Context context,
                                @Nullable final AttributeSet attributeSet,
-                               @StyleRes final int defaultStyle) {
+                               @AttrRes final int defaultStyle) {
         super(context, attributeSet, defaultStyle);
-        initialize(attributeSet);
+        initialize(attributeSet, defaultStyle, 0);
     }
 
     /**
@@ -207,21 +229,21 @@ public class ElevationShadowView extends ImageView {
      *         The attribute set, the view's attributes should be obtained from, as an instance of
      *         the type {@link AttributeSet} or null, if no attributes should be obtained
      * @param defaultStyle
-     *         The default style to apply to this preference. If 0, no style will be applied (beyond
-     *         what is included in the theme). This may either be an attribute resource, whose value
-     *         will be retrieved from the current theme, or an explicit style resource
+     *         The default style to apply to this view. If 0, no style will be applied (beyond what
+     *         is included in the theme). This may either be an attribute resource, whose value will
+     *         be retrieved from the current theme, or an explicit style resource
      * @param defaultStyleResource
-     *         A resource identifier of a style resource that supplies default values for the
-     *         preference, used only if the default style is 0 or can not be found in the theme. Can
-     *         be 0 to not look for defaults
+     *         A resource identifier of a style resource that supplies default values for the view,
+     *         used only if the default style is 0 or can not be found in the theme. Can be 0 to not
+     *         look for defaults
      */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public ElevationShadowView(@NonNull final Context context,
                                @Nullable final AttributeSet attributeSet,
-                               @StyleRes final int defaultStyle,
+                               @AttrRes final int defaultStyle,
                                @StyleRes final int defaultStyleResource) {
         super(context, attributeSet, defaultStyle, defaultStyleResource);
-        initialize(attributeSet);
+        initialize(attributeSet, defaultStyle, defaultStyleResource);
     }
 
     /**

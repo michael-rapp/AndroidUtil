@@ -21,6 +21,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.annotation.AttrRes;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -80,12 +81,22 @@ public class ScrimInsetsLayout extends FrameLayout {
      * @param attributeSet
      *         The attribute set, the attributes should be obtained from, as an instance of the type
      *         {@link AttributeSet}, or null, if no attributes should be obtained
+     * @param defaultStyle
+     *         The default style to apply to this view. If 0, no style will be applied (beyond what
+     *         is included in the theme). This may either be an attribute resource, whose value will
+     *         be retrieved from the current theme, or an explicit style resource
+     * @param defaultStyleResource
+     *         A resource identifier of a style resource that supplies default values for the view,
+     *         used only if the default style is 0 or can not be found in the theme. Can be 0 to not
+     *         look for defaults
      */
-    private void initialize(@Nullable final AttributeSet attributeSet) {
+    private void initialize(@Nullable final AttributeSet attributeSet,
+                            @AttrRes final int defaultStyle,
+                            @StyleRes final int defaultStyleResource) {
         this.insets = null;
         this.callback = null;
         setWillNotDraw(true);
-        obtainStyledAttributes(attributeSet);
+        obtainStyledAttributes(attributeSet, defaultStyle, defaultStyleResource);
     }
 
     /**
@@ -94,11 +105,22 @@ public class ScrimInsetsLayout extends FrameLayout {
      * @param attributeSet
      *         The attribute set, the view's attributes should be obtained from, as an instance of
      *         the type {@link AttributeSet} or null, if no attributes should be obtained
+     * @param defaultStyle
+     *         The default style to apply to this view. If 0, no style will be applied (beyond what
+     *         is included in the theme). This may either be an attribute resource, whose value will
+     *         be retrieved from the current theme, or an explicit style resource
+     * @param defaultStyleResource
+     *         A resource identifier of a style resource that supplies default values for the view,
+     *         used only if the default style is 0 or can not be found in the theme. Can be 0 to not
+     *         look for defaults
      */
-    private void obtainStyledAttributes(@Nullable final AttributeSet attributeSet) {
+    private void obtainStyledAttributes(@Nullable final AttributeSet attributeSet,
+                                        @AttrRes final int defaultStyle,
+                                        @StyleRes final int defaultStyleResource) {
         if (attributeSet != null) {
             TypedArray typedArray = getContext()
-                    .obtainStyledAttributes(attributeSet, R.styleable.ScrimInsetsLayout);
+                    .obtainStyledAttributes(attributeSet, R.styleable.ScrimInsetsLayout,
+                            defaultStyle, defaultStyleResource);
 
             try {
                 obtainInsetForeground(typedArray);
@@ -155,8 +177,7 @@ public class ScrimInsetsLayout extends FrameLayout {
      *         Context}. The context may not be null
      */
     public ScrimInsetsLayout(@NonNull final Context context) {
-        super(context);
-        initialize(null);
+        this(context, null);
     }
 
     /**
@@ -173,7 +194,7 @@ public class ScrimInsetsLayout extends FrameLayout {
     public ScrimInsetsLayout(@NonNull final Context context,
                              @Nullable final AttributeSet attributeSet) {
         super(context, attributeSet);
-        initialize(attributeSet);
+        initialize(attributeSet, 0, 0);
     }
 
     /**
@@ -193,9 +214,9 @@ public class ScrimInsetsLayout extends FrameLayout {
      */
     public ScrimInsetsLayout(@NonNull final Context context,
                              @Nullable final AttributeSet attributeSet,
-                             @StyleRes final int defaultStyle) {
+                             @AttrRes final int defaultStyle) {
         super(context, attributeSet, defaultStyle);
-        initialize(attributeSet);
+        initialize(attributeSet, defaultStyle, 0);
     }
 
     /**
@@ -220,10 +241,10 @@ public class ScrimInsetsLayout extends FrameLayout {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public ScrimInsetsLayout(@NonNull final Context context,
                              @Nullable final AttributeSet attributeSet,
-                             @StyleRes final int defaultStyle,
+                             @AttrRes final int defaultStyle,
                              @StyleRes final int defaultStyleResource) {
         super(context, attributeSet, defaultStyle);
-        initialize(attributeSet);
+        initialize(attributeSet, defaultStyle, defaultStyleResource);
     }
 
     /**
