@@ -30,4 +30,8 @@ License.
         <attr name="emulateParallelLight" format="boolean"/>
     </declare-styleable>
 
+    <declare-styleable name="ScrimInsetsLayout">
+        <attr name="insetForeground" format="reference|color"/>
+    </declare-styleable>
+
 </resources>
