@@ -1,5 +1,12 @@
 # AndroidSidebar - RELEASE NOTES
 
+## Version 1.4.6 (Mar. 20th 2016)
+
+A minor release, which introduces the following changes:
+
+- Added the view `SquareImageView`. It implements an `ImageView` whose height is enforced to be equal to its width.
+- Added the view `ScrimInsetsLayout`.It implements a layout, which allows to show a `Drawable` in the insets, which are passed to its `fitSystemWindows`-method.
+
 ## Version 1.4.5 (Mar. 17th 2016)
 
 A minor release, which introduces the following changes:
