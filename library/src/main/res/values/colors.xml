@@ -15,6 +15,6 @@ License.
 -->
 <resources>
 
-    <color name="scrim_insets_layout_insets_foreground_default_value">#40000000</color>
+    <color name="scrim_insets_layout_insets_drawable_default_value">#40000000</color>
 
 </resources>

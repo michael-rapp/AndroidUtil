@@ -31,7 +31,7 @@ License.
     </declare-styleable>
 
     <declare-styleable name="ScrimInsetsLayout">
-        <attr name="insetForeground" format="reference|color"/>
+        <attr name="insetDrawable" format="reference|color"/>
     </declare-styleable>
 
 </resources>

@@ -63,7 +63,7 @@ public class ScrimInsetsLayout extends FrameLayout {
     /**
      * The drawable, which is shown in the layout's insets.
      */
-    private Drawable insetForeground;
+    private Drawable insetDrawable;
 
     /**
      * The layout's current insets.
@@ -139,20 +139,19 @@ public class ScrimInsetsLayout extends FrameLayout {
      *         {@link TypedArray}. The typed array may not be null
      */
     private void obtainInsetForeground(@NonNull final TypedArray typedArray) {
-        int color = typedArray.getColor(R.styleable.ScrimInsetsLayout_insetForeground, -1);
+        int color = typedArray.getColor(R.styleable.ScrimInsetsLayout_insetDrawable, -1);
 
         if (color == -1) {
-            Drawable drawable =
-                    typedArray.getDrawable(R.styleable.ScrimInsetsLayout_insetForeground);
+            Drawable drawable = typedArray.getDrawable(R.styleable.ScrimInsetsLayout_insetDrawable);
 
             if (drawable != null) {
-                setInsetForeground(drawable);
+                setInsetDrawable(drawable);
             } else {
-                setInsetForegroundColor(ContextCompat.getColor(getContext(),
-                        R.color.scrim_insets_layout_insets_foreground_default_value));
+                setInsetColor(ContextCompat.getColor(getContext(),
+                        R.color.scrim_insets_layout_insets_drawable_default_value));
             }
         } else {
-            setInsetForegroundColor(color);
+            setInsetColor(color);
         }
     }
 
@@ -264,8 +263,8 @@ public class ScrimInsetsLayout extends FrameLayout {
      * @return The drawable, which is shown in the layout's insets, as an instance of the class
      * {@link Drawable}, or null, if no drawable is shown
      */
-    public final Drawable getInsetForeground() {
-        return insetForeground;
+    public final Drawable getInsetDrawable() {
+        return insetDrawable;
     }
 
     /**
@@ -275,8 +274,8 @@ public class ScrimInsetsLayout extends FrameLayout {
      *         The drawable, which should be set, as an instance of the class {@link Drawable}, or
      *         null, if no drawable should be set
      */
-    public final void setInsetForeground(@Nullable final Drawable insetForeground) {
-        this.insetForeground = insetForeground;
+    public final void setInsetDrawable(@Nullable final Drawable insetForeground) {
+        this.insetDrawable = insetForeground;
         invalidate();
     }
 
@@ -286,8 +285,8 @@ public class ScrimInsetsLayout extends FrameLayout {
      * @param color
      *         The color, which should be set, as an {@link Integer} value
      */
-    public final void setInsetForegroundColor(@ColorInt final int color) {
-        setInsetForeground(new ColorDrawable(color));
+    public final void setInsetColor(@ColorInt final int color) {
+        setInsetDrawable(new ColorDrawable(color));
     }
 
     /**
@@ -305,18 +304,18 @@ public class ScrimInsetsLayout extends FrameLayout {
         int width = getWidth();
         int height = getHeight();
 
-        if (insets != null && insetForeground != null) {
+        if (insets != null && insetDrawable != null) {
             int saveCount = canvas.save();
             canvas.translate(getScrollX(), getScrollY());
-            insetForeground.setBounds(0, 0, width, insets.top);
-            insetForeground.draw(canvas);
-            insetForeground.setBounds(0, height - insets.bottom, width, height);
-            insetForeground.draw(canvas);
-            insetForeground.setBounds(0, insets.top, insets.left, height - insets.bottom);
-            insetForeground.draw(canvas);
-            insetForeground
+            insetDrawable.setBounds(0, 0, width, insets.top);
+            insetDrawable.draw(canvas);
+            insetDrawable.setBounds(0, height - insets.bottom, width, height);
+            insetDrawable.draw(canvas);
+            insetDrawable.setBounds(0, insets.top, insets.left, height - insets.bottom);
+            insetDrawable.draw(canvas);
+            insetDrawable
                     .setBounds(width - insets.right, insets.top, width, height - insets.bottom);
-            insetForeground.draw(canvas);
+            insetDrawable.draw(canvas);
             canvas.restoreToCount(saveCount);
         }
     }
@@ -325,7 +324,7 @@ public class ScrimInsetsLayout extends FrameLayout {
     @Override
     protected boolean fitSystemWindows(final Rect insets) {
         this.insets = new Rect(insets);
-        setWillNotDraw(insetForeground == null);
+        setWillNotDraw(insetDrawable == null);
         ViewCompat.postInvalidateOnAnimation(this);
         notifyOnInsetsChanged(insets);
         return true;
@@ -335,8 +334,8 @@ public class ScrimInsetsLayout extends FrameLayout {
     protected final void onAttachedToWindow() {
         super.onAttachedToWindow();
 
-        if (insetForeground != null) {
-            insetForeground.setCallback(this);
+        if (insetDrawable != null) {
+            insetDrawable.setCallback(this);
         }
     }
 
@@ -344,8 +343,8 @@ public class ScrimInsetsLayout extends FrameLayout {
     protected final void onDetachedFromWindow() {
         super.onDetachedFromWindow();
 
-        if (insetForeground != null) {
-            insetForeground.setCallback(null);
+        if (insetDrawable != null) {
+            insetDrawable.setCallback(null);
         }
     }
 
