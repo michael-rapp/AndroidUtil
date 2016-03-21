@@ -1,5 +1,11 @@
 # AndroidSidebar - RELEASE NOTES
 
+## Version 1.4.7 (Mar. 21th 2016)
+
+A minor release, which introduces the following changes:
+
+- Renamed styled attribute "insetForeground" of the view `ScrimInsetsLayout` to "insetDrawable", because it conflicted with the Design support library.
+
 ## Version 1.4.6 (Mar. 20th 2016)
 
 A minor release, which introduces the following changes:
