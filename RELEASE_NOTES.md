@@ -4,6 +4,7 @@
 
 A minor release, which introduces the following changes:
 
+- Added the class `ThemeUtil`, which allows to obtain theme attributes.
 - Added `ensureEqual`- and `ensureNotEqual`-methods to the class `Condition`.
 
 ## Version 1.4.7 (Mar. 21th 2016)
