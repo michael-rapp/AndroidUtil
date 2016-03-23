@@ -122,6 +122,100 @@ public class ConditionTest extends AndroidTestCase {
     }
 
     /**
+     * Tests the functionality of the method, which allows to ensure that two objects are equal, if
+     * the objects are not equal.
+     */
+    public final void testEnsureEqualThrowsException1() {
+        String message = "message";
+
+        try {
+            Condition.ensureEqual("foo", "bar", message);
+            Assert.fail();
+        } catch (IllegalArgumentException e) {
+            assertEquals(message, e.getMessage());
+        }
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to ensure that two objects are equal, if
+     * the objects are not equal.
+     */
+    public final void testEnsureEqualThrowsException2() {
+        String message = "message";
+
+        try {
+            Condition.ensureEqual(null, "bar", message);
+            Assert.fail();
+        } catch (IllegalArgumentException e) {
+            assertEquals(message, e.getMessage());
+        }
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to ensure that two objects are equal, if
+     * the objects are not equal.
+     */
+    public final void testEnsureEqualThrowsException3() {
+        String message = "message";
+
+        try {
+            Condition.ensureEqual("foo", null, message);
+            Assert.fail();
+        } catch (IllegalArgumentException e) {
+            assertEquals(message, e.getMessage());
+        }
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to ensure that two objects are equal, if
+     * the objects are equal.
+     */
+    public final void testEnsureEqualThrowsNoException() {
+        Condition.ensureEqual("foo", "foo", "message");
+        Condition.ensureEqual(null, null, "message");
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to ensure that two objects are not equal,
+     * if the objects are equal.
+     */
+    public final void testEnsureNotEqualThrowsException1() {
+        String message = "message";
+
+        try {
+            Condition.ensureNotEqual("foo", "foo", message);
+            Assert.fail();
+        } catch (IllegalArgumentException e) {
+            assertEquals(message, e.getMessage());
+        }
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to ensure that two objects are not equal,
+     * if the objects are equal.
+     */
+    public final void testEnsureNotEqualThrowsException2() {
+        String message = "message";
+
+        try {
+            Condition.ensureNotEqual(null, null, message);
+            Assert.fail();
+        } catch (IllegalArgumentException e) {
+            assertEquals(message, e.getMessage());
+        }
+    }
+
+    /**
+     * Tests the functionality of the method, which allows to ensure that two objects are not equal,
+     * if the objects are not equal.
+     */
+    public final void testEnsureNotEqualThrowsNoException() {
+        Condition.ensureNotEqual(false, "foo", "bar");
+        Condition.ensureNotEqual(false, "foo", null);
+        Condition.ensureNotEqual(false, null, "bar");
+    }
+
+    /**
      * Tests the functionality of the method, which allows to ensure that an object is not null, if
      * the object is null.
      */

@@ -77,13 +77,11 @@ public final class Condition {
      */
     public static void ensureTrue(final boolean expression,
                                   @Nullable final String exceptionMessage) {
-        if (!expression) {
-            throw new IllegalArgumentException(exceptionMessage);
-        }
+        ensureTrue(expression, exceptionMessage, IllegalArgumentException.class);
     }
 
     /**
-     * Ensures, that a specific boolean expression is true, Otherwise a specific {@link
+     * Ensures, that a specific boolean expression is true. Otherwise a specific {@link
      * RuntimeException} is thrown.
      *
      * @param expression
@@ -115,13 +113,11 @@ public final class Condition {
      */
     public static void ensureFalse(final boolean expression,
                                    @Nullable final String exceptionMessage) {
-        if (expression) {
-            throw new IllegalArgumentException(exceptionMessage);
-        }
+        ensureFalse(expression, exceptionMessage, IllegalArgumentException.class);
     }
 
     /**
-     * Ensures, that a specific boolean expression is false, Otherwise a specific {@link
+     * Ensures, that a specific boolean expression is false. Otherwise a specific {@link
      * RuntimeException} is thrown.
      *
      * @param expression
@@ -143,6 +139,86 @@ public final class Condition {
     }
 
     /**
+     * Ensures, that two objects are equal. Otherwise an {@link IllegalArgumentException} is
+     * thrown.
+     *
+     * @param object1
+     *         The first object as an instance of the class {@link Object}
+     * @param object2
+     *         The second object as an instance of the class {@link Object}
+     * @param exceptionMessage
+     *         The message of the exception, which is thrown, if the given objects are not equal, as
+     *         a {@link String} or null, if the exception should not have a message
+     */
+    public static void ensureEqual(final Object object1, final Object object2,
+                                   @Nullable final String exceptionMessage) {
+        ensureEqual(object1, object2, exceptionMessage, IllegalArgumentException.class);
+    }
+
+    /**
+     * Ensures, that two objects are equal. Otherwise a specific {@link RuntimeException} is
+     * thrown.
+     *
+     * @param object1
+     *         The first object as an instance of the class {@link Object}
+     * @param object2
+     *         The second object as an instance of the class {@link Object}
+     * @param exceptionMessage
+     *         The message of the exception, which is thrown, if the given objects are not equal, as
+     *         a {@link String} or null, if the exception should not have a message
+     * @param exceptionClass
+     *         The class of the runtime exception, which should be thrown, if the objects are not
+     *         equal, as an instance of the class {@link Class}. The class may not be null
+     */
+    public static void ensureEqual(final Object object1, final Object object2,
+                                   @Nullable final String exceptionMessage,
+                                   @NonNull final Class<? extends RuntimeException> exceptionClass) {
+        if (object1 == null && object2 != null || object1 != null && !object1.equals(object2)) {
+            throwException(exceptionMessage, exceptionClass);
+        }
+    }
+
+    /**
+     * Ensures, that two objects are not equal. Otherwise an {@link IllegalArgumentException} is
+     * thrown.
+     *
+     * @param object1
+     *         The first object as an instance of the class {@link Object}
+     * @param object2
+     *         The second object as an instance of the class {@link Object}
+     * @param exceptionMessage
+     *         The message of the exception, which is thrown, if the given objects are equal, as a
+     *         {@link String} or null, if the exception should not have a message
+     */
+    public static void ensureNotEqual(final Object object1, final Object object2,
+                                      @Nullable final String exceptionMessage) {
+        ensureNotEqual(object1, object2, exceptionMessage, IllegalArgumentException.class);
+    }
+
+    /**
+     * Ensures, that two objects are not equal. Otherwise a specific {@link RuntimeException} is
+     * thrown.
+     *
+     * @param object1
+     *         The first object as an instance of the class {@link Object}
+     * @param object2
+     *         The second object as an instance of the class {@link Object}
+     * @param exceptionMessage
+     *         The message of the exception, which is thrown, if the given objects are equal, as a
+     *         {@link String} or null, if the exception should not have a message
+     * @param exceptionClass
+     *         The class of the runtime exception, which should be thrown, if the objects are equal,
+     *         as an instance of the class {@link Class}. The class may not be null
+     */
+    public static void ensureNotEqual(final Object object1, final Object object2,
+                                      @Nullable final String exceptionMessage,
+                                      @NonNull final Class<? extends RuntimeException> exceptionClass) {
+        if (object1 == null && object2 == null || object1 != null && object1.equals(object2)) {
+            throwException(exceptionMessage, exceptionClass);
+        }
+    }
+
+    /**
      * Ensures that an object is not null. Otherwise a {@link NullPointerException} with a specific
      * message is thrown.
      *
@@ -153,9 +229,7 @@ public final class Condition {
      *         {@link String} or null, if the exception should not have a message
      */
     public static void ensureNotNull(final Object object, @Nullable final String exceptionMessage) {
-        if (object == null) {
-            throw new NullPointerException(exceptionMessage);
-        }
+        ensureNotNull(object, exceptionMessage, NullPointerException.class);
     }
 
     /**
@@ -189,9 +263,7 @@ public final class Condition {
      */
     public static void ensureNotEmpty(final CharSequence text,
                                       @Nullable final String exceptionMessage) {
-        if (TextUtils.isEmpty(text)) {
-            throw new IllegalArgumentException(exceptionMessage);
-        }
+        ensureNotEmpty(text, exceptionMessage, IllegalArgumentException.class);
     }
 
     /**
@@ -230,9 +302,7 @@ public final class Condition {
      */
     public static void ensureAtLeast(final short value, final short referenceValue,
                                      @Nullable final String exceptionMessage) {
-        if (value < referenceValue) {
-            throw new IllegalArgumentException(exceptionMessage);
-        }
+        ensureAtLeast(value, referenceValue, exceptionMessage, IllegalArgumentException.class);
     }
 
     /**
@@ -277,9 +347,7 @@ public final class Condition {
      */
     public static void ensureAtLeast(final int value, final int referenceValue,
                                      @Nullable final String exceptionMessage) {
-        if (value < referenceValue) {
-            throw new IllegalArgumentException(exceptionMessage);
-        }
+        ensureAtLeast(value, referenceValue, exceptionMessage, IllegalArgumentException.class);
     }
 
     /**
@@ -324,9 +392,7 @@ public final class Condition {
      */
     public static void ensureAtLeast(final long value, final long referenceValue,
                                      @Nullable final String exceptionMessage) {
-        if (value < referenceValue) {
-            throw new IllegalArgumentException(exceptionMessage);
-        }
+        ensureAtLeast(value, referenceValue, exceptionMessage, IllegalArgumentException.class);
     }
 
     /**
@@ -371,9 +437,7 @@ public final class Condition {
      */
     public static void ensureAtLeast(final float value, final float referenceValue,
                                      @Nullable final String exceptionMessage) {
-        if (value < referenceValue) {
-            throw new IllegalArgumentException(exceptionMessage);
-        }
+        ensureAtLeast(value, referenceValue, exceptionMessage, IllegalArgumentException.class);
     }
 
     /**
@@ -418,9 +482,7 @@ public final class Condition {
      */
     public static void ensureAtLeast(final double value, final double referenceValue,
                                      @Nullable final String exceptionMessage) {
-        if (value < referenceValue) {
-            throw new IllegalArgumentException(exceptionMessage);
-        }
+        ensureAtLeast(value, referenceValue, exceptionMessage, IllegalArgumentException.class);
     }
 
     /**
@@ -465,9 +527,7 @@ public final class Condition {
      */
     public static void ensureAtMaximum(final short value, final short referenceValue,
                                        @Nullable final String exceptionMessage) {
-        if (value > referenceValue) {
-            throw new IllegalArgumentException(exceptionMessage);
-        }
+        ensureAtMaximum(value, referenceValue, exceptionMessage, IllegalArgumentException.class);
     }
 
     /**
@@ -512,9 +572,7 @@ public final class Condition {
      */
     public static void ensureAtMaximum(final int value, final int referenceValue,
                                        @Nullable final String exceptionMessage) {
-        if (value > referenceValue) {
-            throw new IllegalArgumentException(exceptionMessage);
-        }
+        ensureAtMaximum(value, referenceValue, exceptionMessage, IllegalArgumentException.class);
     }
 
     /**
@@ -559,9 +617,7 @@ public final class Condition {
      */
     public static void ensureAtMaximum(final long value, final long referenceValue,
                                        @Nullable final String exceptionMessage) {
-        if (value > referenceValue) {
-            throw new IllegalArgumentException(exceptionMessage);
-        }
+        ensureAtMaximum(value, referenceValue, exceptionMessage, IllegalArgumentException.class);
     }
 
     /**
@@ -606,9 +662,7 @@ public final class Condition {
      */
     public static void ensureAtMaximum(final float value, final float referenceValue,
                                        @Nullable final String exceptionMessage) {
-        if (value > referenceValue) {
-            throw new IllegalArgumentException(exceptionMessage);
-        }
+        ensureAtMaximum(value, referenceValue, exceptionMessage, IllegalArgumentException.class);
     }
 
     /**
@@ -653,9 +707,7 @@ public final class Condition {
      */
     public static void ensureAtMaximum(final double value, final double referenceValue,
                                        @Nullable final String exceptionMessage) {
-        if (value > referenceValue) {
-            throw new IllegalArgumentException(exceptionMessage);
-        }
+        ensureAtMaximum(value, referenceValue, exceptionMessage, IllegalArgumentException.class);
     }
 
     /**
@@ -699,9 +751,7 @@ public final class Condition {
      */
     public static void ensureGreater(final short value, final short referenceValue,
                                      @Nullable final String exceptionMessage) {
-        if (value <= referenceValue) {
-            throw new IllegalArgumentException(exceptionMessage);
-        }
+        ensureGreater(value, referenceValue, exceptionMessage, IllegalArgumentException.class);
     }
 
     /**
@@ -744,9 +794,7 @@ public final class Condition {
      */
     public static void ensureGreater(final int value, final int referenceValue,
                                      @Nullable final String exceptionMessage) {
-        if (value <= referenceValue) {
-            throw new IllegalArgumentException(exceptionMessage);
-        }
+        ensureGreater(value, referenceValue, exceptionMessage, IllegalArgumentException.class);
     }
 
     /**
@@ -789,9 +837,7 @@ public final class Condition {
      */
     public static void ensureGreater(final long value, final long referenceValue,
                                      @Nullable final String exceptionMessage) {
-        if (value <= referenceValue) {
-            throw new IllegalArgumentException(exceptionMessage);
-        }
+        ensureGreater(value, referenceValue, exceptionMessage, IllegalArgumentException.class);
     }
 
     /**
@@ -834,9 +880,7 @@ public final class Condition {
      */
     public static void ensureGreater(final float value, final float referenceValue,
                                      @Nullable final String exceptionMessage) {
-        if (value <= referenceValue) {
-            throw new IllegalArgumentException(exceptionMessage);
-        }
+        ensureGreater(value, referenceValue, exceptionMessage, IllegalArgumentException.class);
     }
 
     /**
@@ -879,9 +923,7 @@ public final class Condition {
      */
     public static void ensureGreater(final double value, final double referenceValue,
                                      @Nullable final String exceptionMessage) {
-        if (value <= referenceValue) {
-            throw new IllegalArgumentException(exceptionMessage);
-        }
+        ensureGreater(value, referenceValue, exceptionMessage, IllegalArgumentException.class);
     }
 
     /**
@@ -924,9 +966,7 @@ public final class Condition {
      */
     public static void ensureSmaller(final short value, final short referenceValue,
                                      @Nullable final String exceptionMessage) {
-        if (value >= referenceValue) {
-            throw new IllegalArgumentException(exceptionMessage);
-        }
+        ensureSmaller(value, referenceValue, exceptionMessage, IllegalArgumentException.class);
     }
 
     /**
@@ -969,9 +1009,7 @@ public final class Condition {
      */
     public static void ensureSmaller(final int value, final int referenceValue,
                                      @Nullable final String exceptionMessage) {
-        if (value >= referenceValue) {
-            throw new IllegalArgumentException(exceptionMessage);
-        }
+        ensureSmaller(value, referenceValue, exceptionMessage, IllegalArgumentException.class);
     }
 
     /**
@@ -1014,9 +1052,7 @@ public final class Condition {
      */
     public static void ensureSmaller(final long value, final long referenceValue,
                                      @Nullable final String exceptionMessage) {
-        if (value >= referenceValue) {
-            throw new IllegalArgumentException(exceptionMessage);
-        }
+        ensureSmaller(value, referenceValue, exceptionMessage, IllegalArgumentException.class);
     }
 
     /**
@@ -1059,9 +1095,7 @@ public final class Condition {
      */
     public static void ensureSmaller(final float value, final float referenceValue,
                                      @Nullable final String exceptionMessage) {
-        if (value >= referenceValue) {
-            throw new IllegalArgumentException(exceptionMessage);
-        }
+        ensureSmaller(value, referenceValue, exceptionMessage, IllegalArgumentException.class);
     }
 
     /**
@@ -1104,9 +1138,7 @@ public final class Condition {
      */
     public static void ensureSmaller(final double value, final double referenceValue,
                                      @Nullable final String exceptionMessage) {
-        if (value >= referenceValue) {
-            throw new IllegalArgumentException(exceptionMessage);
-        }
+        ensureSmaller(value, referenceValue, exceptionMessage, IllegalArgumentException.class);
     }
 
     /**
@@ -1146,9 +1178,7 @@ public final class Condition {
      */
     public static void ensureNotEmpty(final Iterable<?> iterable,
                                       @Nullable final String exceptionMessage) {
-        if (!iterable.iterator().hasNext()) {
-            throw new IllegalArgumentException(exceptionMessage);
-        }
+        ensureNotEmpty(iterable, exceptionMessage, IllegalArgumentException.class);
     }
 
     /**
@@ -1184,9 +1214,7 @@ public final class Condition {
      *         {@link String} or null, if the exception should not have a message
      */
     public static void ensureFileExists(final File file, final String exceptionMessage) {
-        if (!file.exists()) {
-            throw new IllegalArgumentException(exceptionMessage);
-        }
+        ensureFileExists(file, exceptionMessage, IllegalArgumentException.class);
     }
 
     /**
@@ -1224,9 +1252,7 @@ public final class Condition {
      */
     public static void ensureFileIsDirectory(@NonNull final File file,
                                              @Nullable final String exceptionMessage) {
-        if (!file.isDirectory()) {
-            throw new IllegalArgumentException(exceptionMessage);
-        }
+        ensureFileIsDirectory(file, exceptionMessage, IllegalArgumentException.class);
     }
 
     /**
@@ -1265,9 +1291,7 @@ public final class Condition {
      */
     public static void ensureFileIsNoDirectory(@NonNull final File file,
                                                @Nullable final String exceptionMessage) {
-        if (!file.isFile()) {
-            throw new IllegalArgumentException(exceptionMessage);
-        }
+        ensureFileIsNoDirectory(file, exceptionMessage, IllegalArgumentException.class);
     }
 
     /**
