@@ -207,9 +207,9 @@ public class ScrimInsetsLayout extends FrameLayout {
      *         The attribute set, the view's attributes should be obtained from, as an instance of
      *         the type {@link AttributeSet} or null, if no attributes should be obtained
      * @param defaultStyle
-     *         The default style to apply to this preference. If 0, no style will be applied (beyond
-     *         what is included in the theme). This may either be an attribute resource, whose value
-     *         will be retrieved from the current theme, or an explicit style resource
+     *         The default style to apply to this view. If 0, no style will be applied (beyond what
+     *         is included in the theme). This may either be an attribute resource, whose value will
+     *         be retrieved from the current theme, or an explicit style resource
      */
     public ScrimInsetsLayout(@NonNull final Context context,
                              @Nullable final AttributeSet attributeSet,
@@ -229,13 +229,13 @@ public class ScrimInsetsLayout extends FrameLayout {
      *         The attribute set, the view's attributes should be obtained from, as an instance of
      *         the type {@link AttributeSet} or null, if no attributes should be obtained
      * @param defaultStyle
-     *         The default style to apply to this preference. If 0, no style will be applied (beyond
-     *         what is included in the theme). This may either be an attribute resource, whose value
-     *         will be retrieved from the current theme, or an explicit style resource
+     *         The default style to apply to this view. If 0, no style will be applied (beyond what
+     *         is included in the theme). This may either be an attribute resource, whose value will
+     *         be retrieved from the current theme, or an explicit style resource
      * @param defaultStyleResource
-     *         A resource identifier of a style resource that supplies default values for the
-     *         preference, used only if the default style is 0 or can not be found in the theme. Can
-     *         be 0 to not look for defaults
+     *         A resource identifier of a style resource that supplies default values for the view,
+     *         used only if the default style is 0 or can not be found in the theme. Can be 0 to not
+     *         look for defaults
      */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public ScrimInsetsLayout(@NonNull final Context context,
