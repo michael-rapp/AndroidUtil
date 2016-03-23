@@ -1,5 +1,11 @@
 # AndroidSidebar - RELEASE NOTES
 
+## Version 1.4.8 (Mar. 23th 2016)
+
+A minor release, which introduces the following changes:
+
+- Added `ensureEqual`- and `ensureNotEqual`-methods to the class `Condition`.
+
 ## Version 1.4.7 (Mar. 21th 2016)
 
 A minor release, which introduces the following changes:
