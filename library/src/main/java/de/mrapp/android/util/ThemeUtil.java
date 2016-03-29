@@ -22,6 +22,7 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.AttrRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StyleRes;
+import android.support.v4.content.ContextCompat;
 
 import static de.mrapp.android.util.Condition.ensureNotNull;
 
@@ -111,8 +112,13 @@ public final class ThemeUtil {
             int color = typedArray.getColor(0, -1);
 
             if (color == -1) {
-                throw new NotFoundException(
-                        "Resource ID #0x" + Integer.toHexString(resourceId) + " is not valid");
+                int id = typedArray.getResourceId(0, -1);
+                color = ContextCompat.getColor(context, id);
+
+                if (color == 0) {
+                    throw new NotFoundException(
+                            "Resource ID #0x" + Integer.toHexString(resourceId) + " is not valid");
+                }
             }
 
             return color;
