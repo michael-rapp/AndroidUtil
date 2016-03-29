@@ -105,12 +105,27 @@ public final class AppUtil {
      *         directory.
      */
     public static void startGalleryApp(@NonNull final Activity activity, @NonNull final File file) {
-        ensureNotNull(activity, "The activity may not be null");
         ensureNotNull(file, "The file may not be null");
         ensureFileIsNoDirectory(file, "The file must exist and must not be a directory");
+        startGalleryApp(activity, Uri.parse("file://" + file.getAbsolutePath()));
+    }
+
+    /**
+     * Starts the gallery app in order to show a specific image. If an error occurs while starting
+     * the gallery app, an {@link ActivityNotFoundException} will be thrown.
+     *
+     * @param activity
+     *         The activity, the gallery app should be started from, as an instance of the class
+     *         {@link Activity}. The activity may not be null
+     * @param uri
+     *         The URI of the image, which should be shown, as an instance of the class {@link Uri}.
+     *         The URI may not be null and must be valid
+     */
+    public static void startGalleryApp(@NonNull final Activity activity, @NonNull final Uri uri) {
+        ensureNotNull(activity, "The activity may not be null");
+        ensureNotNull(uri, "The URI may not be null");
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        String path = file.getAbsolutePath();
-        intent.setDataAndType(Uri.parse("file://" + path), "image/*");
+        intent.setDataAndType(uri, "image/*");
         activity.startActivity(intent);
     }
 
