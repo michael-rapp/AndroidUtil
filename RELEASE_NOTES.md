@@ -1,5 +1,11 @@
 # AndroidSidebar - RELEASE NOTES
 
+## Version 1.4.9 (Mar. 30th 2016)
+
+A minor release, which introduces the following changes:
+
+- Added a `startGalleryApp`-method to the class `AppUtil`, which expects an `Uri` as a parameter.
+
 ## Version 1.4.8 (Mar. 23th 2016)
 
 A minor release, which introduces the following changes:
