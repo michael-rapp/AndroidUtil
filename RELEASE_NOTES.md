@@ -1,5 +1,11 @@
 # AndroidSidebar - RELEASE NOTES
 
+## Versoin 1.4.10 (Apr. 21th 2016)
+
+A bugfix release, which fixes the following issues:
+
+- Fixed `IllegalArgumentException` when calling the `loadThumbnail`-methods of the class `BitmapUtil`.
+
 ## Version 1.4.9 (Mar. 30th 2016)
 
 A minor release, which introduces the following changes:
