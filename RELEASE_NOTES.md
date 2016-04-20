@@ -1,6 +1,6 @@
 # AndroidSidebar - RELEASE NOTES
 
-## Versoin 1.4.10 (Apr. 21th 2016)
+## Version 1.4.10 (Apr. 21th 2016)
 
 A bugfix release, which fixes the following issues:
 
