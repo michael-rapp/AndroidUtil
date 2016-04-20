@@ -68,8 +68,8 @@ public final class BitmapUtil {
     private static int getSampleSize(@NonNull final Pair<Integer, Integer> imageDimensions,
                                      final int maxWidth, final int maxHeight) {
         ensureNotNull(imageDimensions, "The image dimensions may not be null");
-        ensureAtLeast(1, maxWidth, "The maximum width must be at least 1");
-        ensureAtLeast(1, maxHeight, "The maximum height must be at least 1");
+        ensureAtLeast(maxWidth, 1, "The maximum width must be at least 1");
+        ensureAtLeast(maxHeight, 1, "The maximum height must be at least 1");
         int width = imageDimensions.first;
         int height = imageDimensions.second;
         int sampleSize = 1;
