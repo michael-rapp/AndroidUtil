@@ -1,5 +1,11 @@
 # AndroidSidebar - RELEASE NOTES
 
+## Version 1.4.11 (Apr. 21th 2016)
+
+A minor release, which introduces the following changes:
+
+- Added a `startCameraApp`-method, which expects an `Uri` as a parameter, to the class `AppUtil`.
+
 ## Version 1.4.10 (Apr. 21th 2016)
 
 A bugfix release, which fixes the following issues:
