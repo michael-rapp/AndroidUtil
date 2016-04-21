@@ -60,11 +60,32 @@ public final class AppUtil {
      */
     public static void startCameraApp(@NonNull final Activity activity, final int requestCode,
                                       @NonNull final File file) {
-        ensureNotNull(activity, "The activity may not be null");
         ensureNotNull(file, "The file may not be null");
         ensureFileIsNoDirectory(file, "The file must exist and must not be a directory");
+        startCameraApp(activity, requestCode, Uri.fromFile(file));
+    }
+
+    /**
+     * Starts the camera app in order to capture a picture. If an error occurs while starting the
+     * camera app, an {@link ActivityNotFoundException} will be thrown.
+     *
+     * @param activity
+     *         The activity, the captured picture should be passed to by calling its
+     *         <code>onActivityResult</code> method, as an instance of the class {@link Activity}.
+     *         The activity may not be null
+     * @param requestCode
+     *         The request code, which should be used to pass the captured picture to the given
+     *         activity, as an {@link Integer} value
+     * @param uri
+     *         The URI of the file, the captured image should be saved to, as an instance of the
+     *         class {@link Uri}. The URI may not be null
+     */
+    public static void startCameraApp(@NonNull final Activity activity, final int requestCode,
+                                      @NonNull final Uri uri) {
+        ensureNotNull(activity, "The activity may not be null");
+        ensureNotNull(uri, "The URI may not be null");
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
 
         if (intent.resolveActivity(activity.getPackageManager()) == null) {
             throw new ActivityNotFoundException("Camera app not available");
