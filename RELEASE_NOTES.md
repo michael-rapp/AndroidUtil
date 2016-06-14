@@ -1,5 +1,11 @@
 # AndroidSidebar - RELEASE NOTES
 
+## Version 1.6.0 (Jun. 14th 2016)
+
+A feature release, which introduces the following changes:
+
+- Added the view `HeaderAndFooterGridView`, which extends the Android SDK's `GridView` with the functionality to show header and footer views.
+
 ## Version 1.5.0 (Jun. 14th 2016)
 
 A feature release, which introduces the following changes:
