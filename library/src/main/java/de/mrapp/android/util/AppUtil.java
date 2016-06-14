@@ -211,8 +211,62 @@ public final class AppUtil {
     }
 
     /**
-     * Starts the dialer in order to call a specific phone number. If an error occurs while starting
-     * the dialer, an {@link ActivityNotFoundException} will be thrown.
+     * Starts the dialer in order to call a specific phone number. The call has to be manually
+     * started by the user. If an error occurs while starting the dialer, an {@link
+     * ActivityNotFoundException} will be thrown.
+     *
+     * @param activity
+     *         The activity, the dialer should be started from, as an instance of the class {@link
+     *         Activity}. The activity may not be null
+     * @param phoneNumber
+     *         The phone number, which should be dialed, as an {@link Integer} value
+     */
+    public static void startDialer(@NonNull final Activity activity, final int phoneNumber) {
+        startDialer(activity, Integer.toString(phoneNumber));
+    }
+
+    /**
+     * Starts the dialer in order to call a specific phone number. The call has to be manually
+     * started by the user. If an error occurs while starting the dialer, an {@link
+     * ActivityNotFoundException} will be thrown.
+     *
+     * @param activity
+     *         The activity, the dialer should be started from, as an instance of the class {@link
+     *         Activity}. The activity may not be null
+     * @param phoneNumber
+     *         The phone number, which should be dialed, as a {@link Long} value
+     */
+    public static void startDialer(@NonNull final Activity activity, final long phoneNumber) {
+        startDialer(activity, Long.toString(phoneNumber));
+    }
+
+    /**
+     * Starts the dialer in order to call a specific phone number. The call has to be manually
+     * started by the user. If an error occurs while starting the dialer, an {@link
+     * ActivityNotFoundException} will be thrown.
+     *
+     * @param activity
+     *         The activity, the dialer should be started from, as an instance of the class {@link
+     *         Activity}. The activity may not be null
+     * @param phoneNumber
+     *         The phone number, which should be dialed, as a {@link String}. The phone number may
+     *         neither be null, nor empty
+     */
+    public static void startDialer(@NonNull final Activity activity,
+                                   @NonNull final String phoneNumber) {
+        ensureNotNull(activity, "The activity may not be null");
+        ensureNotNull(phoneNumber, "The phone number may not be null");
+        ensureNotEmpty(phoneNumber, "The phone number may not be empty");
+        Uri uri = Uri.parse(phoneNumber.startsWith("tel:") ? phoneNumber : "tel:" + phoneNumber);
+        Intent intent = new Intent(Intent.ACTION_DIAL, uri);
+        activity.startActivity(intent);
+    }
+
+    /**
+     * Starts the dialer in order to call a specific phone number. The call is immediately started,
+     * requiring the invoking app to have the permission <code>android.permission.CALL_PHONE</code>
+     * granted, otherwise a {@link SecurityException} will be thrown. If an error occurs while
+     * starting the dialer, an {@link ActivityNotFoundException} will be thrown.
      *
      * @param activity
      *         The activity, the dialer should be started from, as an instance of the class {@link
@@ -221,15 +275,15 @@ public final class AppUtil {
      *         The phone number, which should be called, as an {@link Integer} value
      */
     @RequiresPermission(Manifest.permission.CALL_PHONE)
-    public static void startDialer(@NonNull final Activity activity, final int phoneNumber) {
+    public static void startCall(@NonNull final Activity activity, final int phoneNumber) {
         startDialer(activity, Integer.toString(phoneNumber));
     }
 
     /**
-     * Starts the dialer in order to call a specific phone number. If an error occurs while starting
-     * the dialer, an {@link ActivityNotFoundException} will be thrown. Calling this method requires
-     * the invoking app to have the permission <code>android.Manifest.permission.CALL_PHONE</code>,
-     * otherwise a {@link SecurityException} will be thrown.
+     * Starts the dialer in order to call a specific phone number. The call is immediately started,
+     * requiring the invoking app to have the permission <code>android.permission.CALL_PHONE</code>
+     * granted, otherwise a {@link SecurityException} will be thrown. If an error occurs while
+     * starting the dialer, an {@link ActivityNotFoundException} will be thrown.
      *
      * @param activity
      *         The activity, the dialer should be started from, as an instance of the class {@link
@@ -238,15 +292,15 @@ public final class AppUtil {
      *         The phone number, which should be called, as a {@link Long} value
      */
     @RequiresPermission(Manifest.permission.CALL_PHONE)
-    public static void startDialer(@NonNull final Activity activity, final long phoneNumber) {
+    public static void startCall(@NonNull final Activity activity, final long phoneNumber) {
         startDialer(activity, Long.toString(phoneNumber));
     }
 
     /**
-     * Starts the dialer in order to call a specific phone number. If an error occurs while starting
-     * the dialer, an {@link ActivityNotFoundException} will be thrown. Calling this method requires
-     * the invoking app to have the permission <code>android.Manifest.permission.CALL_PHONE</code>,
-     * otherwise a {@link SecurityException} will be thrown.
+     * Starts the dialer in order to call a specific phone number. The call is immediately started,
+     * requiring the invoking app to have the permission <code>android.permission.CALL_PHONE</code>
+     * granted, otherwise a {@link SecurityException} will be thrown. If an error occurs while
+     * starting the dialer, an {@link ActivityNotFoundException} will be thrown.
      *
      * @param activity
      *         The activity, the dialer should be started from, as an instance of the class {@link
@@ -256,13 +310,13 @@ public final class AppUtil {
      *         neither be null, nor empty
      */
     @RequiresPermission(Manifest.permission.CALL_PHONE)
-    @SuppressWarnings("ResourceType")
-    public static void startDialer(@NonNull final Activity activity,
-                                   @NonNull final String phoneNumber) {
+    public static void startCall(@NonNull final Activity activity,
+                                 @NonNull final String phoneNumber) {
         ensureNotNull(activity, "The activity may not be null");
         ensureNotNull(phoneNumber, "The phone number may not be null");
         ensureNotEmpty(phoneNumber, "The phone number may not be empty");
-        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber));
+        Uri uri = Uri.parse(phoneNumber.startsWith("tel:") ? phoneNumber : "tel:" + phoneNumber);
+        Intent intent = new Intent(Intent.ACTION_CALL, uri);
         activity.startActivity(intent);
     }
 
