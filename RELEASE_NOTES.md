@@ -5,6 +5,7 @@
 A feature release, which introduces the following changes:
 
 - The `startDialer`-methods of the utility class `AppUtil` do not require the invoking app to have the permission `android.permission.CALL_PHONE` granted, anymore. These methods to not immediately start a call anymore, but only pass a phone number to the dialer. As replacement for the old behavior new `startCall`-methods have been added.
+- Added additional `startMailClient`-methods, which allow to send e-mails to multiple mail addresses and allow to optionally specify a subject and text, to the utility class `AppUtil`.
 
 ## Version 1.4.11 (Apr. 21th 2016)
 
