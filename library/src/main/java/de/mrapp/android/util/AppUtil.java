@@ -20,13 +20,16 @@ import android.content.Intent;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresPermission;
+import android.text.TextUtils;
 
 import java.io.File;
 
 import static de.mrapp.android.util.Condition.ensureFileIsNoDirectory;
 import static de.mrapp.android.util.Condition.ensureNotEmpty;
 import static de.mrapp.android.util.Condition.ensureNotNull;
+import static de.mrapp.android.util.Condition.ensureTrue;
 
 /**
  * An utility class, which provides static methods, which allow to start system apps.
@@ -201,12 +204,87 @@ public final class AppUtil {
      */
     public static void startMailClient(@NonNull final Activity activity,
                                        @NonNull final String emailAddress) {
-        ensureNotNull(activity, "The activity may not be null");
+        startMailClient(activity, emailAddress, null, null);
+    }
+
+    /**
+     * Starts the mail client in order to send an e-mail to a specific e-mail address. If an error
+     * occurs while starting the mail client, an {@link ActivityNotFoundException} will be thrown.
+     *
+     * @param activity
+     *         The activity, the mail client should be started from, as an instance of the class
+     *         {@link Activity}. The activity may not be null
+     * @param emailAddress
+     *         The e-mail address, the e-mail should be sent to, as a {@link String}. The e-mail
+     *         address may neither be null, nor empty
+     * @param subject
+     *         The subject of the e-mail, which should be sent, as a {@link String} or null, if the
+     *         e-mail should not have a subject
+     * @param text
+     *         The text of the e-mail, which should be sent, as a {@link String}  or null, if the
+     *         e-mail should not have a text
+     */
+    public static void startMailClient(@NonNull final Activity activity,
+                                       @NonNull final String emailAddress,
+                                       @Nullable final String subject,
+                                       @Nullable final String text) {
         ensureNotNull(emailAddress, "The e-mail address may not be null");
         ensureNotEmpty(emailAddress, "The e-mail address may not be empty");
+        startMailClient(activity, new String[]{emailAddress}, subject, text);
+    }
+
+    /**
+     * Starts the mail client in order to send an e-mail to specific e-mail addresses. If an error
+     * occurs while starting the mail client, an {@link ActivityNotFoundException} will be thrown.
+     *
+     * @param activity
+     *         The activity, the mail client should be started from, as an instance of the class
+     *         {@link Activity}. The activity may not be null
+     * @param emailAddresses
+     *         An array, which contains the e-mail addresses, the e-mail should be sent to, as a
+     *         {@link String} array. The array may neither be null, nor empty
+     */
+    public static void startMailClient(@NonNull final Activity activity,
+                                       @NonNull final String[] emailAddresses) {
+        startMailClient(activity, emailAddresses, null, null);
+    }
+
+    /**
+     * Starts the mail client in order to send an e-mail to specific e-mail addresses. If an error
+     * occurs while starting the mail client, an {@link ActivityNotFoundException} will be thrown.
+     *
+     * @param activity
+     *         The activity, the mail client should be started from, as an instance of the class
+     *         {@link Activity}. The activity may not be null
+     * @param emailAddresses
+     *         An array, which contains the e-mail addresses, the e-mail should be sent to, as a
+     *         {@link String} array. The array may neither be null, nor empty
+     * @param subject
+     *         The subject of the e-mail, which should be sent, as a {@link String} or null, if the
+     *         e-mail should not have a subject
+     * @param text
+     *         The text of the e-mail, which should be sent, as a {@link String}  or null, if the
+     *         e-mail should not have a text
+     */
+    public static void startMailClient(@NonNull final Activity activity,
+                                       @NonNull final String[] emailAddresses,
+                                       @Nullable final String subject,
+                                       @Nullable final String text) {
+        ensureNotNull(activity, "The activity may not be null");
+        ensureNotNull(emailAddresses, "The array may not be null");
+        ensureTrue(emailAddresses.length > 0, "The array may not be empty");
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("message/rfc822");
-        intent.putExtra(Intent.EXTRA_EMAIL, emailAddress);
+        intent.putExtra(Intent.EXTRA_EMAIL, emailAddresses);
+
+        if (!TextUtils.isEmpty(subject)) {
+            intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        }
+
+        if (!TextUtils.isEmpty(text)) {
+            intent.putExtra(Intent.EXTRA_TEXT, text);
+        }
+
         activity.startActivity(intent);
     }
 
