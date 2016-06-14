@@ -1,5 +1,11 @@
 # AndroidSidebar - RELEASE NOTES
 
+## Version 1.5.0 (Jun. 14th 2016)
+
+A feature release, which introduces the following changes:
+
+- The `startDialer`-methods of the utility class `AppUtil` do not require the invoking app to have the permission `android.permission.CALL_PHONE` granted, anymore. These methods to not immediately start a call anymore, but only pass a phone number to the dialer. As replacement for the old behavior new `startCall`-methods have been added.
+
 ## Version 1.4.11 (Apr. 21th 2016)
 
 A minor release, which introduces the following changes:
