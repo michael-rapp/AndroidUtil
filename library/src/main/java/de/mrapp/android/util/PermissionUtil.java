@@ -16,6 +16,7 @@ package de.mrapp.android.util;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -105,8 +106,37 @@ public final class PermissionUtil {
         ensureNotNull(context, "The context may not be null");
         ensureNotNull(permission, "The permission may not be null");
         ensureNotEmpty(permission, "The permission may not be empty");
-        return ContextCompat.checkSelfPermission(context, permission) ==
-                PackageManager.PERMISSION_GRANTED;
+        return Build.VERSION.SDK_INT < Build.VERSION_CODES.M ||
+                ContextCompat.checkSelfPermission(context, permission) ==
+                        PackageManager.PERMISSION_GRANTED;
+    }
+
+    /**
+     * Returns, whether all permissions, which are contained by a specific array, are granted, or
+     * not.
+     *
+     * @param context
+     *         The context, which should be used, as an instance of the class {@link Context}. The
+     *         context may not be null
+     * @param permissions
+     *         An array, which contains the permissions, e.g. <code>android.Manifest.permission.CALL_PHONE</code>,
+     *         which should be checked, as a {@link String} array. The array may not be null
+     * @return True, if all given permissions are granted, false otherwise
+     */
+    public static boolean areAllPermissionsGranted(@NonNull final Context context,
+                                                   @NonNull final String... permissions) {
+        ensureNotNull(context, "The context may not be null");
+        ensureNotNull(permissions, "The array may not be null");
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            for (String permission : permissions) {
+                if (!isPermissionGranted(context, permission)) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -168,30 +198,33 @@ public final class PermissionUtil {
                                           @NonNull final String... permissions) {
         ensureNotNull(activity, "The activity may not be null");
         ensureNotNull(permissions, "The permissions may not be null");
-        List<String> notGrantedPermissions = new LinkedList<>();
 
-        for (String permission : permissions) {
-            ensureNotNull(permission, "The permission may not be null");
-            ensureNotEmpty(permission, "The permission may not be empty");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            List<String> notGrantedPermissions = new LinkedList<>();
 
-            if (!isPermissionGranted(activity, permission)) {
-                notGrantedPermissions.add(permission);
-            }
-        }
+            for (String permission : permissions) {
+                ensureNotNull(permission, "The permission may not be null");
+                ensureNotEmpty(permission, "The permission may not be empty");
 
-        if (callback != null) {
-            for (int i = notGrantedPermissions.size() - 1; i >= 0; i--) {
-                String permission = notGrantedPermissions.get(i);
-
-                if (shouldShowExplanation(activity, permission)) {
-                    callback.onShouldShowExplanation(activity, requestCode, permission);
-                    notGrantedPermissions.remove(i);
+                if (!isPermissionGranted(activity, permission)) {
+                    notGrantedPermissions.add(permission);
                 }
             }
-        }
 
-        String[] array = new String[notGrantedPermissions.size()];
-        ActivityCompat.requestPermissions(activity, array, requestCode);
+            if (callback != null) {
+                for (int i = notGrantedPermissions.size() - 1; i >= 0; i--) {
+                    String permission = notGrantedPermissions.get(i);
+
+                    if (shouldShowExplanation(activity, permission)) {
+                        callback.onShouldShowExplanation(activity, requestCode, permission);
+                        notGrantedPermissions.remove(i);
+                    }
+                }
+            }
+
+            String[] array = new String[notGrantedPermissions.size()];
+            ActivityCompat.requestPermissions(activity, array, requestCode);
+        }
     }
 
 }
