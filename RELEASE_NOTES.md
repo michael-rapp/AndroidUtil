@@ -1,5 +1,11 @@
 # AndroidSidebar - RELEASE NOTES
 
+## Version 1.6.1 (Jun. 16th 2016)
+
+A minor release, which introduces the following changes:
+
+- Added the `areAllPermissionsGranted`-method to the class `PermissionUtil`. 
+
 ## Version 1.6.0 (Jun. 14th 2016)
 
 A feature release, which introduces the following changes:
