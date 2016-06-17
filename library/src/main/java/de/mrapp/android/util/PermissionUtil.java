@@ -19,6 +19,9 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 
+import java.util.Collection;
+import java.util.LinkedList;
+
 import static de.mrapp.android.util.Condition.ensureNotEmpty;
 import static de.mrapp.android.util.Condition.ensureNotNull;
 
@@ -86,6 +89,35 @@ public final class PermissionUtil {
         }
 
         return true;
+    }
+
+    /**
+     * Returns the subset of specific permissions, which are not granted.
+     *
+     * @param context
+     *         The context, which should be used, as an instance of the class {@link Context}. The
+     *         context may not be null
+     * @param permissions
+     *         An array, which contains the permissions, e.g. <code>android.Manifest.CALL_PHONE</code>,
+     *         which should be checked, as a {@link String} array. The array may not be null
+     * @return An array, which contains the permissions, which are not granted, as a {@link String}
+     * array or an empty array, if all permissions are granted
+     */
+    @NonNull
+    public static String[] getNotGrantedPermissions(@NonNull final Context context,
+                                                    @NonNull final String... permissions) {
+        ensureNotNull(permissions, "The array may not be null");
+        Collection<String> notGrantedPermissions = new LinkedList<>();
+
+        for (String permission : permissions) {
+            if (!isPermissionGranted(context, permission)) {
+                notGrantedPermissions.add(permission);
+            }
+        }
+
+        String[] result = new String[notGrantedPermissions.size()];
+        notGrantedPermissions.toArray(result);
+        return result;
     }
 
 }
