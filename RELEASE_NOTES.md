@@ -1,5 +1,12 @@
 # AndroidSidebar - RELEASE NOTES
 
+## Version 1.7.0 (Jun. 17th 2016)
+
+A feature release, which introduces the following changes:
+
+- Added the `getNotGrantedPermissions`-method to the class `PermissionUtil`.
+- Removed the `requestPermission`-methods as well as the interface `Callback` from the class `PermissionUtil`.
+
 ## Version 1.6.1 (Jun. 16th 2016)
 
 A minor release, which introduces the following changes:
