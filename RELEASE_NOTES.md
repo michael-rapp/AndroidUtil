@@ -1,5 +1,11 @@
 # AndroidSidebar - RELEASE NOTES
 
+## Version 1.8.0 (Jul. 10th 2016)
+
+A feature release, which introduces the following changes:
+
+- Added the abstract class `AbstractSavedState`, which can be used as a base class for storing the state of views. It is identical to the Android SDK's class android.view.AbsSavedState, but uses a custom class loader.
+
 ## Version 1.7.0 (Jun. 17th 2016)
 
 A feature release, which introduces the following changes:
