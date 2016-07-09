@@ -1,5 +1,11 @@
 # AndroidSidebar - RELEASE NOTES
 
+## Version 1.8.1 (Jul. 10th 2016)
+
+A minor release, which introduces the following changes:
+
+- Changed the visibility of the `getSuperState`-method of the class `AbstractSavedState` to `public`.
+
 ## Version 1.8.0 (Jul. 10th 2016)
 
 A feature release, which introduces the following changes:
