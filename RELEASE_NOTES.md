@@ -4,7 +4,7 @@
 
 A feature release, which introduces the following changes:
 
-- Added the abstract class `AbstractSavedState`, which can be used as a base class for storing the state of views. It is identical to the Android SDK's class android.view.AbsSavedState, but uses a custom class loader.
+- Added the abstract class `AbstractSavedState`, which can be used as a base class for storing the state of views. It is identical to the Android SDK's class `android.view.AbsSavedState`, but uses a custom class loader and is therefore suited for being used in library projects.
 
 ## Version 1.7.0 (Jun. 17th 2016)
 
