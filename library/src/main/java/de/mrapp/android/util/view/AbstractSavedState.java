@@ -71,7 +71,7 @@ public abstract class AbstractSavedState implements Parcelable {
      * @return The state of the superclass of the view, this saved state corresponds to, as an
      * instance of the type {@link Parcelable} or null, if no state is available
      */
-    protected final Parcelable getSuperState() {
+    public final Parcelable getSuperState() {
         return superState;
     }
 
