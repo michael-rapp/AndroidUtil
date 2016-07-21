@@ -11,6 +11,7 @@ import static de.mrapp.android.util.Condition.ensureNotNull;
  * An utility class, which provides static methods, which allow to handle files.
  *
  * @author Michael Rapp
+ * @since 1.9.0
  */
 public final class FileUtil {
 
