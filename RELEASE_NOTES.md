@@ -6,7 +6,7 @@ A minor release, which introduces the following changes:
 
 - Added `createNewFile`-methods to the class `FileUtil`.
 - Added `getDensity`-method to the class `DisplayUtil`.
-- Added `splitHorizontally`-, `splitVertically`-, `colorToBitmap`-, `textToBitmap`-, `encodeFile`- and `toByteArray`-methods to the class `BitmapUtil`.
+- Added `splitHorizontally`-, `splitVertically`-, `colorToBitmap`-, `textToBitmap`-, `compressToFile`- and `compressToByteArray`-methods to the class `BitmapUtil`.
 
 ## Version 1.10.0 (Jul. 21th 2016)
 
