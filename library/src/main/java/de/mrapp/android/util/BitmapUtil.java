@@ -15,6 +15,7 @@ package de.mrapp.android.util;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -33,10 +34,15 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.util.Pair;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 
 import static de.mrapp.android.util.Condition.ensureAtLeast;
+import static de.mrapp.android.util.Condition.ensureAtMaximum;
 import static de.mrapp.android.util.Condition.ensureFileIsNoDirectory;
 import static de.mrapp.android.util.Condition.ensureGreater;
 import static de.mrapp.android.util.Condition.ensureNotEmpty;
@@ -763,6 +769,94 @@ public final class BitmapUtil {
         }
 
         return thumbnail;
+    }
+
+    /**
+     * Compresses a specific bitmap and stores it within a file.
+     *
+     * @param bitmap
+     *         The bitmap, which should be compressed, as an instance of the class {@link Bitmap}.
+     *         The bitmap may not be null
+     * @param file
+     *         The file, the bitmap should be compressed to, as an instance of the class {@link
+     *         File}. The file may not be null
+     * @param format
+     *         The format, which should be used to compress the bitmap, as a value of the enum
+     *         {@link CompressFormat}. The format must either be <code>JPEG</code>, <code>PNG</code>
+     *         or <code>WEBP</code>
+     * @param quality
+     *         The quality, which should be used to compress the bitmap, as an {@link Integer}
+     *         value. The quality must be at least 0 (lowest quality) and at maximum 100 (highest
+     *         quality)
+     * @throws FileNotFoundException
+     *         The exception, which is thrown, if the given file could not be opened for writing
+     * @throws IOException
+     *         The exception, which is thrown, if an error occurs while compressing the bitmap
+     */
+    public static void compressToFile(@NonNull final Bitmap bitmap, @NonNull final File file,
+                                      @NonNull final CompressFormat format, final int quality)
+            throws IOException {
+        ensureNotNull(bitmap, "The bitmap may not be null");
+        ensureNotNull(file, "The file may not be null");
+        ensureNotNull(format, "The format may not be null");
+        ensureAtLeast(quality, 0, "The quality must be at least 0");
+        ensureAtMaximum(quality, 100, "The quality must be at maximum 100");
+        OutputStream outputStream = null;
+
+        try {
+            outputStream = new FileOutputStream(file);
+            boolean result = bitmap.compress(format, quality, outputStream);
+
+            if (!result) {
+                throw new IOException(
+                        "Failed to compress bitmap to file \"" + file + "\" using format " +
+                                format + " and quality " + quality);
+            }
+        } finally {
+            StreamUtil.close(outputStream);
+        }
+    }
+
+    /**
+     * Compresses a specific bitmap and returns it as a byte array.
+     *
+     * @param bitmap
+     *         The bitmap, which should be compressed, as an instance of the class {@link Bitmap}.
+     *         The bitmap may not be null
+     * @param format
+     *         The format, which should be used to compress the bitmap, as a value of the enum
+     *         {@link CompressFormat}. The format must either be <code>JPEG</code>, <code>PNG</code>
+     *         or <code>WEBP</code>
+     * @param quality
+     *         The quality, which should be used to compress the bitmap, as an {@link Integer}
+     *         value. The quality must be at least 0 (lowest quality) and at maximum 100 (highest
+     *         quality)
+     * @return The byte array, the given bitmap has been compressed to, as a {@link Byte} array
+     * @throws IOException
+     *         The exception, which is thrown, if an error occurs while compressing the bitmap
+     */
+    public static byte[] compressToByteArray(@NonNull final Bitmap bitmap,
+                                             @NonNull final CompressFormat format,
+                                             final int quality) throws IOException {
+        ensureNotNull(bitmap, "The bitmap may not be null");
+        ensureNotNull(format, "The format may not be null");
+        ensureAtLeast(quality, 0, "The quality must be at least 0");
+        ensureAtMaximum(quality, 100, "The quality must be at maximum 100");
+        ByteArrayOutputStream outputStream = null;
+
+        try {
+            outputStream = new ByteArrayOutputStream();
+            boolean result = bitmap.compress(format, quality, outputStream);
+
+            if (result) {
+                return outputStream.toByteArray();
+            }
+
+            throw new IOException("Failed to compress bitmap to byte array using format " + format +
+                    " and quality " + quality);
+        } finally {
+            StreamUtil.close(outputStream);
+        }
     }
 
 }
