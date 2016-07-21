@@ -88,7 +88,8 @@ public final class FileUtil {
     }
 
     /**
-     * Deletes a specific file.
+     * Deletes a specific file. If a directory and its contents should be deleted, use the
+     * <code>deleteRecursively</code>-method instead.
      *
      * @param file
      *         The file, which should be deleted, as an instance of the class {@link File}. The file
