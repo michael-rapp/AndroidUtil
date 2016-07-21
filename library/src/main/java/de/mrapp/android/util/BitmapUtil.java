@@ -369,7 +369,7 @@ public final class BitmapUtil {
      *         The bitmap, which should be split, as an instance of the class {@link Bitmap}. The
      *         bitmap may not be null
      * @return A pair, which contains the two bitmaps, which the original bitmap has been split
-     * into, as an instance of the class {@link Pair}
+     * into, as an instance of the class Pair
      */
     public static Pair<Bitmap, Bitmap> splitHorizontally(@NonNull final Bitmap bitmap) {
         return splitHorizontally(bitmap, bitmap.getHeight() / 2);
@@ -385,7 +385,7 @@ public final class BitmapUtil {
      *         The row, the bitmap should be split at, counted from the top edge in pixels as an
      *         {@link Integer} value
      * @return A pair, which contains the two bitmaps, the original bitmap has been split into, as
-     * an instance of the class {@link Pair}
+     * an instance of the class Pair
      */
     public static Pair<Bitmap, Bitmap> splitHorizontally(@NonNull final Bitmap bitmap,
                                                          final int splitPoint) {
@@ -406,7 +406,7 @@ public final class BitmapUtil {
      *         The bitmap, which should be split, as an instance of the class {@link Bitmap}. The
      *         bitmap may not be null
      * @return A pair, which contains the two bitmaps, the original bitmap has been split into, as
-     * an instance of the class {@link Pair}
+     * an instance of the class Pair
      */
     public static Pair<Bitmap, Bitmap> splitVertically(@NonNull final Bitmap bitmap) {
         return splitVertically(bitmap, bitmap.getWidth() / 2);
@@ -422,7 +422,7 @@ public final class BitmapUtil {
      *         The column, the bitmap should be split at, counted from the left edge in pixels as an
      *         {@link Integer} value
      * @return A pair, which contains the two bitmaps, the original bitmap has been split into, as
-     * an instance of the class {@link Pair}
+     * an instance of the class Pair
      */
     public static Pair<Bitmap, Bitmap> splitVertically(@NonNull final Bitmap bitmap,
                                                        final int splitPoint) {
