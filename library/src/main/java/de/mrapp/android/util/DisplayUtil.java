@@ -349,6 +349,24 @@ public class DisplayUtil {
     }
 
     /**
+     * Returns the logical density of the device's display.
+     *
+     * This is a scaling factor for the density-independent pixel unit, where one DIP is one pixel
+     * on an approximately 160 dpi screen (for example a 240x320, 1.5"x2" screen), providing the
+     * baseline of the system's display. Thus on a 160dpi screen this density value will be 1; on a
+     * 120 dpi screen it would be .75; etc.
+     *
+     * @param context
+     *         The context, which should be used, as an instance of the class {@link Context}. The
+     *         context may not be null
+     * @return The logical density of the device's display as a {@link Float} value
+     */
+    public static float getDensity(@NonNull final Context context) {
+        ensureNotNull(context, "The context may not be null");
+        return context.getResources().getDisplayMetrics().density;
+    }
+
+    /**
      * Returns the height of the status bar, which is shown at the top of the display (containing
      * the clock, battery indicator, etc.).
      *
