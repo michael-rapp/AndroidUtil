@@ -10,6 +10,8 @@
 - The class `AppUtil` provides methods, which allow to start system apps.
 - The class `PermissionUtil` provides methods, which allow to handle runtime permissions.
 - The class `ViewUtil` provides methods, which allow to handle views.
+- The class `FileUtil` provides methods, which allow to handle files.
+- The class `StreamUtil` provides methods, which allow to handle streams.
 - The class `Triple` is a generic data structure, which eases to pass around a triple of three objects.
 - The view `SquareImageView` implements an `ImageView` whose height is enforced to be equal to its width.
 - The view `ScrimInsetsLayout` implements a layout, which allows to show a `Drawable` in the insets, which are passed to its `fitSystemWindows`-method. This can for example be used to implement a navigation drawer, which appears to be located behind the device's status bar.
