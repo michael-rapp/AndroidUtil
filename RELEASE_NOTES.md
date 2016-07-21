@@ -1,5 +1,12 @@
 # AndroidSidebar - RELEASE NOTES
 
+## Version 1.9.0 (Jul. 21th 2016)
+
+A feature release, which introduces the following changes:
+
+- Added the class `FileUtil`, which provides methods, which allow to handle files.
+- Added the class `StreamUtil`, which provides methods, which allow to handle streams.
+
 ## Version 1.8.1 (Jul. 10th 2016)
 
 A minor release, which introduces the following changes:
