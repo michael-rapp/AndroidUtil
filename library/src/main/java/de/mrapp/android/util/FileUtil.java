@@ -102,6 +102,11 @@ public final class FileUtil {
         boolean result = file.delete();
 
         if (!result && file.exists()) {
+            if (file.isDirectory()) {
+                throw new IOException(
+                        "Directory \"" + file + "\" must be empty before being deleted");
+            }
+
             throw new IOException("Failed to deleted file \"" + file + "\"");
         }
     }
@@ -127,6 +132,53 @@ public final class FileUtil {
         }
 
         delete(file);
+    }
+
+    /**
+     * Creates a new, empty file.
+     *
+     * @param file
+     *         The file, which should be created, as an instance of the class {@link File}. The file
+     *         may not be null. If the file is a directory, an {@link IllegalArgumentException} will
+     *         be thrown
+     * @throws IOException
+     *         The exception, which is thrown, if an error occurs while creating the file
+     */
+    public static void createNewFile(@NonNull final File file) throws IOException {
+        createNewFile(file, false);
+    }
+
+    /**
+     * Creates a new, empty file.
+     *
+     * @param file
+     *         The file, which should be created, as an instance of the class {@link File}. The file
+     *         may not be null. If the file is a directory, an {@link IllegalArgumentException} will
+     *         be thrown
+     * @param overwrite
+     *         True, if the file should be overwritten, if it does already exist, false otherwise
+     * @throws IOException
+     *         The exception, which is thrown, if an error occurs while creating the file
+     */
+    public static void createNewFile(@NonNull final File file, final boolean overwrite)
+            throws IOException {
+        ensureNotNull(file, "The file may not be null");
+        boolean result = file.createNewFile();
+
+        if (!result) {
+            if (overwrite) {
+                try {
+                    delete(file);
+                    createNewFile(file, false);
+                } catch (IOException e) {
+                    throw new IOException("Failed to overwrite file \"" + file + "\"");
+                }
+            } else if (file.exists()) {
+                throw new IOException("File \"" + file + "\" does already exist");
+            } else {
+                throw new IllegalArgumentException("The file must not be a directory");
+            }
+        }
     }
 
 }
