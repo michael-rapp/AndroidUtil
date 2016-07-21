@@ -19,15 +19,18 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Paint.Align;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.util.Pair;
 
 import java.io.File;
@@ -36,8 +39,10 @@ import java.io.IOException;
 import static de.mrapp.android.util.Condition.ensureAtLeast;
 import static de.mrapp.android.util.Condition.ensureFileIsNoDirectory;
 import static de.mrapp.android.util.Condition.ensureGreater;
+import static de.mrapp.android.util.Condition.ensureNotEmpty;
 import static de.mrapp.android.util.Condition.ensureNotNull;
 import static de.mrapp.android.util.Condition.ensureSmaller;
+import static de.mrapp.android.util.DisplayUtil.getDensity;
 
 /**
  * An utility class, which provides static methods, which allow to create and edit bitmaps.
@@ -513,6 +518,118 @@ public final class BitmapUtil {
         Canvas canvas = new Canvas(bitmap);
         drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
         drawable.draw(canvas);
+        return bitmap;
+    }
+
+    /**
+     * Creates and returns a bitmap from a specific text. The text is centered.
+     *
+     * @param context
+     *         The context, which should be used, as an instance of the class {@link Context}. The
+     *         context may not be null
+     * @param width
+     *         The width of the bitmap, which should be created, in pixels as an {@link Integer}
+     *         value
+     * @param height
+     *         The height of the bitmap, which should be created, in pixels as an {@link Integer}
+     *         value
+     * @param backgroundColor
+     *         The background color of the bitmap, which should be created, as an {@link Integer}
+     *         value
+     * @param text
+     *         The text, the bitmap should be created from, as an instance of the type {@link
+     *         CharSequence}. The text may neither be null, nor empty
+     * @param textSize
+     *         The text size, which should be used, in sp as an {@link Integer} value
+     * @param textColor
+     *         The text color, which should be used, as an {@link Integer} value The color of the
+     *         text
+     * @return The bitmap, which has been created, as an instance of the class {@link Bitmap}
+     */
+    public static Bitmap textToBitmap(@NonNull final Context context, final int width,
+                                      final int height, @ColorInt final int backgroundColor,
+                                      @NonNull final CharSequence text, final float textSize,
+                                      @ColorInt final int textColor) {
+        return textToBitmap(context, width, height, backgroundColor, text, textSize, textColor,
+                null);
+    }
+
+    /**
+     * Creates and returns a bitmap from a specific text. The text is centered.
+     *
+     * @param context
+     *         The context, which should be used, as an instance of the class {@link Context}. The
+     *         context may not be null
+     * @param width
+     *         The width of the bitmap, which should be created, in pixels as an {@link Integer}
+     *         value
+     * @param height
+     *         The height of the bitmap, which should be created, in pixels as an {@link Integer}
+     *         value
+     * @param backgroundColor
+     *         The background color of the bitmap, which should be created, as an {@link Integer}
+     *         value
+     * @param text
+     *         The text, the bitmap should be created from, as an instance of the type {@link
+     *         CharSequence}. The text may neither be null, nor empty
+     * @param textSize
+     *         The text size, which should be used, in sp as an {@link Integer} value
+     * @param textColor
+     *         The text color, which should be used, as an {@link Integer} value The color of the
+     *         text
+     * @param typeface
+     *         The typeface, which should be used, as a value of the enum {@link Typeface} or null,
+     *         if the default typeface should be used
+     * @return The bitmap, which has been created, as an instance of the class {@link Bitmap}
+     */
+    public static Bitmap textToBitmap(@NonNull final Context context, final int width,
+                                      final int height, @ColorInt final int backgroundColor,
+                                      @NonNull final CharSequence text, final float textSize,
+                                      @ColorInt final int textColor,
+                                      @Nullable final Typeface typeface) {
+        ensureNotNull(context, "The context may not be null");
+        ensureNotNull(text, "The text may not be null");
+        ensureNotEmpty(text, "The text may not be empty");
+        ensureAtLeast(textSize, 1, "The text size must be at least 1");
+        Bitmap bitmap = colorToBitmap(width, height, backgroundColor);
+        Canvas canvas = new Canvas(bitmap);
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint.setColor(textColor);
+        paint.setTextSize(textSize * getDensity(context));
+        paint.setTextAlign(Align.CENTER);
+
+        if (typeface != null) {
+            paint.setTypeface(typeface);
+        }
+
+        int x = bitmap.getWidth() / 2;
+        int y = (int) ((bitmap.getHeight() / 2) - ((paint.descent() + paint.ascent()) / 2));
+        canvas.drawText(text.toString(), x, y, paint);
+        return bitmap;
+    }
+
+    /**
+     * Creates and returns a bitmap from a specific color.
+     *
+     * @param width
+     *         The width of the bitmap, which should be created, in pixels as an {@link Integer}
+     *         value. The width must be at least 1
+     * @param height
+     *         The height of the bitmap, which should be created, in pixels as an {@link Integer}
+     *         value. The height must be at least 1
+     * @param color
+     *         The color, which should be used, as an {@link Integer} value
+     * @return The bitmap, which has been created, as an instance of the class {@link Bitmap}
+     */
+    public static Bitmap colorToBitmap(final int width, final int height,
+                                       @ColorInt final int color) {
+        ensureAtLeast(width, 1, "The width must be at least 1");
+        ensureAtLeast(height, 1, "The height must be at least 1");
+        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        Paint paint = new Paint();
+        paint.setColor(color);
+        canvas.drawRect(0, 0, width, height, paint);
         return bitmap;
     }
 
