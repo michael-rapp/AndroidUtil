@@ -35,7 +35,9 @@ import java.io.IOException;
 
 import static de.mrapp.android.util.Condition.ensureAtLeast;
 import static de.mrapp.android.util.Condition.ensureFileIsNoDirectory;
+import static de.mrapp.android.util.Condition.ensureGreater;
 import static de.mrapp.android.util.Condition.ensureNotNull;
+import static de.mrapp.android.util.Condition.ensureSmaller;
 
 /**
  * An utility class, which provides static methods, which allow to create and edit bitmaps.
@@ -347,6 +349,81 @@ public final class BitmapUtil {
         ensureAtLeast(width, 1, "The width must be at least 1");
         ensureAtLeast(height, 1, "The height must be at least 1");
         return Bitmap.createScaledBitmap(bitmap, width, height, false);
+    }
+
+    /**
+     * Splits a specific bitmap horizontally at half.
+     *
+     * @param bitmap
+     *         The bitmap, which should be split, as an instance of the class {@link Bitmap}. The
+     *         bitmap may not be null
+     * @return A pair, which contains the two bitmaps, which the original bitmap has been split
+     * into, as an instance of the class {@link Pair}
+     */
+    public static Pair<Bitmap, Bitmap> splitHorizontally(@NonNull final Bitmap bitmap) {
+        return splitHorizontally(bitmap, bitmap.getHeight() / 2);
+    }
+
+    /**
+     * Splits a specific bitmap horizontally at a specific split point.
+     *
+     * @param bitmap
+     *         The bitmap, which should be split, as an instance of the class {@link Bitmap}. The
+     *         bitmap may not be null
+     * @param splitPoint
+     *         The row, the bitmap should be split at, counted from the top edge in pixels as an
+     *         {@link Integer} value
+     * @return A pair, which contains the two bitmaps, the original bitmap has been split into, as
+     * an instance of the class {@link Pair}
+     */
+    public static Pair<Bitmap, Bitmap> splitHorizontally(@NonNull final Bitmap bitmap,
+                                                         final int splitPoint) {
+        ensureNotNull(bitmap, "The bitmap may not be null");
+        ensureGreater(splitPoint, 0, "The split point must be greater than 0");
+        ensureSmaller(splitPoint, bitmap.getHeight(),
+                "The split point must be smaller than " + bitmap.getHeight());
+        Bitmap topBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), splitPoint);
+        Bitmap bottomBitmap = Bitmap.createBitmap(bitmap, 0, splitPoint, bitmap.getWidth(),
+                bitmap.getHeight() - splitPoint);
+        return new Pair<>(topBitmap, bottomBitmap);
+    }
+
+    /**
+     * Splits a specific bitmap vertically at half.
+     *
+     * @param bitmap
+     *         The bitmap, which should be split, as an instance of the class {@link Bitmap}. The
+     *         bitmap may not be null
+     * @return A pair, which contains the two bitmaps, the original bitmap has been split into, as
+     * an instance of the class {@link Pair}
+     */
+    public static Pair<Bitmap, Bitmap> splitVertically(@NonNull final Bitmap bitmap) {
+        return splitVertically(bitmap, bitmap.getWidth() / 2);
+    }
+
+    /**
+     * Splits a specific bitmap vertically at a specific split point.
+     *
+     * @param bitmap
+     *         The bitmap, which should be split, as an instance of the class {@link Bitmap}. The
+     *         bitmap may not be null
+     * @param splitPoint
+     *         The column, the bitmap should be split at, counted from the left edge in pixels as an
+     *         {@link Integer} value
+     * @return A pair, which contains the two bitmaps, the original bitmap has been split into, as
+     * an instance of the class {@link Pair}
+     */
+    public static Pair<Bitmap, Bitmap> splitVertically(@NonNull final Bitmap bitmap,
+                                                       final int splitPoint) {
+        ensureNotNull(bitmap, "The bitmap may not be null");
+        ensureGreater(splitPoint, 0, "The split point must be greater than 0");
+        ensureSmaller(splitPoint, bitmap.getWidth(),
+                "The split point must be smaller than " + bitmap.getWidth());
+        Bitmap leftBitmap = Bitmap.createBitmap(bitmap, 0, 0, splitPoint, bitmap.getHeight());
+        Bitmap rightBitmap =
+                Bitmap.createBitmap(bitmap, splitPoint, 0, bitmap.getWidth() - splitPoint,
+                        bitmap.getHeight());
+        return new Pair<>(leftBitmap, rightBitmap);
     }
 
     /**
