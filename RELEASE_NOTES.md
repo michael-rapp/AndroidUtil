@@ -1,5 +1,11 @@
 # AndroidSidebar - RELEASE NOTES
 
+## Version 1.10.0 (Jul. 21th 2016)
+
+A feature release, which introduces the following changes:
+
+- Added the class `ThreadUtil`, which provides methods, which allow to handle threads.
+
 ## Version 1.9.0 (Jul. 21th 2016)
 
 A feature release, which introduces the following changes:
