@@ -12,7 +12,7 @@ A minor release, which introduces the following changes:
 
 A feature release, which introduces the following changes:
 
-- Added the class `ArrayUtil`, which provides mehtods, which allow to handle arrays.
+- Added the class `ArrayUtil`, which provides methods, which allow to handle arrays.
 
 ## Version 1.10.1 (Jul. 21th 2016)
 
