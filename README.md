@@ -34,7 +34,7 @@ Alternatively, the library can be added to your Android app as a Gradle dependen
 
 ```groovy
 dependencies {
-    compile 'com.github.michael-rapp:android-util:1.11.0'
+    compile 'com.github.michael-rapp:android-util:1.11.1'
 }
 ```
 
