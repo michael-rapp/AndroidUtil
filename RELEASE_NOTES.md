@@ -1,5 +1,13 @@
 # AndroidSidebar - RELEASE NOTES
 
+## Version 1.11.1 (Sep. 11th 2016)
+
+A minor release, which introduces the following changes:
+
+- Updated `targetSdkVersion` to API level 24 (Android 7.0)
+- Updated AppCompat v4 support library to version 24.2.0.
+- Updated AppCompat annotations support library to version 24.2.0.
+
 ## Version 1.11.0 (Aug. 17th 2016)
 
 A feature release, which introduces the following changes:
