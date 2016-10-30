@@ -540,8 +540,8 @@ public class HeaderAndFooterGridView extends GridView {
      * Notifies, that the underlying data of the grid view's adapter has been changed.
      */
     private void notifyDataSetChanged() {
-        if (getAdapter() instanceof AdapterWrapper) {
-            ((AdapterWrapper) getAdapter()).notifyDataSetChanged();
+        if (adapter != null) {
+            adapter.notifyDataSetChanged();
         }
     }
 
