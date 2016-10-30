@@ -1,13 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.2"
+    compileSdkVersion project.TARGET_SDK_VERSION.toInteger()
+    buildToolsVersion project.BUILD_TOOLS_VERSION
 
     defaultConfig {
-        applicationId "de.mrapp.android.util.example"
         minSdkVersion 11
-        targetSdkVersion 24
+        targetSdkVersion project.TARGET_SDK_VERSION.toInteger()
         versionName project.VERSION_NAME
         versionCode project.VERSION_CODE.toInteger()
     }
@@ -21,6 +20,6 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:24.2.0'
+    compile 'com.android.support:appcompat-v7:24.2.1'
     compile project(':library')
 }
