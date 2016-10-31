@@ -1,5 +1,12 @@
 # AndroidSidebar - RELEASE NOTES
 
+## Version 1.12.0 (Nov. 1st 2016)
+
+A feature release, which introduces the following changes:
+
+- Added the class `ExpandableGridView`.
+- Added the class `HeaderAndFooterRecyclerView`. This required to add the RecyclerView support library as a dependency.
+
 ## Version 1.11.1 (Sep. 11th 2016)
 
 A minor release, which introduces the following changes:
