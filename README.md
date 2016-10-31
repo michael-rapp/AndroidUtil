@@ -18,6 +18,7 @@
 - The view `SquareImageView` implements an `ImageView` whose height is enforced to be equal to its width.
 - The view `ScrimInsetsLayout` implements a layout, which allows to show a `Drawable` in the insets, which are passed to its `fitSystemWindows`-method. This can for example be used to implement a navigation drawer, which appears to be located behind the device's status bar.
 - The view `HeaderAndFooterGridView` extends the Android SDK's `GridView` with the functionality to add header and footer views.
+- The view `HeaderAndFooterRecyclerView` extends the RecyclerView Support library's `RecyclerView` with the functionality to add header and footer views.
 - The class `AbstractSavedState` can be used as a base class for storing the state of views. It is identical to the Android SDK's class `android.view.AbsSavedState`, but uses a custom class loader and is therefore suited for being used in library projects.
 
 ## License Agreement
