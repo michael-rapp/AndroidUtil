@@ -757,7 +757,7 @@ public class HeaderAndFooterGridView extends GridView {
     }
 
     @Override
-    public final void setAdapter(@Nullable final ListAdapter adapter) {
+    public void setAdapter(@Nullable final ListAdapter adapter) {
         if (adapter != null) {
             this.adapter = new AdapterWrapper(adapter);
             super.setAdapter(this.adapter);
