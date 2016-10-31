@@ -192,7 +192,7 @@ public class HeaderAndFooterGridView extends GridView {
          * Returns the adapter, which is encapsulated by the adapter.
          *
          * @return The adapter, which is encapsulated by the adapter, as an instance of the type
-         * {@link ListAdapter}
+         * {@link ListAdapter}. The adapter may not be null
          */
         @NonNull
         public ListAdapter getEncapsulatedAdapter() {
