@@ -114,6 +114,11 @@ public final class AppUtil {
         ensureNotNull(activity, "The activity may not be null");
         Intent intent =
                 new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+        if (intent.resolveActivity(activity.getPackageManager()) == null) {
+            throw new ActivityNotFoundException("Gallery app not available");
+        }
+
         activity.startActivityForResult(intent, requestCode);
     }
 
@@ -151,6 +156,11 @@ public final class AppUtil {
         ensureNotNull(uri, "The URI may not be null");
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setDataAndType(uri, "image/*");
+
+        if (intent.resolveActivity(context.getPackageManager()) == null) {
+            throw new ActivityNotFoundException("Gallery app not available");
+        }
+
         context.startActivity(intent);
     }
 
@@ -188,6 +198,11 @@ public final class AppUtil {
         ensureNotNull(context, "The context may not be null");
         ensureNotNull(uri, "The URI may not be null");
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+
+        if (intent.resolveActivity(context.getPackageManager()) == null) {
+            throw new ActivityNotFoundException("Web browser not available");
+        }
+
         context.startActivity(intent);
     }
 
@@ -285,6 +300,10 @@ public final class AppUtil {
             intent.putExtra(Intent.EXTRA_TEXT, text);
         }
 
+        if (intent.resolveActivity(context.getPackageManager()) == null) {
+            throw new ActivityNotFoundException("Mail client not available");
+        }
+
         context.startActivity(intent);
     }
 
@@ -337,6 +356,11 @@ public final class AppUtil {
         ensureNotEmpty(phoneNumber, "The phone number may not be empty");
         Uri uri = Uri.parse(phoneNumber.startsWith("tel:") ? phoneNumber : "tel:" + phoneNumber);
         Intent intent = new Intent(Intent.ACTION_DIAL, uri);
+
+        if (intent.resolveActivity(context.getPackageManager()) == null) {
+            throw new ActivityNotFoundException("Dialer app not available");
+        }
+
         context.startActivity(intent);
     }
 
@@ -395,6 +419,11 @@ public final class AppUtil {
         ensureNotEmpty(phoneNumber, "The phone number may not be empty");
         Uri uri = Uri.parse(phoneNumber.startsWith("tel:") ? phoneNumber : "tel:" + phoneNumber);
         Intent intent = new Intent(Intent.ACTION_CALL, uri);
+
+        if (intent.resolveActivity(context.getPackageManager()) == null) {
+            throw new ActivityNotFoundException("Dialer app not available");
+        }
+
         context.startActivity(intent);
     }
 
