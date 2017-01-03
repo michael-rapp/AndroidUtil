@@ -1,4 +1,4 @@
-# AndroidSidebar - RELEASE NOTES
+# AndroidUtil - RELEASE NOTES
 
 ## Version 1.12.1 (Jan. 3rd 2017)
 
