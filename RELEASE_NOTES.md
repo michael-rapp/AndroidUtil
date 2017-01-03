@@ -4,6 +4,7 @@
 
 A minor release, which introduces the following changes:
 
+- Updated `targetSdkVersion` to API level 25 (Android 7.1)
 - The methods of the class `AppUtil` do now expect instances of the class `Context`, instead of instances of the class `Activity`, as arguments, whenever possible.
 - Added `showAppInfo`-methods to the class `AppUtil`. These methods allow to start the settings app in order to show information about specific apps.
 
