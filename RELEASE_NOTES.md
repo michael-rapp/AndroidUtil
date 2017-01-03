@@ -1,5 +1,12 @@
 # AndroidSidebar - RELEASE NOTES
 
+## Version 1.12.1 (Jan. 3rd 2017)
+
+A minor release, which introduces the following changes:
+
+- The methods of the class `AppUtil` do now expect instances of the class `Context`, instead of instances of the class `Activity`, as arguments, whenever possible.
+- Added `showAppInfo`-methods to the class `AppUtil`. These methods allow to start the settings app in order to show information about specific apps.
+
 ## Version 1.12.0 (Nov. 1st 2016)
 
 A feature release, which introduces the following changes:
