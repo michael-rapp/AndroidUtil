@@ -13,10 +13,12 @@
  */
 package de.mrapp.android.util;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 
 import java.util.Collection;
@@ -118,6 +120,42 @@ public final class PermissionUtil {
         String[] result = new String[notGrantedPermissions.size()];
         notGrantedPermissions.toArray(result);
         return result;
+    }
+
+    /**
+     * Returns, whether an UI with a rationale for requesting one or multiple permissions should be
+     * shown, or not. A rationale should only be shown, if the permissions are not already granted
+     * and if the context, in which the permissions are requested, does not clearly communicate to
+     * the user what would be the benefit from granting the permissions.
+     *
+     * For example, if you write a camera app, requesting the camera permission would be expected by
+     * the user and no rationale for why it is requested is needed. If however, the app needs
+     * location for tagging photos then a non-tech savvy user may wonder how location is related to
+     * taking photos. In this case you may choose to show UI with rationale of requesting this
+     * permission.
+     *
+     * @param activity
+     *         The activity, which should be used to show the rationale, as an instance of the class
+     *         {@link Activity}. The activity may not be null
+     * @param permissions
+     *         An array, which contains the permissions, e.g. <code>android.Manifest.CALL_PHONE</code>,
+     *         which should be requested, as a {@link String} array. The array may not be null
+     * @return True, if a rationale should be shown, false otherwise
+     */
+    public static boolean shouldShowRequestPermissionRationale(@NonNull final Activity activity,
+                                                               @NonNull final String... permissions) {
+        ensureNotNull(activity, "The activity may not be null");
+        ensureNotNull(permissions, "The array may not be null");
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            for (String permission : permissions) {
+                if (ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
 }
