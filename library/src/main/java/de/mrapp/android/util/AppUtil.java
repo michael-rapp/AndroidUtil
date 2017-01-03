@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresPermission;
@@ -422,6 +423,45 @@ public final class AppUtil {
 
         if (intent.resolveActivity(context.getPackageManager()) == null) {
             throw new ActivityNotFoundException("Dialer app not available");
+        }
+
+        context.startActivity(intent);
+    }
+
+    /**
+     * Starts the settings app in order to show the information about the current app.
+     *
+     * @param context
+     *         The context, the settings app should be started from, as an instance of the class
+     *         {@link Context}. The context may not be null
+     */
+    public static void showAppInfo(@NonNull final Context context) {
+        showAppInfo(context, context.getPackageName());
+    }
+
+    /**
+     * Starts the settings app in order to show the information about a specific app.
+     *
+     * @param context
+     *         The context, the settings app should be started from, as an instance of the class
+     *         {@link Context}. The context may not be null
+     * @param packageName
+     *         The fully qualified package name of the app, whose information should be shown, as a
+     *         {@link String}. The package name may neither be null, nor empty
+     */
+    public static void showAppInfo(@NonNull final Context context,
+                                   @NonNull final String packageName) {
+        ensureNotNull(context, "The context may not be null");
+        ensureNotNull(packageName, "The package name may not be null");
+        ensureNotEmpty(packageName, "The package name may not be empty");
+        Intent intent = new Intent();
+        intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        Uri uri = Uri.fromParts("package", packageName, null);
+        intent.setData(uri);
+
+        if (intent.resolveActivity(context.getPackageManager()) == null) {
+            throw new ActivityNotFoundException(
+                    "App info for package " + packageName + " not available");
         }
 
         context.startActivity(intent);
