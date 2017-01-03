@@ -1,5 +1,11 @@
 # AndroidUtil - RELEASE NOTES
 
+## Version 1.12.2 (Jan. 4th 2017)
+
+A minor release, which introduces the following changes:
+
+- Added `shouldShowRequestPermissionRationale`-method to the class `PermissionUtil`.
+
 ## Version 1.12.1 (Jan. 3rd 2017)
 
 A minor release, which introduces the following changes:
