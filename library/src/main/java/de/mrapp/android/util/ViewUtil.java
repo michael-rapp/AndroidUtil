@@ -18,6 +18,8 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 
 import static de.mrapp.android.util.Condition.ensureNotNull;
 
@@ -58,6 +60,29 @@ public final class ViewUtil {
             view.setBackground(background);
         } else {
             view.setBackgroundDrawable(background);
+        }
+    }
+
+    /**
+     * Removes a previous registered global layout listener from a view tree observer. Depending on
+     * the device's API level, different methods are used for removing the listener.
+     *
+     * @param observer
+     *         The view tree observer, the listener should be removed from, as an instance of the
+     *         class {@link ViewTreeObserver}. The view tree observer may not be null
+     * @param listener
+     *         The listener, which should be removed from the view tree observer, as an instance of
+     *         the type {@link OnGlobalLayoutListener}
+     */
+    @SuppressWarnings("deprecation")
+    public static void removeOnGlobalLayoutListener(@NonNull final ViewTreeObserver observer,
+                                                    @Nullable final OnGlobalLayoutListener listener) {
+        ensureNotNull(observer, "The view tree observer may not be null");
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            observer.removeOnGlobalLayoutListener(listener);
+        } else {
+            observer.removeGlobalOnLayoutListener(listener);
         }
     }
 
