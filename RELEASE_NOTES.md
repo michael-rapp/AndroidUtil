@@ -1,5 +1,12 @@
 # AndroidUtil - RELEASE NOTES
 
+## Version 1.12.3 (Jan. 22th 2017)
+
+A minor release, which introduces the following changes:
+
+- Added `removeOnGlobalLayoutListener`-method to the class `ViewUtil`.
+- The `getStatusBarHeight`- and `getNavigationBarHeight`-methods of the class `DisplayUtil` are now deprecated. A `View.OnApplyWindowInsetsListener` should be used instead.
+
 ## Version 1.12.2 (Jan. 4th 2017)
 
 A minor release, which introduces the following changes:
