@@ -374,7 +374,9 @@ public class DisplayUtil {
      *         The context, which should be used, as an instance of the class {@link Context}. The
      *         context may not be null
      * @return The height of the status bar in pixels as an {@link Integer} value
+     * @deprecated Use a {@link android.view.View.OnApplyWindowInsetsListener} instead
      */
+    @Deprecated
     public static int getStatusBarHeight(@NonNull final Context context) {
         ensureNotNull(context, "The context may not be null");
         int resourceId =
@@ -391,7 +393,9 @@ public class DisplayUtil {
      *         context may not be null
      * @return The height of the navigation bar in pixels as an {@link Integer} value or 0, if no
      * navigation bar is shown
+     * @deprecated Use a {@link android.view.View.OnApplyWindowInsetsListener} instead
      */
+    @Deprecated
     @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
     public static int getNavigationBarHeight(@NonNull final Context context) {
         ensureNotNull(context, "The context may not be null");
