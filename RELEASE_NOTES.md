@@ -1,5 +1,14 @@
 # AndroidUtil - RELEASE NOTES
 
+## Version 1.13.0 (Feb. 4th 2017)
+
+A feature release, which introduces the following changes:
+
+- Added the class `Logger`, which allows to write log messages to Logcat. By applying a log level, log messages can be filtered depending on their priority.
+- Updated AppCompat v4 support library to version 25.1.0.
+- Updated AppCompat annotations support library to version 25.1.0.
+- Updated AppCompat RecyclerView support library to version 25.1.0.
+
 ## Version 1.12.3 (Jan. 22th 2017)
 
 A minor release, which introduces the following changes:
