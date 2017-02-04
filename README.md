@@ -21,6 +21,7 @@
 - The view `ExpandableGridView` extends the `HeaderAndFooterGridView` with the ability to show multiple groups, which can be expanded to show their children.
 - The view `HeaderAndFooterRecyclerView` extends the RecyclerView Support library's `RecyclerView` with the functionality to add header and footer views.
 - The class `AbstractSavedState` can be used as a base class for storing the state of views. It is identical to the Android SDK's class `android.view.AbsSavedState`, but uses a custom class loader and is therefore suited for being used in library projects.
+- The class `Logger` allows to write log messages to Logcat. By applying a log level, log messages can be filtered depending on their priority.
 
 ## License Agreement
 
