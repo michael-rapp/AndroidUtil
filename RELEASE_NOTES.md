@@ -1,5 +1,11 @@
 # AndroidUtil - RELEASE NOTES
 
+## Version 1.14.0 (Feb. 12th 2017)
+
+A feature release, which introduces the following changes:
+
+- Added the classes `ViewHolder` and `AbstractViewHolderAdapter`. They allow to use the view holder pattern in custom adapter implementations.
+
 ## Version 1.13.0 (Feb. 4th 2017)
 
 A feature release, which introduces the following changes:
