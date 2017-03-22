@@ -14,6 +14,8 @@
 package de.mrapp.android.util.gesture;
 
 import static de.mrapp.android.util.Condition.ensureAtLeast;
+import static de.mrapp.android.util.Condition.ensureGreater;
+import static de.mrapp.android.util.Condition.ensureSmaller;
 
 /**
  * A helper class, which may be used to recognize drag gestures.
@@ -26,25 +28,25 @@ public class DragHelper {
     /**
      * The distance in pixels, the gesture must last until it is recognized.
      */
-    private final int threshold;
+    private int threshold;
 
     /**
      * The distance, which has been passed while dragging, in pixels or 0, if the threshold has not
      * been reached yet.
      */
-    private int distance;
+    private float distance;
 
     /**
      * The position, where the threshold was reached or -1, if the threshold has not been reached
      * yet.
      */
-    private int thresholdReachedPosition;
+    private float thresholdReachedPosition;
 
     /**
      * The position, where the gesture has been started at or -1, if no gesture has been started
      * yet.
      */
-    private int dragStartPosition;
+    private float dragStartPosition;
 
     /**
      * The time, when the gesture has been started or -1, if no gesture has been started yet.
@@ -55,12 +57,22 @@ public class DragHelper {
      * True, if the method <code>reset():void</code> has been called since the last value has been
      * added, false otherwise.
      */
-    private boolean reseted;
+    private boolean reset;
 
     /**
      * True, if the threshold has already been reached, false otherwise.
      */
     private boolean reachedThreshold;
+
+    /**
+     * The maximum drag distance in pixels or 0, if no maximum drag distance is set.
+     */
+    private float maxDragDistance;
+
+    /**
+     * The minimum drag distance in pixels or 0, if no minimum drag distance is set.
+     */
+    private float minDragDistance;
 
     /**
      * Returns, whether the threshold is reached by a specific distance.
@@ -69,7 +81,7 @@ public class DragHelper {
      *         The distance, which should be checked, as an {@link Integer} value
      * @return True, if the threshold is reached by the given distance, false otherwise
      */
-    private boolean reachedThreshold(final int distance) {
+    private boolean reachedThreshold(final float distance) {
         return Math.abs(distance) >= threshold;
     }
 
@@ -88,29 +100,71 @@ public class DragHelper {
         this.dragStartPosition = -1;
         this.dragStartTime = -1;
         this.reachedThreshold = false;
+        this.minDragDistance = 0;
+        this.maxDragDistance = 0;
         reset();
     }
 
     /**
-     * Marks the instance to be reseted. This will cause all properties to be reseted to default
-     * values, when a value is added by calling the method <code>update(float):void</code> the next
-     * time. Therefore this method may be used to start recognizing a new drag gesture, whenever a
-     * value is added the next time, while the values of the previous recognition can be still
-     * retrieved until recognizing the new gesture begins.
+     * Returns the distance in pixels, the gesture must last until it is recognized.
+     *
+     * @return The distance in pixels, the gesture must last until it is recognized, as an {@link
+     * Integer} value. The value must be at least 0
      */
-    public final void reset() {
-        reseted = true;
+    public final int getThreshold() {
+        return threshold;
     }
 
     /**
-     * Returns, whether the instance has been marked to be reseted, since the method
+     * Marks the instance to be reset. This will cause all properties to be reset to default values,
+     * when a value is added by calling the method <code>update(float):void</code> the next time.
+     * Therefore this method may be used to start recognizing a new drag gesture, whenever a value
+     * is added the next time, while the values of the previous recognition can be still retrieved
+     * until recognizing the new gesture begins.
+     */
+    public final void reset() {
+        reset = true;
+    }
+
+    /**
+     * Marks the instance to be reset. This will cause all properties to be reset to default values,
+     * when a value is added by calling the method <code>update(float):void</code> the next time.
+     * Therefore this method may be used to start recognizing a new drag gesture, whenever a value
+     * is added the next time, while the values of the previous recognition can be still retrieved
+     * until recognizing the new gesture begins. Furthermore, this method changes the threshold,
+     * which is used by the instance.
+     *
+     * @param threshold
+     *         The distance in pixels, the gesture must last until it is recognized, as an {@link
+     *         Integer} value. The value must be at least 0
+     */
+    public final void reset(final int threshold) {
+        reset();
+        this.threshold = threshold;
+    }
+
+    /**
+     * Returns, whether the instance has been marked to be reset, since the method
      * <code>update(float):void</code> has been called the last time. See method
      * <code>reset():void</code> for further information.
      *
-     * @return True, if the instance has been marked to be reseted, false otherwise
+     * @return True, if the instance has been marked to be reset, false otherwise
+     * @deprecated Use <code>isReset</code>-method instead
      */
+    @Deprecated
     public final boolean isReseted() {
-        return reseted;
+        return reset;
+    }
+
+    /**
+     * Returns, whether the instance has been marked to be reset, since the method
+     * <code>update(float):void</code> has been called the last time. See method
+     * <code>reset():void</code> for further information.
+     *
+     * @return True, if the instance has been marked to be reset, false otherwise
+     */
+    public final boolean isReset() {
+        return reset;
     }
 
     /**
@@ -121,26 +175,90 @@ public class DragHelper {
      *         The position, which should be added, as a {@link Float} value
      */
     public final void update(final float position) {
-        int roundedPosition = Math.round(position);
-
-        if (reseted) {
-            reseted = false;
+        if (reset) {
+            reset = false;
             distance = 0;
             thresholdReachedPosition = -1;
             dragStartTime = -1;
-            dragStartPosition = roundedPosition;
+            dragStartPosition = position;
             reachedThreshold = false;
-        } else {
-            if (!reachedThreshold) {
-                if (reachedThreshold(roundedPosition - dragStartPosition)) {
-                    dragStartTime = System.currentTimeMillis();
-                    reachedThreshold = true;
-                    thresholdReachedPosition = roundedPosition;
-                }
-            } else {
-                distance = roundedPosition - thresholdReachedPosition;
-            }
+            minDragDistance = 0;
+            maxDragDistance = 0;
         }
+
+        if (!reachedThreshold) {
+            if (reachedThreshold(position - dragStartPosition)) {
+                dragStartTime = System.currentTimeMillis();
+                reachedThreshold = true;
+                thresholdReachedPosition = position;
+            }
+        } else {
+            float newDistance = position - thresholdReachedPosition;
+
+            if (minDragDistance != 0 && minDragDistance > newDistance) {
+                newDistance = minDragDistance;
+                thresholdReachedPosition = position - minDragDistance;
+            }
+
+            if (maxDragDistance != 0 && maxDragDistance < newDistance) {
+                newDistance = maxDragDistance;
+                thresholdReachedPosition = position - maxDragDistance;
+            }
+
+            distance = newDistance;
+        }
+    }
+
+    /**
+     * Returns the maximum drag distance.
+     *
+     * @return The maximum drag distance in pixels as a {@link Float} value or 0, if no maximum drag
+     * distance is set
+     */
+    public final float getMaxDragDistance() {
+        return maxDragDistance;
+    }
+
+    /**
+     * Sets the maximum drag distance.
+     *
+     * @param maxDragDistance
+     *         The maximum drag distance, which should be set, in pixels as a {@link Float} value or
+     *         0, if no maximum drag distance should be set
+     */
+    public final void setMaxDragDistance(final float maxDragDistance) {
+        if (maxDragDistance != 0) {
+            ensureGreater(maxDragDistance, threshold,
+                    "The maximum drag distance must be greater than " + threshold);
+        }
+
+        this.maxDragDistance = maxDragDistance;
+    }
+
+    /**
+     * Returns the minimum drag distance.
+     *
+     * @return The minimum drag distance in pixels as a {@link Float} value or 0, if no minimum drag
+     * distance is set
+     */
+    public final float getMinDragDistance() {
+        return minDragDistance;
+    }
+
+    /**
+     * Sets the minimum drag distance.
+     *
+     * @param minDragDistance
+     *         The minimum drag distance, which should be set, in pixels as a {@link Float} value or
+     *         0, if no minimum drag distance should be set
+     */
+    public final void setMinDragDistance(final float minDragDistance) {
+        if (minDragDistance != 0) {
+            ensureSmaller(minDragDistance, -threshold,
+                    "The minimum drag distance must be smaller than " + -threshold);
+        }
+
+        this.minDragDistance = minDragDistance;
     }
 
     /**
@@ -157,8 +275,20 @@ public class DragHelper {
      *
      * @return The distance, which has been passed while dragging, as an {@link Integer} value or 0,
      * if the threshold has not been reached yet
+     * @deprecated Use <code>getDragDistance</code>-method instead
      */
+    @Deprecated
     public final int getDistance() {
+        return Math.round(distance);
+    }
+
+    /**
+     * Returns the distance, which has been passed while dragging, in pixels.
+     *
+     * @return The distance, which has been passed while dragging, as a {@link Float} value or 0, if
+     * the threshold has not been reached yet
+     */
+    public final float getDragDistance() {
         return distance;
     }
 
@@ -167,8 +297,20 @@ public class DragHelper {
      *
      * @return The position, where the gesture has been started at, as an {@link Integer} value or
      * -1, if no gesture has been started yet
+     * @deprecated Use <code>getDragStartPosition</code>-method instead
      */
+    @Deprecated
     public final int getStartPosition() {
+        return Math.round(dragStartPosition);
+    }
+
+    /**
+     * Returns the position, where the drag gesture has been started at.
+     *
+     * @return The position, where the drag gesture has been started at, as a {@link Float} value or
+     * -1, if no gesture has been started yet
+     */
+    public final float getDragStartPosition() {
         return dragStartPosition;
     }
 

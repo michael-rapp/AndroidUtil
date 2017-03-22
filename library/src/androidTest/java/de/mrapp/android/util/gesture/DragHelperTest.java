@@ -29,11 +29,11 @@ public class DragHelperTest extends TestCase {
     public final void testConstructor() {
         int threshold = 1;
         DragHelper dragHelper = new DragHelper(threshold);
-        assertTrue(dragHelper.isReseted());
+        assertTrue(dragHelper.isReset());
         assertFalse(dragHelper.hasThresholdBeenReached());
-        assertEquals(-1.0f, dragHelper.getDragSpeed());
-        assertEquals(-1, dragHelper.getStartPosition());
-        assertEquals(0, dragHelper.getDistance());
+        assertEquals(-1f, dragHelper.getDragSpeed());
+        assertEquals(-1f, dragHelper.getDragStartPosition());
+        assertEquals(0f, dragHelper.getDragDistance());
     }
 
     /**
@@ -54,21 +54,21 @@ public class DragHelperTest extends TestCase {
      */
     public final void testUpdate() {
         DragHelper dragHelper = new DragHelper(1);
-        dragHelper.update(0);
+        dragHelper.update(0f);
         assertFalse(dragHelper.hasThresholdBeenReached());
-        assertEquals(-1.0f, dragHelper.getDragSpeed());
-        assertEquals(0, dragHelper.getStartPosition());
-        assertEquals(0, dragHelper.getDistance());
-        dragHelper.update(1);
+        assertEquals(-1f, dragHelper.getDragSpeed());
+        assertEquals(0f, dragHelper.getDragStartPosition());
+        assertEquals(0f, dragHelper.getDragDistance());
+        dragHelper.update(1f);
         assertTrue(dragHelper.hasThresholdBeenReached());
-        assertNotSame(-1.0f, dragHelper.getDragSpeed());
-        assertEquals(0, dragHelper.getStartPosition());
-        assertEquals(0, dragHelper.getDistance());
-        dragHelper.update(2);
+        assertNotSame(-1f, dragHelper.getDragSpeed());
+        assertEquals(0f, dragHelper.getDragStartPosition());
+        assertEquals(0f, dragHelper.getDragDistance());
+        dragHelper.update(2f);
         assertTrue(dragHelper.hasThresholdBeenReached());
-        assertNotSame(-1.0f, dragHelper.getDragSpeed());
-        assertEquals(0, dragHelper.getStartPosition());
-        assertEquals(1, dragHelper.getDistance());
+        assertNotSame(-1f, dragHelper.getDragSpeed());
+        assertEquals(0f, dragHelper.getDragStartPosition());
+        assertEquals(1f, dragHelper.getDragDistance());
     }
 
     /**
@@ -76,28 +76,28 @@ public class DragHelperTest extends TestCase {
      */
     public final void testReset() {
         DragHelper dragHelper = new DragHelper(1);
-        assertTrue(dragHelper.isReseted());
-        dragHelper.update(0);
-        assertFalse(dragHelper.isReseted());
-        dragHelper.update(1);
-        dragHelper.update(2);
+        assertTrue(dragHelper.isReset());
+        dragHelper.update(0f);
+        assertFalse(dragHelper.isReset());
+        dragHelper.update(1f);
+        dragHelper.update(2f);
         assertTrue(dragHelper.hasThresholdBeenReached());
-        assertNotSame(-1.0f, dragHelper.getDragSpeed());
-        assertEquals(1, dragHelper.getDistance());
-        assertEquals(0, dragHelper.getStartPosition());
-        assertFalse(dragHelper.isReseted());
+        assertNotSame(-1f, dragHelper.getDragSpeed());
+        assertEquals(1f, dragHelper.getDragDistance());
+        assertEquals(0f, dragHelper.getDragStartPosition());
+        assertFalse(dragHelper.isReset());
         dragHelper.reset();
         assertTrue(dragHelper.hasThresholdBeenReached());
-        assertNotSame(-1.0f, dragHelper.getDragSpeed());
-        assertEquals(1, dragHelper.getDistance());
-        assertEquals(0, dragHelper.getStartPosition());
-        assertTrue(dragHelper.isReseted());
-        dragHelper.update(1);
+        assertNotSame(-1f, dragHelper.getDragSpeed());
+        assertEquals(1f, dragHelper.getDragDistance());
+        assertEquals(0f, dragHelper.getDragStartPosition());
+        assertTrue(dragHelper.isReset());
+        dragHelper.update(1f);
         assertFalse(dragHelper.hasThresholdBeenReached());
-        assertEquals(-1.0f, dragHelper.getDragSpeed());
-        assertEquals(0, dragHelper.getDistance());
-        assertEquals(1, dragHelper.getStartPosition());
-        assertFalse(dragHelper.isReseted());
+        assertEquals(-1f, dragHelper.getDragSpeed());
+        assertEquals(0f, dragHelper.getDragDistance());
+        assertEquals(1f, dragHelper.getDragStartPosition());
+        assertFalse(dragHelper.isReset());
     }
 
 }
