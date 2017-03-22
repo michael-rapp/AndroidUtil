@@ -77,8 +77,8 @@ public class ViewRecycler<ItemType, ParamType> extends AbstractViewRecycler<Item
      *         ParamType or an empty array, if no optional parameters are available
      * @return A pair, which contains the view, which is used to visualize the given item, as well
      * as a boolean value, which indicates, whether a new view has been inflated, or if an unused
-     * view has been reused from the cache, as an instance of the class {@link Pair}. The pair may
-     * not be null
+     * view has been reused from the cache, as an instance of the class Pair. The pair may not be
+     * null
      */
     @SafeVarargs
     @NonNull
@@ -105,8 +105,8 @@ public class ViewRecycler<ItemType, ParamType> extends AbstractViewRecycler<Item
      *         ParamType or an empty array, if no optional parameters are available
      * @return A pair, which contains the view, which is used to visualize the given item, as well
      * as a boolean value, which indicates, whether a new view has been inflated, or if an unused
-     * view has been reused from the cache, as an instance of the class {@link Pair}. The pair may
-     * not be null
+     * view has been reused from the cache, as an instance of the class Pair. The pair may not be
+     * null
      */
     @SafeVarargs
     @NonNull

@@ -512,7 +512,7 @@ public abstract class AbstractDataBinder<DataType, KeyType, ViewType extends Vie
      *         {@link Context}. The context may not be null
      * @param cache
      *         The LRU cache, which should be used to cache already loaded data, as an instance of
-     *         the class {@link LruCache}. The cache may not be null
+     *         the class LruCache. The cache may not be null
      */
     public AbstractDataBinder(@NonNull final Context context,
                               @NonNull final LruCache<KeyType, DataType> cache) {
@@ -531,7 +531,7 @@ public abstract class AbstractDataBinder<DataType, KeyType, ViewType extends Vie
      *         instance of the type {@link ExecutorService}. The executor service may not be null
      * @param cache
      *         The LRU cache, which should be used to cache already loaded data, as an instance of
-     *         the class {@link LruCache}. The cache may not be null
+     *         the class LruCache. The cache may not be null
      */
     public AbstractDataBinder(@NonNull final Context context,
                               @NonNull final ExecutorService threadPool,
