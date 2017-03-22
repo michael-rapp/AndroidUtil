@@ -1,5 +1,12 @@
 # AndroidUtil - RELEASE NOTES
 
+## Version 1.15.0 (Mar. 22th 2017)
+
+A feature release, which introduces the following changes:
+
+- Added new methods to the class `DragHelper`, which use `float` values instead of `int` values. The old methods are now deprecated.
+- Added `setMaxDragDistance`- and `setMinDragDistance`-method to the class `DragHelper`.
+
 ## Version 1.14.0 (Feb. 12th 2017)
 
 A feature release, which introduces the following changes:
