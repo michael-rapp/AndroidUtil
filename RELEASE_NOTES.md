@@ -6,6 +6,7 @@ A feature release, which introduces the following changes:
 
 - Added new methods to the class `DragHelper`, which use `float` values instead of `int` values. The old methods are now deprecated.
 - Added `setMaxDragDistance`- and `setMinDragDistance`-method to the class `DragHelper`.
+- Added the classes `ViewRecycler` and `AttachedViewRecycler`, which allow to cache views in order to reuse them instead of inflating new instances.
 - Added AppCompat v7 support library as a dependency.
 - Updated AppCompat v4 support library to version 25.3.0.
 - Updated AppCompat annotations support library to version 25.3.0.
