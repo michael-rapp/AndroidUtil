@@ -23,7 +23,7 @@
 - The class `AbstractSavedState` can be used as a base class for storing the state of views. It is identical to the Android SDK's class `android.view.AbsSavedState`, but uses a custom class loader and is therefore suited for being used in library projects.
 - The class `Logger` allows to write log messages to Logcat. By applying a log level, log messages can be filtered depending on their priority.
 - The class `ViewHolder` and `AbstractViewHolderAdapter` allow to use the view holder pattern in custom adapter implementations.
-- The class `DragHandler` allows to measure the distance and speed of drag gestures.
+- The class `DragHelper` allows to measure the distance and speed of drag gestures.
 - The classes `ViewRecycler` and `AttachedViewRecycler` allow to cache views in order to reuse them instead of inflating new instances.
 - The class `AbstractDataBinder` allows to asynchronously load data in order to display it by using recyclable views.
 
