@@ -19,8 +19,8 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
-import android.widget.ImageView;
 
 /**
  * A custom view, which is extended from the view {@link android.widget.ImageView} in order to
@@ -29,7 +29,7 @@ import android.widget.ImageView;
  * @author Michael Rapp
  * @since 1.4.6
  */
-public class SquareImageView extends ImageView {
+public class SquareImageView extends AppCompatImageView {
 
     /**
      * Creates a new square image view.
@@ -75,32 +75,6 @@ public class SquareImageView extends ImageView {
                            @Nullable final AttributeSet attributeSet,
                            @StyleRes final int defaultStyle) {
         super(context, attributeSet, defaultStyle);
-    }
-
-    /**
-     * Creates a new square image view.
-     *
-     * @param context
-     *         The context, which should be used by the image view, as an instance of the class
-     *         {@link Context}. The context may not be null
-     * @param attributeSet
-     *         The attributes of the XML tag that is inflating the view, as an instance of the type
-     *         {@link AttributeSet} or null, if no attributes are available
-     * @param defaultStyle
-     *         The default style to apply to this view. If 0, no style will be applied (beyond what
-     *         is included in the theme). This may either be an attribute resource, whose value will
-     *         be retrieved from the current theme, or an explicit style resource
-     * @param defaultStyleResource
-     *         A resource identifier of a style resource that supplies default values for the view,
-     *         used only if the default style is 0 or can not be found in the theme. Can be 0 to not
-     *         look for defaults
-     */
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public SquareImageView(@NonNull final Context context,
-                           @Nullable final AttributeSet attributeSet,
-                           @StyleRes final int defaultStyle,
-                           @StyleRes final int defaultStyleResource) {
-        super(context, attributeSet, defaultStyle, defaultStyleResource);
     }
 
     @Override
