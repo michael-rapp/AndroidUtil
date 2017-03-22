@@ -18,7 +18,7 @@ import static de.mrapp.android.util.Condition.ensureGreater;
 import static de.mrapp.android.util.Condition.ensureSmaller;
 
 /**
- * A helper class, which may be used to recognize drag gestures.
+ * A helper class, which may be used to measure the distance and speed of drag gestures.
  *
  * @author Michael Rapp
  * @since 1.4.0
@@ -86,7 +86,8 @@ public class DragHelper {
     }
 
     /**
-     * Creates a new helper class, which may be used to recognize drag gestures.
+     * Creates a new helper class, which may be used to measure the distance and speed of drag
+     * gestures.
      *
      * @param threshold
      *         The distance in pixels, the gesture must last until it is recognized, as an {@link
