@@ -8,7 +8,7 @@ A feature release, which introduces the following changes:
 - Added `setMaxDragDistance`- and `setMinDragDistance`-method to the class `DragHelper`.
 - Added the classes `ViewRecycler` and `AttachedViewRecycler`, which allow to cache views in order to reuse them instead of inflating new instances.
 - Added the class `AbstractDataBinder`, which allows to asynchronously load data in order to display it by using recyclable views.
-- The class `ElevationShadowView` is now extended from the class `AppCompatImageView`.
+- The classes `ElevationShadowView` and `SquareImageView` are now extended from the class `AppCompatImageView`.
 - Added AppCompat v7 support library as a dependency.
 - Updated AppCompat v4 support library to version 25.3.0.
 - Updated AppCompat annotations support library to version 25.3.0.
