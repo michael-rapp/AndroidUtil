@@ -137,6 +137,39 @@ public class AttachedViewRecycler<ItemType, ParamType>
         this.items = new ArrayList<>();
     }
 
+    /**
+     * Removes a previously inflated view, which is used to visualize a specific item. If caching is
+     * enabled, the view will be put into a cache in order to be able to reuse it later.
+     *
+     * @param item
+     *         The item, which is visualized by the view, which should be removed, as an instance of
+     *         the generic type ItemType. The item may not be null
+     */
+
+    /**
+     * Brings a previously inflated view, which is used to visualize a specific item, to the front.
+     *
+     * @param item
+     *         The item, which is visualized by the view, which should be brought to the front, as
+     *         an instance of the generic type ItemType. The item may not be null
+     */
+    public final void bringToFront(@NonNull final ItemType item) {
+        ensureNotNull(item, "The item may not be null");
+        ensureNotNull(getAdapter(), "No adapter has been set", IllegalStateException.class);
+        int index = items.indexOf(item);
+
+        if (index != -1) {
+            View view = parent.getChildAt(index);
+            parent.bringChildToFront(view);
+            items.remove(index);
+            items.add(0, item);
+            getLogger().logInfo(getClass(), "Brought view of item " + item + " to front");
+        } else {
+            getLogger().logDebug(getClass(),
+                    "View of item " + item + " not brought to front. View is not inflated");
+        }
+    }
+
     @SafeVarargs
     @NonNull
     @Override
