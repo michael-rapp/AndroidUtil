@@ -4,6 +4,7 @@
 
 A minor release, which introduces the following changes:
 
+- Added `bringToFront`-method to class `AttachedViewRecycler`.
 - Updated AppCompat v4 support library to version 25.3.1.
 - Updated AppCompat annotations support library to version 25.3.1.
 - Updated AppCompat RecyclerView support library to version 25.3.1.
