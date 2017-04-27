@@ -25,6 +25,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import de.mrapp.android.util.view.AbstractViewRecycler;
+
 import static de.mrapp.android.util.Condition.ensureNotNull;
 
 /**
@@ -138,16 +140,11 @@ public class AttachedViewRecycler<ItemType, ParamType>
     }
 
     /**
-     * Removes a previously inflated view, which is used to visualize a specific item. If caching is
-     * enabled, the view will be put into a cache in order to be able to reuse it later.
-     *
-     * @param item
-     *         The item, which is visualized by the view, which should be removed, as an instance of
-     *         the generic type ItemType. The item may not be null
-     */
-
-    /**
      * Brings a previously inflated view, which is used to visualize a specific item, to the front.
+     *
+     * WARNING: This method should only be used, when not using a {@link Comparator} for determining
+     * the order of attached views. Otherwise, calling this method may cause the order of views to
+     * contradict the order, which is given by the {@link Comparator}.
      *
      * @param item
      *         The item, which is visualized by the view, which should be brought to the front, as
@@ -156,13 +153,19 @@ public class AttachedViewRecycler<ItemType, ParamType>
     public final void bringToFront(@NonNull final ItemType item) {
         ensureNotNull(item, "The item may not be null");
         ensureNotNull(getAdapter(), "No adapter has been set", IllegalStateException.class);
+
+        if (comparator != null) {
+            getLogger().logWarn(getClass(),
+                    "Using the bringToFront-method is not recommended when using a comparator");
+        }
+
         int index = items.indexOf(item);
 
         if (index != -1) {
             View view = parent.getChildAt(index);
             parent.bringChildToFront(view);
             items.remove(index);
-            items.add(0, item);
+            items.add(items.size(), item);
             getLogger().logInfo(getClass(), "Brought view of item " + item + " to front");
         } else {
             getLogger().logDebug(getClass(),
