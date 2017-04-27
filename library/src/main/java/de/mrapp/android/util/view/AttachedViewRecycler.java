@@ -25,8 +25,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import de.mrapp.android.util.view.AbstractViewRecycler;
-
 import static de.mrapp.android.util.Condition.ensureNotNull;
 
 /**
@@ -53,17 +51,17 @@ public class AttachedViewRecycler<ItemType, ParamType>
     private final ViewGroup parent;
 
     /**
-     * The comparator, which is used to determine the order, which is used to add views to the
-     * parent.
-     */
-    private final Comparator<ItemType> comparator;
-
-    /**
      * A list, which contains the items, which are currently visualized by the active views. The
      * order of the items corresponds to the hierarchical order of the corresponding views in their
      * parent.
      */
-    private final List<ItemType> items;
+    private List<ItemType> items;
+
+    /**
+     * The comparator, which is used to determine the order, which is used to add views to the
+     * parent.
+     */
+    private Comparator<ItemType> comparator;
 
     /**
      * Creates a new recycler, which allows to cache views in order to be able to reuse them later
@@ -144,11 +142,14 @@ public class AttachedViewRecycler<ItemType, ParamType>
      *
      * WARNING: This method should only be used, when not using a {@link Comparator} for determining
      * the order of attached views. Otherwise, calling this method may cause the order of views to
-     * contradict the order, which is given by the {@link Comparator}.
+     * conflict with the order, which is given by the comparator. Instead, the {@link
+     * AttachedViewRecycler#setComparator(Comparator)} method should be used in such case. It allows
+     * to set a new comparator and reorders the views accordingly.
      *
      * @param item
      *         The item, which is visualized by the view, which should be brought to the front, as
      *         an instance of the generic type ItemType. The item may not be null
+     * @see AttachedViewRecycler#setComparator(Comparator)
      */
     public final void bringToFront(@NonNull final ItemType item) {
         ensureNotNull(item, "The item may not be null");
@@ -171,6 +172,60 @@ public class AttachedViewRecycler<ItemType, ParamType>
             getLogger().logDebug(getClass(),
                     "View of item " + item + " not brought to front. View is not inflated");
         }
+    }
+
+    /**
+     * Sets the comparator, which allows to determine the order, which should be used to add views
+     * to the parent. When setting a comparator, which is different from the current one, the
+     * currently attached views are reordered.
+     *
+     * @param comparator
+     *         The comparator, which allows to determine the order, which should be used to add
+     *         views to the parent, as an instance of the type {@link Comparator} or null, if the
+     *         views should be added in the order of their inflation
+     */
+    public final void setComparator(@Nullable final Comparator<ItemType> comparator) {
+        this.comparator = comparator;
+
+        if (comparator != null) {
+            if (items.size() > 0) {
+                List<ItemType> newItems = new ArrayList<>();
+                List<View> views = new ArrayList<>();
+
+                for (int i = items.size() - 1; i >= 0; i--) {
+                    ItemType item = items.get(i);
+                    int index = binarySearch(newItems, item, comparator);
+                    newItems.add(index, item);
+                    View view = parent.getChildAt(i);
+                    parent.removeViewAt(i);
+                    views.add(index, view);
+                }
+
+                parent.removeAllViews();
+
+                for (View view : views) {
+                    parent.addView(view);
+                }
+
+                this.items = newItems;
+                getLogger().logDebug(getClass(), "Comparator changed. Views have been reordered");
+            } else {
+                getLogger().logDebug(getClass(), "Comparator changed");
+            }
+        } else {
+            getLogger().logDebug(getClass(), "Comparator set to null");
+        }
+    }
+
+    private int binarySearch(@NonNull final List<ItemType> list, @NonNull final ItemType item,
+                             @NonNull final Comparator<ItemType> comparator) {
+        int index = Collections.binarySearch(list, item, comparator);
+
+        if (index < 0) {
+            index = ~index;
+        }
+
+        return index;
     }
 
     @SafeVarargs
@@ -206,11 +261,7 @@ public class AttachedViewRecycler<ItemType, ParamType>
             int index;
 
             if (comparator != null) {
-                index = Collections.binarySearch(items, item, comparator);
-
-                if (index < 0) {
-                    index = ~index;
-                }
+                index = binarySearch(items, item, comparator);
             } else {
                 index = items.size();
             }
