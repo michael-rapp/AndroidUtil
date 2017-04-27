@@ -5,7 +5,7 @@
 A bugfix release, which introduces the following changes:
 
 - Fixed `bringToFront`-method of class `AttachedViewRecycler`.
-- Added `setDecorator`-method to class `AttachedViewRecycler`.
+- Added `setComparator`-method to class `AttachedViewRecycler`.
 
 ## Version 1.15.1 (Apr. 27th 2017)
 
