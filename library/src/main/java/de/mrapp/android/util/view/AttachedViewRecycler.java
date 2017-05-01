@@ -64,6 +64,31 @@ public class AttachedViewRecycler<ItemType, ParamType>
     private Comparator<ItemType> comparator;
 
     /**
+     * Returns the index, an item should be added at, according to a specific comparator.
+     *
+     * @param list
+     *         The list, which should be searched, as an instance of the type {@link List}. The list
+     *         may not be null
+     * @param item
+     *         The item, whose position should be returned, as an instance of the generic type
+     *         ItemType. The item may not be null
+     * @param comparator
+     *         The comparator, which should be used to compare items, as an instance of the type
+     *         {@link Comparator}. The comparator may not be null
+     * @return The index, the given item should be added at, as an {@link Integer} value
+     */
+    private int binarySearch(@NonNull final List<ItemType> list, @NonNull final ItemType item,
+                             @NonNull final Comparator<ItemType> comparator) {
+        int index = Collections.binarySearch(list, item, comparator);
+
+        if (index < 0) {
+            index = ~index;
+        }
+
+        return index;
+    }
+
+    /**
      * Creates a new recycler, which allows to cache views in order to be able to reuse them later
      * instead of inflating new instances. By default, views are added to the parent in the order of
      * their inflation.
@@ -215,17 +240,6 @@ public class AttachedViewRecycler<ItemType, ParamType>
         } else {
             getLogger().logDebug(getClass(), "Comparator set to null");
         }
-    }
-
-    private int binarySearch(@NonNull final List<ItemType> list, @NonNull final ItemType item,
-                             @NonNull final Comparator<ItemType> comparator) {
-        int index = Collections.binarySearch(list, item, comparator);
-
-        if (index < 0) {
-            index = ~index;
-        }
-
-        return index;
     }
 
     @SafeVarargs
