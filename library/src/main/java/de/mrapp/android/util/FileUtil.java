@@ -29,7 +29,7 @@ import static de.mrapp.android.util.Condition.ensureNotNull;
 public final class FileUtil {
 
     /**
-     * Creates a specific directory, if it des not already exist.
+     * Creates a specific directory, if it does not already exist.
      *
      * @param directory
      *         The directory, which should be created, as an instance of the class {@link File}. The
