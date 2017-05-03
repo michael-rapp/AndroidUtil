@@ -1,5 +1,11 @@
 # AndroidUtil - RELEASE NOTES
 
+## Version 1.15.4 (May 3rd 2017)
+
+A bugfix release, which fixes the following issues:
+
+- Changed return type of `getResourceId`-method of class `ThemeUtil` from `float` to `int`.
+
 ## Version 1.15.3 (May 3rd 2017)
 
 A minor release, which introduces the following changes:
