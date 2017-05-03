@@ -804,8 +804,7 @@ public final class ThemeUtil {
      * @return The resource id, which has been obtained, as an {@link Integer} value or 0, if the
      * given resource id is invalid
      */
-    public static float getResourceId(@NonNull final Context context,
-                                      @AttrRes final int resourceId) {
+    public static int getResourceId(@NonNull final Context context, @AttrRes final int resourceId) {
         return getResourceId(context, -1, resourceId);
     }
 
