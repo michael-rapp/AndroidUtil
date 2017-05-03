@@ -1,5 +1,11 @@
 # AndroidUtil - RELEASE NOTES
 
+## Version 1.15.3 (May 3rd 2017)
+
+A minor release, which introduces the following changes:
+
+- Added `getResourceId`-methods to the class `ThemeUtil`.
+
 ## Version 1.15.2 (Apr. 27th 2017)
 
 A bugfix release, which introduces the following changes:
