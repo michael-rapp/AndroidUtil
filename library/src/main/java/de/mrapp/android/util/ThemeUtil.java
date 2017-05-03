@@ -791,4 +791,53 @@ public final class ThemeUtil {
         }
     }
 
+    /**
+     * Obtains the resource id, which corresponds to a specific resource id, from a context's
+     * theme.
+     *
+     * @param context
+     *         The context, which should be used, as an instance of the class {@link Context}. The
+     *         context may not be null
+     * @param resourceId
+     *         The resource id of the attribute, which should be obtained, as an {@link Integer}
+     *         value. The resource id must corresponds to a valid theme attribute
+     * @return The resource id, which has been obtained, as an {@link Integer} value or 0, if the
+     * given resource id is invalid
+     */
+    public static float getResourceId(@NonNull final Context context,
+                                      @AttrRes final int resourceId) {
+        return getResourceId(context, -1, resourceId);
+    }
+
+    /**
+     * Obtains the resource id, which corresponds to a specific resource id, from a specific theme.
+     *
+     * @param context
+     *         The context, which should be used, as an instance of the class {@link Context}. The
+     *         context may not be null
+     * @param themeResourceId
+     *         The resource id of the theme, the attribute should be obtained from, as an {@link
+     *         Integer} value or -1, if the attribute should be obtained from the given context's
+     *         theme
+     * @param resourceId
+     *         The resource id of the attribute, which should be obtained, as an {@link Integer}
+     *         value. The resource id must correspond to a valid theme attribute
+     * @return The resource id, which has been obtained, as an {@link Integer} value or 0, if the
+     * given resource id is invalid
+     */
+    public static int getResourceId(@NonNull final Context context,
+                                    @StyleRes final int themeResourceId,
+                                    @AttrRes final int resourceId) {
+        TypedArray typedArray = null;
+
+        try {
+            typedArray = obtainStyledAttributes(context, themeResourceId, resourceId);
+            return typedArray.getResourceId(0, 0);
+        } finally {
+            if (typedArray != null) {
+                typedArray.recycle();
+            }
+        }
+    }
+
 }
