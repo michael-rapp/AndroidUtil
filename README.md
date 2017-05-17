@@ -17,6 +17,7 @@
 - The class `ThreadUtil` provides methods, which allow to handle threads.
 - The class `ArrayUtil` provides methods, which allow to handle arrays.
 - The class `Triple` is a generic data structure, which eases to pass around a triple of three objects.
+- The view `UnfocusableToolbar` extends the AppCompat support library's `Toolbar` to enable touch events to be passed to other views in the event processing chain.
 - The view `SquareImageView` implements an `ImageView` whose height is enforced to be equal to its width.
 - The view `ScrimInsetsLayout` implements a layout, which allows to show a `Drawable` in the insets, which are passed to its `fitSystemWindows`-method. This can for example be used to implement a navigation drawer, which appears to be located behind the device's status bar.
 - The view `HeaderAndFooterGridView` extends the Android SDK's `GridView` with the functionality to add header and footer views.
