@@ -1,5 +1,11 @@
 # AndroidUtil - RELEASE NOTES
 
+## Version 1.16.0 (May 17th 2017)
+
+A feature release, which introduces the following changes:
+
+- Added the class `UnfocusableToolbar`, extends the AppCompat support library's `Toolbar` to enable touch events to be passed to other views in the event processing chain.
+
 ## Version 1.15.4 (May 3rd 2017)
 
 A bugfix release, which fixes the following issues:
