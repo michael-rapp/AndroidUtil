@@ -22,9 +22,9 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 
 /**
- * By default, the AppCompat support library's {@link Toolbar} does consume all touch events,
+ * By default, the AppCompat support library's Toolbar does consume all touch events,
  * regardless of whether the "focusable" attribute is set, or not. This class extend the class
- * {@link Toolbar} to enable touch events to be passed to other views in the event processing chain,
+ * Toolbar to enable touch events to be passed to other views in the event processing chain,
  * if the "focusable" attribute is set to false. If it is set to true, the toolbar behaves exactly
  * like the original one.
  *
