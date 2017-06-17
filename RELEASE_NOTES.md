@@ -1,5 +1,11 @@
 # AndroidUtil - RELEASE NOTES
 
+## Version 1.17.0 (Jun. 17th 2017)
+
+A feature release, which introducing the following changes:
+
+- The `getBoolean`-, `getInteger`-, `getFloat`- and `getResourceId`-methods of the class `ThemeUtil` are now deprecated. They have been replaced with methods, which allow to specify default values, which are returned, if the the given resource id is invalid.
+
 ## Version 1.16.0 (May 17th 2017)
 
 A feature release, which introduces the following changes:
