@@ -13,9 +13,7 @@
  */
 package de.mrapp.android.util.view;
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.os.Build;
 import android.test.AndroidTestCase;
 import android.util.AttributeSet;
 import android.util.Xml;
@@ -99,34 +97,6 @@ public class ElevationShadowViewTest extends AndroidTestCase {
         assertEquals(elevation, elevationShadowView.getShadowElevation());
         assertEquals(orientation, elevationShadowView.getShadowOrientation());
         assertEquals(emulateParallelLight, elevationShadowView.isParallelLightEmulated());
-    }
-
-    /**
-     * Tests, if all properties are set correctly by the constructor, which expects a context, an
-     * attribute set, a default style and a default style attribute as parameters.
-     */
-    public final void testConstructorWithContextAttributeSetAndDefaultStyleAndDefaultStyleAttributeParameters() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Context context = getContext();
-            int defaultStyle = 0;
-            int defaultStyleAttribute = 0;
-            int elevation = pixelsToDp(context, context.getResources().getDimensionPixelSize(
-                    R.dimen.elevation_shadow_view_shadow_elevation_default_value));
-            Orientation orientation = Orientation.fromValue(context.getResources()
-                    .getInteger(R.integer.elevation_shadow_view_shadow_orientation_default_value));
-            boolean emulateParallelLight = context.getResources()
-                    .getBoolean(R.bool.elevation_shadow_view_emulate_parallel_light_default_value);
-            XmlPullParser xmlPullParser =
-                    context.getResources().getXml(R.xml.elevation_shadow_view);
-            AttributeSet attributeSet = Xml.asAttributeSet(xmlPullParser);
-            ElevationShadowView elevationShadowView =
-                    new ElevationShadowView(context, attributeSet, defaultStyle,
-                            defaultStyleAttribute);
-            assertEquals(context, elevationShadowView.getContext());
-            assertEquals(elevation, elevationShadowView.getShadowElevation());
-            assertEquals(orientation, elevationShadowView.getShadowOrientation());
-            assertEquals(emulateParallelLight, elevationShadowView.isParallelLightEmulated());
-        }
     }
 
     /**
