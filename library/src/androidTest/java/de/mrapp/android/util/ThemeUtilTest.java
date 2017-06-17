@@ -202,8 +202,9 @@ public class ThemeUtilTest extends AndroidTestCase {
      */
     public final void testGetDimensionPixelSize() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            assertNotSame(ThemeUtil.getDimensionPixelSize(getContext(),
-                            android.R.attr.listPreferredItemHeight), 0);
+            assertNotSame(ThemeUtil
+                            .getDimensionPixelSize(getContext(), android.R.attr.listPreferredItemHeight),
+                    0);
         }
     }
 
@@ -237,8 +238,9 @@ public class ThemeUtilTest extends AndroidTestCase {
      */
     public final void testGetDimensionPixelOffset() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            assertNotSame(ThemeUtil.getDimensionPixelOffset(getContext(),
-                            android.R.attr.listPreferredItemHeight), 0);
+            assertNotSame(ThemeUtil
+                            .getDimensionPixelOffset(getContext(), android.R.attr.listPreferredItemHeight),
+                    0);
         }
     }
 
@@ -306,7 +308,7 @@ public class ThemeUtilTest extends AndroidTestCase {
      */
     public final void testGetBoolean() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            ThemeUtil.getBoolean(getContext(), android.R.attr.windowCloseOnTouchOutside);
+            ThemeUtil.getBoolean(getContext(), android.R.attr.windowCloseOnTouchOutside, false);
         }
     }
 
@@ -317,7 +319,7 @@ public class ThemeUtilTest extends AndroidTestCase {
     public final void testGetBooleanWithThemeResourceIdParameter() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             ThemeUtil.getBoolean(getContext(), android.R.style.Theme_Holo,
-                    android.R.attr.windowCloseOnTouchOutside);
+                    android.R.attr.windowCloseOnTouchOutside, false);
         }
     }
 
@@ -326,7 +328,7 @@ public class ThemeUtilTest extends AndroidTestCase {
      */
     public final void testGetFloat() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            ThemeUtil.getFloat(getContext(), android.R.attr.backgroundDimAmount);
+            ThemeUtil.getFloat(getContext(), android.R.attr.backgroundDimAmount, 0f);
         }
     }
 
@@ -337,7 +339,7 @@ public class ThemeUtilTest extends AndroidTestCase {
     public final void testGetFloatWithThemeResourceIdParameter() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             ThemeUtil.getFloat(getContext(), android.R.style.Theme_Holo,
-                    android.R.attr.backgroundDimAmount);
+                    android.R.attr.backgroundDimAmount, 0f);
         }
     }
 
