@@ -1,5 +1,11 @@
 # AndroidUtil - RELEASE NOTES
 
+## Version 1.17.1 (Sep. 19th 2017)
+
+A minor release, which introduces the following changes:
+
+- Updated `targetSdkVersion` to API level 26 (Android 8.0).
+
 ## Version 1.17.0 (Jun. 17th 2017)
 
 A feature release, which introduces the following changes:
