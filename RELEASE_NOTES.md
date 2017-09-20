@@ -1,5 +1,11 @@
 # AndroidUtil - RELEASE NOTES
 
+## Version 1.17.2 (Sep. 20th 2017)
+
+A minor release, which introduces the following changes:
+
+- Added setter method and a styled attribute to specify the scaled edge of a `SquareImageView`.
+
 ## Version 1.17.1 (Sep. 19th 2017)
 
 A minor release, which introduces the following changes:
