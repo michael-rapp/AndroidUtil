@@ -34,4 +34,11 @@ License.
         <attr name="insetDrawable" format="reference|color"/>
     </declare-styleable>
 
+    <declare-styleable name="SquareImageView">
+        <attr name="scaledEdge" format="enum">
+            <enum name="horizontal" value="0"/>
+            <enum name="vertical" value="1"/>
+        </attr>
+    </declare-styleable>
+
 </resources>
