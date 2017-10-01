@@ -1,5 +1,15 @@
 # AndroidUtil - RELEASE NOTES
 
+## Version 1.18.0 (Oct. 1st 2017)
+
+A feature release, which introduces the following changes:
+
+- Updated AppCompat v4 support library to version 26.1.0.
+- Updated AppCompat v7 support library to version 26.1.0.
+- Updated AppCompat annotations support library to version 26.1.0.
+- Updated AppCompat RecyclerView support library to version 26.1.0.
+- As a result of updating the dependencies, the `minSdkVersion` must be increased to API level 14.
+
 ## Version 1.17.2 (Sep. 20th 2017)
 
 A minor release, which introduces the following changes:
