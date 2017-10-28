@@ -57,8 +57,7 @@ import static de.mrapp.android.util.Condition.ensureNotNull;
  * @author Michael Rapp
  * @since 1.15.0
  */
-public abstract class AbstractDataBinder<DataType, KeyType, ViewType extends View, ParamType>
-        extends Handler {
+public abstract class AbstractDataBinder<DataType, KeyType, ViewType, ParamType> extends Handler {
 
     /**
      * Defines the interface, a class, which should be notified about the progress of a {@link
@@ -73,7 +72,7 @@ public abstract class AbstractDataBinder<DataType, KeyType, ViewType extends Vie
      * @param <ParamType>
      *         The type of parameters, which can be passed when loading data
      */
-    public interface Listener<DataType, KeyType, ViewType extends View, ParamType> {
+    public interface Listener<DataType, KeyType, ViewType, ParamType> {
 
         /**
          * The method, which is invoked, when the data binder starts to load data asynchronously.
@@ -146,7 +145,7 @@ public abstract class AbstractDataBinder<DataType, KeyType, ViewType extends Vie
      * @param <ParamType>
      *         The type of parameters, which can be passed when loading data
      */
-    private static class Task<DataType, KeyType, ViewType extends View, ParamType> {
+    private static class Task<DataType, KeyType, ViewType, ParamType> {
 
         /**
          * The view, which should be used to display the data.
