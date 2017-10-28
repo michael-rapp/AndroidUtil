@@ -1,5 +1,11 @@
 # AndroidUtil - RELEASE NOTES
 
+## Version 1.18.1 (Oct. 28th 2017)
+
+A minor release, which introduces the following changes:
+
+- The data, which is loaded by an `AbstractDataBinder` can now be displayed using an arbitrary class, not only in a `View`.
+
 ## Version 1.18.0 (Oct. 1st 2017)
 
 A feature release, which introduces the following changes:
