@@ -1,5 +1,14 @@
 # AndroidUtil - RELEASE NOTES
 
+## Version 1.18.2 (Nov. 25th 2017)
+
+A minor release, which introduces the following changes:
+
+- Updated AppCompat v4 support library to version 27.0.1.
+- Updated AppCompat v7 support library to version 27.0.1.
+- Updated AppCompat annotations support library to version 27.0.1.
+- Updated AppCompat RecyclerView support library to version 27.0.1.
+
 ## Version 1.18.1 (Oct. 28th 2017)
 
 A minor release, which introduces the following changes:
