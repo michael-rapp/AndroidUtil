@@ -1,5 +1,12 @@
 # AndroidUtil - RELEASE NOTES
 
+## Version 1.19.0 (Jan. 25th 2018)
+
+A feature release, which introduces the following changes:
+
+- Added the data structure `ListenerList`, which is meant to be used for managing event listeners.
+- Updated `targetSdkVersion` to API level 27 (Android 8.1).
+
 ## Version 1.18.3 (Dec. 26th 2017)
 
 A minor release, which introduces the following changes:
