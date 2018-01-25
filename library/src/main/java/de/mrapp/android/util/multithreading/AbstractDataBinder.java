@@ -30,6 +30,7 @@ import java.util.WeakHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import de.mrapp.android.util.datastructure.ListenerList;
 import de.mrapp.android.util.logging.LogLevel;
 import de.mrapp.android.util.logging.Logger;
 
@@ -41,7 +42,7 @@ import static de.mrapp.android.util.Condition.ensureNotNull;
  * which each one should be displayed by a different view. Once loaded, the data can optionally be
  * stored in a cache (it therefore must be associated with an unique key). When attempting to reload
  * already cached data, it is retrieved from the cache and displayed immediately.
- *
+ * <p>
  * The binder supports to use adapter views, which might be recycled while data is still loaded. In
  * such case, the recycled view is prevented from showing the data once loading has finished,
  * because it is already used for other purposes.
@@ -210,7 +211,7 @@ public abstract class AbstractDataBinder<DataType, KeyType, ViewType, ParamType>
      * A set, which contains the listeners, which are notified about the progress of the data
      * binder.
      */
-    private final Set<Listener<DataType, KeyType, ViewType, ParamType>> listeners;
+    private final ListenerList<Listener<DataType, KeyType, ViewType, ParamType>> listeners;
 
     /**
      * A LRU cache, which is used to cache already loaded data.
@@ -257,15 +258,13 @@ public abstract class AbstractDataBinder<DataType, KeyType, ViewType, ParamType>
     @SafeVarargs
     private final boolean notifyOnLoad(@NonNull final KeyType key,
                                        @NonNull final ParamType... params) {
-        synchronized (listeners) {
-            boolean result = true;
+        boolean result = true;
 
-            for (Listener<DataType, KeyType, ViewType, ParamType> listener : listeners) {
-                result &= listener.onLoadData(this, key, params);
-            }
-
-            return result;
+        for (Listener<DataType, KeyType, ViewType, ParamType> listener : listeners) {
+            result &= listener.onLoadData(this, key, params);
         }
+
+        return result;
     }
 
     /**
@@ -289,10 +288,8 @@ public abstract class AbstractDataBinder<DataType, KeyType, ViewType, ParamType>
     private final void notifyOnFinished(@NonNull final KeyType key, @Nullable final DataType data,
                                         @NonNull final ViewType view,
                                         @NonNull final ParamType... params) {
-        synchronized (listeners) {
-            for (Listener<DataType, KeyType, ViewType, ParamType> listener : listeners) {
-                listener.onFinished(this, key, data, view, params);
-            }
+        for (Listener<DataType, KeyType, ViewType, ParamType> listener : listeners) {
+            listener.onFinished(this, key, data, view, params);
         }
     }
 
@@ -300,10 +297,8 @@ public abstract class AbstractDataBinder<DataType, KeyType, ViewType, ParamType>
      * Notifies all listeners, that the data binder has been canceled.
      */
     private void notifyOnCanceled() {
-        synchronized (listeners) {
-            for (Listener<DataType, KeyType, ViewType, ParamType> listener : listeners) {
-                listener.onCanceled(this);
-            }
+        for (Listener<DataType, KeyType, ViewType, ParamType> listener : listeners) {
+            listener.onCanceled(this);
         }
     }
 
@@ -540,7 +535,7 @@ public abstract class AbstractDataBinder<DataType, KeyType, ViewType, ParamType>
         ensureNotNull(cache, "The cache may not be null");
         this.context = context;
         this.logger = new Logger(LogLevel.INFO);
-        this.listeners = new LinkedHashSet<>();
+        this.listeners = new ListenerList<>();
         this.cache = cache;
         this.views = Collections.synchronizedMap(new WeakHashMap<ViewType, KeyType>());
         this.threadPool = threadPool;
@@ -591,11 +586,7 @@ public abstract class AbstractDataBinder<DataType, KeyType, ViewType, ParamType>
      */
     public final void addListener(
             @NonNull final Listener<DataType, KeyType, ViewType, ParamType> listener) {
-        ensureNotNull(listener, "The listener may not be null");
-
-        synchronized (listeners) {
-            listeners.add(listener);
-        }
+        listeners.add(listener);
     }
 
     /**
@@ -608,11 +599,7 @@ public abstract class AbstractDataBinder<DataType, KeyType, ViewType, ParamType>
      */
     public final void removeListener(
             @NonNull final Listener<DataType, KeyType, ViewType, ParamType> listener) {
-        ensureNotNull(listener, "The listener may not be null");
-
-        synchronized (listeners) {
-            listeners.remove(listener);
-        }
+        listeners.remove(listener);
     }
 
     /**
