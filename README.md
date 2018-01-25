@@ -29,6 +29,7 @@
 - The class `DragHelper` allows to measure the distance and speed of drag gestures.
 - The classes `ViewRecycler` and `AttachedViewRecycler` allow to cache views in order to reuse them instead of inflating new instances.
 - The class `AbstractDataBinder` allows to asynchronously load data in order to display it by using recyclable views.
+- The class `ListenerList` is a data structure, which is meant to be used for managing event listeners.
 
 ## License Agreement
 
