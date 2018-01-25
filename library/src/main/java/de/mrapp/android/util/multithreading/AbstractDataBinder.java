@@ -23,9 +23,7 @@ import android.support.v4.util.LruCache;
 import android.view.View;
 
 import java.util.Collections;
-import java.util.LinkedHashSet;
 import java.util.Map;
-import java.util.Set;
 import java.util.WeakHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -149,6 +147,11 @@ public abstract class AbstractDataBinder<DataType, KeyType, ViewType, ParamType>
     private static class Task<DataType, KeyType, ViewType, ParamType> {
 
         /**
+         * The time, when the task was created.
+         */
+        private final long startTime;
+
+        /**
          * The view, which should be used to display the data.
          */
         private final ViewType view;
@@ -184,6 +187,7 @@ public abstract class AbstractDataBinder<DataType, KeyType, ViewType, ParamType>
          */
         Task(@NonNull final ViewType view, @NonNull final KeyType key,
              @NonNull final ParamType[] params) {
+            this.startTime = System.currentTimeMillis();
             this.view = view;
             this.key = key;
             this.params = params;
@@ -453,6 +457,8 @@ public abstract class AbstractDataBinder<DataType, KeyType, ViewType, ParamType>
      * @param data
      *         The data, which should be displayed, as an instance of the generic type DataType or
      *         null, if no data should be displayed
+     * @param duration
+     *         The duration of the loading process in milliseconds as a {@link Long} value
      * @param params
      *         An array, which contains optional parameters, as an array of the type ParamType or an
      *         empty array, if no parameters should be used
@@ -460,7 +466,7 @@ public abstract class AbstractDataBinder<DataType, KeyType, ViewType, ParamType>
     @UiThread
     @SuppressWarnings("unchecked")
     protected abstract void onPostExecute(@NonNull final ViewType view,
-                                          @Nullable final DataType data,
+                                          @Nullable final DataType data, final long duration,
                                           @NonNull final ParamType... params);
 
     /**
@@ -651,7 +657,7 @@ public abstract class AbstractDataBinder<DataType, KeyType, ViewType, ParamType>
 
         if (!isCanceled()) {
             if (data != null) {
-                onPostExecute(view, data, params);
+                onPostExecute(view, data, 0, params);
                 notifyOnFinished(key, data, view, params);
                 logger.logInfo(getClass(), "Loaded data with key " + key + " from cache");
             } else {
@@ -662,7 +668,7 @@ public abstract class AbstractDataBinder<DataType, KeyType, ViewType, ParamType>
                     loadDataAsynchronously(task);
                 } else {
                     data = loadData(task);
-                    onPostExecute(view, data, params);
+                    onPostExecute(view, data, 0, params);
                     notifyOnFinished(key, data, view, params);
                 }
             }
@@ -753,7 +759,8 @@ public abstract class AbstractDataBinder<DataType, KeyType, ViewType, ParamType>
             KeyType key = views.get(task.view);
 
             if (key != null && key.equals(task.key)) {
-                onPostExecute(task.view, task.result, task.params);
+                long duration = System.currentTimeMillis() - task.startTime;
+                onPostExecute(task.view, task.result, duration, task.params);
                 notifyOnFinished(task.key, task.result, task.view, task.params);
             } else {
                 logger.logVerbose(getClass(),
