@@ -5,6 +5,8 @@
 A feature release, which introduces the following changes:
 
 - Added the data structure `ListenerList`, which is meant to be used for managing event listeners.
+- The class `AbstractDataBinder` now uses the data structure `ListenerList` for managing its listeners. This allows to add/remove listeners from within the listener methods.
+- The duration of the loading process is now passed as an argument to the `onPostProgress`-method of an `AbstractDataBinder`.
 - Updated `targetSdkVersion` to API level 27 (Android 8.1).
 
 ## Version 1.18.3 (Dec. 26th 2017)
