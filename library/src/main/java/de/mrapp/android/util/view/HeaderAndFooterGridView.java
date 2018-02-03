@@ -45,7 +45,7 @@ import static de.mrapp.android.util.Condition.ensureNotNull;
  * @author Michael Rapp
  * @since 1.6.0
  */
-public class HeaderAndFooterGridView extends GridView {
+public class HeaderAndFooterGridView extends GridView implements HeaderAndFooterAdapterView {
 
     /**
      * A layout, which is used as a container for a single child view. The layout is expanded to the
@@ -220,8 +220,8 @@ public class HeaderAndFooterGridView extends GridView {
                 } else {
                     return null;
                 }
-            } else if (position < getHeaderViewsCount() + adapterCount +
-                    getNumberOfPlaceholderViews()) {
+            } else if (position <
+                    getHeaderViewsCount() + adapterCount + getNumberOfPlaceholderViews()) {
                 if (position < headerItemCount + adapterCount) {
                     return encapsulatedAdapter.getItem(position - headerItemCount);
                 } else {
@@ -252,8 +252,7 @@ public class HeaderAndFooterGridView extends GridView {
                 } else {
                     return inflatePlaceholderView(convertView, fullWidthContainer.getHeight());
                 }
-            } else if (position < headerItemCount + adapterCount +
-                    getNumberOfPlaceholderViews()) {
+            } else if (position < headerItemCount + adapterCount + getNumberOfPlaceholderViews()) {
                 if (position < headerItemCount + adapterCount) {
                     return encapsulatedAdapter.getView(position - headerItemCount,
                             convertView instanceof FullWidthContainer ||
@@ -264,8 +263,8 @@ public class HeaderAndFooterGridView extends GridView {
 
                 }
             } else {
-                FullWidthContainer fullWidthContainer =
-                        footers.get((position - headerItemCount - adapterCount -
+                FullWidthContainer fullWidthContainer = footers.get(
+                        (position - headerItemCount - adapterCount -
                                 getNumberOfPlaceholderViews()) / numColumns).view;
 
                 if (position % numColumns == 0) {
@@ -284,13 +283,12 @@ public class HeaderAndFooterGridView extends GridView {
 
             if (position < headerItemCount) {
                 return position % numColumns == 0 && headers.get(position / numColumns).selectable;
-            } else if (position < headerItemCount + adapterCount +
-                    getNumberOfPlaceholderViews()) {
+            } else if (position < headerItemCount + adapterCount + getNumberOfPlaceholderViews()) {
                 return position < headerItemCount + adapterCount &&
                         encapsulatedAdapter.isEnabled(position - headerItemCount);
             } else {
-                return position % numColumns == 0 &&
-                        footers.get((position - headerItemCount - adapterCount -
+                return position % numColumns == 0 && footers.get(
+                        (position - headerItemCount - adapterCount -
                                 getNumberOfPlaceholderViews()) / numColumns).selectable;
             }
         }
@@ -436,16 +434,12 @@ public class HeaderAndFooterGridView extends GridView {
      * #AUTO_FIT}, if the layout is pending
      */
     protected final int getNumColumnsCompatible() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            return super.getNumColumns();
-        } else {
-            try {
-                Field numColumns = GridView.class.getDeclaredField("mNumColumns");
-                numColumns.setAccessible(true);
-                return numColumns.getInt(this);
-            } catch (Exception e) {
-                throw new RuntimeException("Unable to retrieve number of columns", e);
-            }
+        try {
+            Field numColumns = GridView.class.getDeclaredField("mNumColumns");
+            numColumns.setAccessible(true);
+            return numColumns.getInt(this);
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to retrieve number of columns", e);
         }
     }
 
@@ -512,13 +506,12 @@ public class HeaderAndFooterGridView extends GridView {
 
         if (position < headerItemCount) {
             return position / numColumns;
-        } else if (position < headerItemCount + adapterCount +
-                getNumberOfPlaceholderViews()) {
+        } else if (position < headerItemCount + adapterCount + getNumberOfPlaceholderViews()) {
             return position - headerItemCount + getHeaderViewsCount();
         } else {
             return getHeaderViewsCount() + adapterCount +
-                    (position - headerItemCount - adapterCount -
-                            getNumberOfPlaceholderViews()) / numColumns;
+                    (position - headerItemCount - adapterCount - getNumberOfPlaceholderViews()) /
+                            numColumns;
         }
     }
 
@@ -618,20 +611,8 @@ public class HeaderAndFooterGridView extends GridView {
     }
 
     /**
-     * Adds a fixed view to appear at the top of the grid view. If this method is called more than
-     * once, the views will appear in the order they were added.
-     *
-     * @param view
-     *         The header view, which should be added, as an instance of the class {@link View}. The
-     *         view may not be null
-     */
-    public final void addHeaderView(@NonNull final View view) {
-        addHeaderView(view, null, true);
-    }
-
-    /**
-     * Adds a fixed view to appear at the top of the grid view. If this method is called more than
-     * once, the views will appear in the order they were added.
+     * Adds a fixed view to appear at the top of the adapter view. If this method is called more
+     * than once, the views will appear in the order they were added.
      *
      * @param view
      *         The header view, which should be added, as an instance of the class {@link View}. The
@@ -650,49 +631,7 @@ public class HeaderAndFooterGridView extends GridView {
     }
 
     /**
-     * Removes a previously added header view.
-     *
-     * @param view
-     *         The header view, which should be removed, as an instance of the class {@link View}.
-     *         The view may not be null
-     */
-    public final void removeHeaderView(@NonNull final View view) {
-        ensureNotNull(view, "The view may not be null");
-
-        for (int i = getHeaderViewsCount() - 1; i >= 0; i--) {
-            FullWidthItem header = headers.get(i);
-
-            if (header.view.getChildAt(0) == view) {
-                headers.remove(i);
-                notifyDataSetChanged();
-                break;
-            }
-        }
-    }
-
-    /**
-     * Returns the number of header views in the grid view.
-     *
-     * @return The number of header views as an {@link Integer} value
-     */
-    public final int getHeaderViewsCount() {
-        return headers.size();
-    }
-
-    /**
-     * Adds a fixed view to appear at the bottom of the grid view. If this method is called more
-     * than once, the views will appear in the order they were added.
-     *
-     * @param view
-     *         The footer view, which should be added, as an instance of the class {@link View}. The
-     *         view may not be null
-     */
-    public final void addFooterView(@NonNull final View view) {
-        addFooterView(view, null, true);
-    }
-
-    /**
-     * Adds a fixed view to appear at the bottom of the grid view. If this method is called more
+     * Adds a fixed view to appear at the bottom of the adapter view. If this method is called more
      * than once, the views will appear in the order they were added.
      *
      * @param view
@@ -711,13 +650,57 @@ public class HeaderAndFooterGridView extends GridView {
         notifyDataSetChanged();
     }
 
-    /**
-     * Removes a previously added footer view.
-     *
-     * @param view
-     *         The footer view, which should be removed, as an instance of the class {@link View}.
-     *         The view may not be null
-     */
+    @Override
+    public final void addHeaderView(@NonNull final View view) {
+        addHeaderView(view, null, true);
+    }
+
+    @Override
+    public final void removeHeaderView(@NonNull final View view) {
+        ensureNotNull(view, "The view may not be null");
+
+        for (int i = getHeaderViewsCount() - 1; i >= 0; i--) {
+            FullWidthItem header = headers.get(i);
+
+            if (header.view.getChildAt(0) == view) {
+                headers.remove(i);
+                notifyDataSetChanged();
+                break;
+            }
+        }
+    }
+
+    @NonNull
+    @Override
+    public final View removeHeaderView(final int index) {
+        FullWidthItem header = headers.remove(index);
+        notifyDataSetChanged();
+        return header.view;
+    }
+
+    @Override
+    public final void removeAllHeaderViews() {
+        headers.clear();
+        notifyDataSetChanged();
+    }
+
+    @NonNull
+    @Override
+    public final View getHeaderView(final int index) {
+        return headers.get(index).view;
+    }
+
+    @Override
+    public final int getHeaderViewsCount() {
+        return headers.size();
+    }
+
+    @Override
+    public final void addFooterView(@NonNull final View view) {
+        addFooterView(view, null, true);
+    }
+
+    @Override
     public final void removeFooterView(@NonNull final View view) {
         ensureNotNull(view, "The view may not be null");
 
@@ -732,11 +715,27 @@ public class HeaderAndFooterGridView extends GridView {
         }
     }
 
-    /**
-     * Returns the number of footer views in the grid view.
-     *
-     * @return The number of footer views as an {@link Integer} value
-     */
+    @NonNull
+    @Override
+    public final View removeFooterView(final int index) {
+        FullWidthItem footer = footers.remove(index);
+        notifyDataSetChanged();
+        return footer.view;
+    }
+
+    @Override
+    public final void removeAllFooterViews() {
+        footers.clear();
+        notifyDataSetChanged();
+    }
+
+    @NonNull
+    @Override
+    public final View getFooterView(final int index) {
+        return footers.get(index).view;
+    }
+
+    @Override
     public final int getFooterViewsCount() {
         return footers.size();
     }

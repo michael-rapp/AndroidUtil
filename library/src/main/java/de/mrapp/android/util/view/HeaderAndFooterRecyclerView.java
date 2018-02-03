@@ -34,7 +34,8 @@ import static de.mrapp.android.util.Condition.ensureNotNull;
  * @author Michael Rapp
  * @since 1.12.0
  */
-public class HeaderAndFooterRecyclerView extends RecyclerView {
+public class HeaderAndFooterRecyclerView extends RecyclerView
+        implements HeaderAndFooterAdapterView {
 
     /**
      * An adapter, which encapsulates another adapter in order to add the ability to display a
@@ -301,27 +302,14 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
         super(context, attributeSet, defaultStyle);
     }
 
-    /**
-     * Adds a fixed view to appear at the top of the grid view. If this method is called more than
-     * once, the views will appear in the order they were added.
-     *
-     * @param view
-     *         The header view, which should be added, as an instance of the class {@link View}. The
-     *         view may not be null
-     */
+    @Override
     public final void addHeaderView(@NonNull final View view) {
         ensureNotNull(view, "The view may not be null");
         headers.add(view);
         notifyDataSetChanged();
     }
 
-    /**
-     * Removes a previously added header view.
-     *
-     * @param view
-     *         The header view, which should be removed, as an instance of the class {@link View}.
-     *         The view may not be null
-     */
+    @Override
     public final void removeHeaderView(@NonNull final View view) {
         ensureNotNull(view, "The view may not be null");
 
@@ -336,36 +324,39 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
         }
     }
 
-    /**
-     * Returns the number of header views in the grid view.
-     *
-     * @return The number of header views as an {@link Integer} value
-     */
+    @NonNull
+    @Override
+    public final View removeHeaderView(final int index) {
+        View header = headers.remove(index);
+        notifyDataSetChanged();
+        return header;
+    }
+
+    @Override
+    public final void removeAllHeaderViews() {
+        headers.clear();
+        notifyDataSetChanged();
+    }
+
+    @NonNull
+    @Override
+    public final View getHeaderView(int index) {
+        return headers.get(index);
+    }
+
+    @Override
     public final int getHeaderViewsCount() {
         return headers.size();
     }
 
-    /**
-     * Adds a fixed view to appear at the bottom of the grid view. If this method is called more
-     * than once, the views will appear in the order they were added.
-     *
-     * @param view
-     *         The footer view, which should be added, as an instance of the class {@link View}. The
-     *         view may not be null
-     */
+    @Override
     public final void addFooterView(@NonNull final View view) {
         ensureNotNull(view, "The view may not be null");
         footers.add(view);
         notifyDataSetChanged();
     }
 
-    /**
-     * Removes a previously added footer view.
-     *
-     * @param view
-     *         The footer view, which should be removed, as an instance of the class {@link View}.
-     *         The view may not be null
-     */
+    @Override
     public final void removeFooterView(@NonNull final View view) {
         ensureNotNull(view, "The view may not be null");
 
@@ -380,11 +371,27 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
         }
     }
 
-    /**
-     * Returns the number of footer views in the grid view.
-     *
-     * @return The number of footer views as an {@link Integer} value
-     */
+    @NonNull
+    @Override
+    public final View removeFooterView(final int index) {
+        View footer = footers.remove(index);
+        notifyDataSetChanged();
+        return footer;
+    }
+
+    @Override
+    public final void removeAllFooterViews() {
+        footers.clear();
+        notifyDataSetChanged();
+    }
+
+    @NonNull
+    @Override
+    public final View getFooterView(final int index) {
+        return footers.get(index);
+    }
+
+    @Override
     public final int getFooterViewsCount() {
         return footers.size();
     }
