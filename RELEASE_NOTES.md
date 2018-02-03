@@ -1,5 +1,11 @@
 # AndroidUtil - RELEASE NOTES
 
+## Version 1.20.0 (Feb. 3rd 2018)
+
+A feature release, which introduces the following changes:
+
+- The classes `HeaderAndFooterGridView` and `HeaderAndFooterRecyclerView` do now implement the interface `HeaderAndFooterRecyclerView`, which provides a richer API for handling headers and footers than before.
+
 ## Version 1.19.0 (Jan. 25th 2018)
 
 A feature release, which introduces the following changes:
