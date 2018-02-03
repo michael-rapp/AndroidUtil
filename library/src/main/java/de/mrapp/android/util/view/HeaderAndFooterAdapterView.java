@@ -14,14 +14,11 @@
 package de.mrapp.android.util.view;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.GridView;
 
 /**
- * Defines the interface an adapter view, e.g. a {@link GridView} or {@link RecyclerView}, which
- * allows to display fixed views as headers and footers, must implement
+ * Defines the interface an adapter view, e.g. a grid view or recycler view, which allows to display
+ * fixed views as headers and footers, must implement
  *
  * @author Michael Rapp
  * @since 1.20.0
