@@ -1,5 +1,12 @@
 # AndroidUtil - RELEASE NOTES
 
+## Version 1.20.1 (Feb. 7th 2018)
+
+A bugfix release, which fixes the following issues:
+
+- Fixed a possible exception when using the class `HeaderAndFooterRecyclerView`.
+- Added `removeFromParent`-method to the class `ViewUtil`.
+
 ## Version 1.20.0 (Feb. 3rd 2018)
 
 A feature release, which introduces the following changes:
