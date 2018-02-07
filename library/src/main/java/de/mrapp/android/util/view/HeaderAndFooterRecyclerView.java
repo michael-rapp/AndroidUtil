@@ -26,6 +26,8 @@ import android.widget.FrameLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.mrapp.android.util.ViewUtil;
+
 import static de.mrapp.android.util.Condition.ensureNotNull;
 
 /**
@@ -197,12 +199,16 @@ public class HeaderAndFooterRecyclerView extends RecyclerView
             if (holder instanceof HeaderViewHolder) {
                 ViewGroup parentView = (ViewGroup) holder.itemView;
                 parentView.removeAllViews();
-                parentView.addView(headers.get(position));
+                View header = headers.get(position);
+                ViewUtil.removeFromParent(header);
+                parentView.addView(header);
             } else if (holder instanceof FooterViewHolder) {
                 ViewGroup parentView = (ViewGroup) holder.itemView;
                 parentView.removeAllViews();
-                parentView.addView(footers.get(
-                        position - encapsulatedAdapter.getItemCount() - getHeaderViewsCount()));
+                View footer = footers.get(
+                        position - encapsulatedAdapter.getItemCount() - getHeaderViewsCount());
+                ViewUtil.removeFromParent(footer);
+                parentView.addView(footer);
             } else {
                 encapsulatedAdapter.onBindViewHolder(holder, position - getHeaderViewsCount());
             }
