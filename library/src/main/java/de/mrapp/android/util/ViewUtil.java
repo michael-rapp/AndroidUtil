@@ -18,6 +18,8 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.view.ViewTreeObserver;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 
@@ -83,6 +85,22 @@ public final class ViewUtil {
             observer.removeOnGlobalLayoutListener(listener);
         } else {
             observer.removeGlobalOnLayoutListener(listener);
+        }
+    }
+
+    /**
+     * Removes a specific view from its parent, if there is any.
+     *
+     * @param view
+     *         The view, which should be removed from its parent, as an instance of the class {@link
+     *         View}. The view may not be null
+     */
+    public static void removeFromParent(@NonNull final View view) {
+        ensureNotNull(view, "The view may not be null");
+        ViewParent parent = view.getParent();
+
+        if (parent instanceof ViewGroup) {
+            ((ViewGroup) parent).removeView(view);
         }
     }
 
