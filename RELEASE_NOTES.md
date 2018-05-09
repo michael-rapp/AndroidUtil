@@ -1,5 +1,11 @@
 # AndroidUtil - RELEASE NOTES
 
+## Version 1.20.3 (May 10th 2018)
+
+A minor release, which introduces the following changes:
+
+- The `getDrawable`-methods of the class `ThemeUtil` now use the class `AppCompatResources` in order to be able to load vector drawables on pre-Lollipop devices.
+
 ## Version 1.20.2 (May 1st 2018)
 
 A minor release, which introduces the following changes:
