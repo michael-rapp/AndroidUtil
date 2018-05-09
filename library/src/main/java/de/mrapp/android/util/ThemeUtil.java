@@ -23,6 +23,7 @@ import android.support.annotation.AttrRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StyleRes;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.content.res.AppCompatResources;
 
 import static de.mrapp.android.util.Condition.ensureNotNull;
 
@@ -561,7 +562,12 @@ public final class ThemeUtil {
 
         try {
             typedArray = obtainStyledAttributes(context, themeResourceId, resourceId);
-            Drawable drawable = typedArray.getDrawable(0);
+            int drawableId = typedArray.getResourceId(0, -1);
+            Drawable drawable = null;
+
+            if (drawableId != -1) {
+                drawable = AppCompatResources.getDrawable(context, drawableId);
+            }
 
             if (drawable == null) {
                 throw new NotFoundException(
