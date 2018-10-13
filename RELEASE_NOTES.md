@@ -1,5 +1,11 @@
 # AndroidUtil - RELEASE NOTES
 
+## Version 1.21.0 (Oct. 13th 2018)
+
+A feature release, which introduces the following changes:
+
+- Added `notifyItemChanged`-method to class `AbstractViewRecycler`.
+
 ## Version 1.20.3 (May 10th 2018)
 
 A minor release, which introduces the following changes:
