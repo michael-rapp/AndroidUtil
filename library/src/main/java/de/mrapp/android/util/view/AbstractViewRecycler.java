@@ -37,7 +37,7 @@ import static de.mrapp.android.util.Condition.ensureNotNull;
  * them later, instead of inflating new instances. Such a recycler can for example be used to
  * efficiently implement widgets similar to ListViews, whose children can be scrolled out of the
  * visible screen area and therefore can be recycled.
- *
+ * <p>
  * Each view must be associated with a corresponding item of an arbitrary generic type. By
  * implementing the abstract class {@link Adapter}, the views, which should be used to visualize a
  * specific item, can be inflated and adapted in their appearance. The recycler supports to inflate
@@ -443,6 +443,33 @@ public abstract class AbstractViewRecycler<ItemType, ParamType> {
      */
     public final boolean isInflated(@NonNull final ItemType item) {
         return getView(item) != null;
+    }
+
+    /**
+     * Notifies the recycler that a specific item has changed. This will cause the view, which is
+     * used to visualize the item, to be updated by calling the method {@link
+     * Adapter#onShowView(Context, View, Object, boolean, Object[])} of the recycler's adapter.
+     *
+     * @param item
+     *         The item, which has changed, as an instance of the generic type ItemType. The item
+     *         may not be null
+     * @param params
+     *         An array, which may contain optional parameters, as an array of the generic type
+     *         ParamType or an empty array, if no optional parameters are available
+     */
+    @SuppressWarnings("unchecked")
+    public final void notifyItemChanged(@NonNull final ItemType item,
+                                        @NonNull final ParamType... params) {
+        ensureNotNull(item, "The item may not be null");
+        View view = getView(item);
+
+        if (view != null) {
+            getAdapter().onShowView(getContext(), view, item, false, params);
+            getLogger().logDebug(getClass(), "Updated view of item " + item);
+        } else {
+            getLogger().logVerbose(getClass(),
+                    "View of item " + item + " not updated. It has not been inflated yet");
+        }
     }
 
     /**
