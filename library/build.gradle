@@ -23,5 +23,4 @@ dependencies {
     api 'androidx.appcompat:appcompat:1.0.0'
     api 'androidx.legacy:legacy-support-v4:1.0.0'
     api 'androidx.recyclerview:recyclerview:1.0.0'
-    testImplementation 'junit:junit:4.12'
 }
