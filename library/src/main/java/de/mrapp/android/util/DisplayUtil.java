@@ -13,16 +13,12 @@
  */
 package de.mrapp.android.util;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Configuration;
-import android.os.Build;
+import android.util.DisplayMetrics;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
-import android.util.DisplayMetrics;
-import android.view.KeyCharacterMap;
-import android.view.KeyEvent;
-import android.view.ViewConfiguration;
 
 import static de.mrapp.android.util.Condition.ensureNotNull;
 
@@ -350,7 +346,7 @@ public class DisplayUtil {
 
     /**
      * Returns the logical density of the device's display.
-     *
+     * <p>
      * This is a scaling factor for the density-independent pixel unit, where one DIP is one pixel
      * on an approximately 160 dpi screen (for example a 240x320, 1.5"x2" screen), providing the
      * baseline of the system's display. Thus on a 160dpi screen this density value will be 1; on a
@@ -364,64 +360,6 @@ public class DisplayUtil {
     public static float getDensity(@NonNull final Context context) {
         ensureNotNull(context, "The context may not be null");
         return context.getResources().getDisplayMetrics().density;
-    }
-
-    /**
-     * Returns the height of the status bar, which is shown at the top of the display (containing
-     * the clock, battery indicator, etc.).
-     *
-     * @param context
-     *         The context, which should be used, as an instance of the class {@link Context}. The
-     *         context may not be null
-     * @return The height of the status bar in pixels as an {@link Integer} value
-     * @deprecated Use a {@link android.view.View.OnApplyWindowInsetsListener} instead
-     */
-    @Deprecated
-    public static int getStatusBarHeight(@NonNull final Context context) {
-        ensureNotNull(context, "The context may not be null");
-        int resourceId =
-                context.getResources().getIdentifier("status_bar_height", "dimen", "android");
-        return resourceId > 0 ? context.getResources().getDimensionPixelSize(resourceId) : 0;
-    }
-
-    /**
-     * Returns the height of the navigation bar, which is shown at the bottom of the display
-     * (containing for example back, home and recent apps soft-keys).
-     *
-     * @param context
-     *         The context, which should be used, as an instance of the class {@link Context}. The
-     *         context may not be null
-     * @return The height of the navigation bar in pixels as an {@link Integer} value or 0, if no
-     * navigation bar is shown
-     * @deprecated Use a {@link android.view.View.OnApplyWindowInsetsListener} instead
-     */
-    @Deprecated
-    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-    public static int getNavigationBarHeight(@NonNull final Context context) {
-        ensureNotNull(context, "The context may not be null");
-        boolean hasMenuKey = ViewConfiguration.get(context).hasPermanentMenuKey();
-        boolean hasBackKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
-
-        if (!hasMenuKey && !hasBackKey) {
-            Orientation orientation = getOrientation(context);
-            int resourceId;
-
-            if (getDeviceType(context) == DeviceType.TABLET) {
-                resourceId = context.getResources().getIdentifier(
-                        orientation == Orientation.PORTRAIT ? "navigation_bar_height" :
-                                "navigation_bar_height_landscape", "dimen", "android");
-            } else {
-                resourceId = context.getResources().getIdentifier(
-                        orientation == Orientation.PORTRAIT ? "navigation_bar_height" :
-                                "navigation_bar_width", "dimen", "android");
-            }
-
-            if (resourceId > 0) {
-                return context.getResources().getDimensionPixelSize(resourceId);
-            }
-        }
-
-        return 0;
     }
 
 }

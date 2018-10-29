@@ -150,19 +150,6 @@ public class DragHelper {
      * <code>reset():void</code> for further information.
      *
      * @return True, if the instance has been marked to be reset, false otherwise
-     * @deprecated Use <code>isReset</code>-method instead
-     */
-    @Deprecated
-    public final boolean isReseted() {
-        return reset;
-    }
-
-    /**
-     * Returns, whether the instance has been marked to be reset, since the method
-     * <code>update(float):void</code> has been called the last time. See method
-     * <code>reset():void</code> for further information.
-     *
-     * @return True, if the instance has been marked to be reset, false otherwise
      */
     public final boolean isReset() {
         return reset;
@@ -274,35 +261,11 @@ public class DragHelper {
     /**
      * Returns the distance, which has been passed while dragging, in pixels.
      *
-     * @return The distance, which has been passed while dragging, as an {@link Integer} value or 0,
-     * if the threshold has not been reached yet
-     * @deprecated Use <code>getDragDistance</code>-method instead
-     */
-    @Deprecated
-    public final int getDistance() {
-        return Math.round(distance);
-    }
-
-    /**
-     * Returns the distance, which has been passed while dragging, in pixels.
-     *
      * @return The distance, which has been passed while dragging, as a {@link Float} value or 0, if
      * the threshold has not been reached yet
      */
     public final float getDragDistance() {
         return distance;
-    }
-
-    /**
-     * Returns the position, where the gesture has been started at.
-     *
-     * @return The position, where the gesture has been started at, as an {@link Integer} value or
-     * -1, if no gesture has been started yet
-     * @deprecated Use <code>getDragStartPosition</code>-method instead
-     */
-    @Deprecated
-    public final int getStartPosition() {
-        return Math.round(dragStartPosition);
     }
 
     /**
@@ -324,7 +287,7 @@ public class DragHelper {
     public final float getDragSpeed() {
         if (hasThresholdBeenReached()) {
             long interval = System.currentTimeMillis() - dragStartTime;
-            return (float) Math.abs(getDistance()) / (float) interval;
+            return Math.abs(getDragDistance()) / (float) interval;
         } else {
             return -1;
         }

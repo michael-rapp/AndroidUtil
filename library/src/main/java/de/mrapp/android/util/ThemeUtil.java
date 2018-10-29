@@ -19,11 +19,12 @@ import android.content.res.Resources.NotFoundException;
 import android.content.res.Resources.Theme;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+
 import androidx.annotation.AttrRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.StyleRes;
-import androidx.core.content.ContextCompat;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.content.ContextCompat;
 
 import static de.mrapp.android.util.Condition.ensureNotNull;
 
@@ -651,26 +652,6 @@ public final class ThemeUtil {
     }
 
     /**
-     * Obtains the boolean value, which corresponds to a specific resource id, from a context's
-     * theme.
-     *
-     * @param context
-     *         The context, which should be used, as an instance of the class {@link Context}. The
-     *         context may not be null
-     * @param resourceId
-     *         The resource id of the attribute, which should be obtained, as an {@link Integer}
-     *         value. The resource id must corresponds to a valid theme attribute
-     * @return The boolean value, which has been obtained, as an {@link Boolean} value or false, if
-     * the given resource id is invalid
-     * @deprecated Use method {@link ThemeUtil#getBoolean(Context, int, boolean)} instead
-     */
-    @Deprecated
-    public static boolean getBoolean(@NonNull final Context context,
-                                     @AttrRes final int resourceId) {
-        return getBoolean(context, -1, resourceId);
-    }
-
-    /**
      * Obtains the boolean value, which corresponds to a specific resource id, from a specific
      * theme.
      *
@@ -686,7 +667,6 @@ public final class ThemeUtil {
      *         value. The resource id must corresponds to a valid theme attribute
      * @return The boolean value, which has been obtained, as a {@link Boolean} value or false, if
      * the given resource id is invalid
-     * @deprecated Use method {@link ThemeUtil#getBoolean(Context, int, int, boolean)} instead
      */
     public static boolean getBoolean(@NonNull final Context context,
                                      @StyleRes final int themeResourceId,
@@ -769,59 +749,6 @@ public final class ThemeUtil {
      * @param resourceId
      *         The resource id of the attribute, which should be obtained, as an {@link Integer}
      *         value. The resource id must corresponds to a valid theme attribute
-     * @return The integer value, which has been obtained, as an {@link Integer} value or 0, if the
-     * given resource id is invalid
-     * @deprecated Use method {@link ThemeUtil#getInt(Context, int, int)} instead
-     */
-    @Deprecated
-    public static int getInteger(@NonNull final Context context, @AttrRes final int resourceId) {
-        return getInteger(context, -1, resourceId);
-    }
-
-    /**
-     * Obtains the integer value, which corresponds to a specific resource id, from a specific
-     * theme.
-     *
-     * @param context
-     *         The context, which should be used, as an instance of the class {@link Context}. The
-     *         context may not be null
-     * @param themeResourceId
-     *         The resource id of the theme, the attribute should be obtained from, as an {@link
-     *         Integer} value or -1, if the attribute should be obtained from the given context's
-     *         theme
-     * @param resourceId
-     *         The resource id of the attribute, which should be obtained, as an {@link Integer}
-     *         value. The resource id must corresponds to a valid theme attribute
-     * @return The integer value, which has been obtained, as an {@link Integer} value or 0, if the
-     * given resource id is invalid
-     * @deprecated Use method {@link ThemeUtil#getInt(Context, int, int, int)} instead
-     */
-    @Deprecated
-    public static int getInteger(@NonNull final Context context,
-                                 @StyleRes final int themeResourceId,
-                                 @AttrRes final int resourceId) {
-        TypedArray typedArray = null;
-
-        try {
-            typedArray = obtainStyledAttributes(context, themeResourceId, resourceId);
-            return typedArray.getInteger(0, 0);
-        } finally {
-            if (typedArray != null) {
-                typedArray.recycle();
-            }
-        }
-    }
-
-    /**
-     * Obtains the integer value, which corresponds to a specific resource id, from a context's
-     * theme.
-     *
-     * @param context
-     *         The context, which should be used, as an instance of the class {@link Context}. The
-     *         context may not be null
-     * @param resourceId
-     *         The resource id of the attribute, which should be obtained, as an {@link Integer}
-     *         value. The resource id must corresponds to a valid theme attribute
      * @param defaultValue
      *         The default value, which should be returned, if the given resource id is invalid, as
      *         an {@link Integer} value
@@ -877,58 +804,6 @@ public final class ThemeUtil {
      * @param resourceId
      *         The resource id of the attribute, which should be obtained, as an {@link Integer}
      *         value. The resource id must corresponds to a valid theme attribute
-     * @return The float value, which has been obtained, as a {@link Float} value or 0, if the given
-     * resource id is invalid
-     * @deprecated Use the method {@link ThemeUtil#getFloat(Context, int, float)} instead
-     */
-    @Deprecated
-    public static float getFloat(@NonNull final Context context, @AttrRes final int resourceId) {
-        return getFloat(context, -1, resourceId);
-    }
-
-    /**
-     * Obtains the float value, which corresponds to a specific resource id, from a specific theme.
-     *
-     * @param context
-     *         The context, which should be used, as an instance of the class {@link Context}. The
-     *         context may not be null
-     * @param themeResourceId
-     *         The resource id of the theme, the attribute should be obtained from, as an {@link
-     *         Integer} value or -1, if the attribute should be obtained from the given context's
-     *         theme
-     * @param resourceId
-     *         The resource id of the attribute, which should be obtained, as an {@link Integer}
-     *         value. The resource id must corresponds to a valid theme attribute
-     * @return The float value, which has been obtained, as a {@link Float} value or 0, if the given
-     * resource id is invalid
-     * @deprecated Use the method {@link ThemeUtil#getFloat(Context, int, int, float)} instead
-     */
-    @Deprecated
-    public static float getFloat(@NonNull final Context context,
-                                 @StyleRes final int themeResourceId,
-                                 @AttrRes final int resourceId) {
-        TypedArray typedArray = null;
-
-        try {
-            typedArray = obtainStyledAttributes(context, themeResourceId, resourceId);
-            return typedArray.getFloat(0, 0);
-        } finally {
-            if (typedArray != null) {
-                typedArray.recycle();
-            }
-        }
-    }
-
-    /**
-     * Obtains the float value, which corresponds to a specific resource id, from a context's
-     * theme.
-     *
-     * @param context
-     *         The context, which should be used, as an instance of the class {@link Context}. The
-     *         context may not be null
-     * @param resourceId
-     *         The resource id of the attribute, which should be obtained, as an {@link Integer}
-     *         value. The resource id must corresponds to a valid theme attribute
      * @param defaultValue
      *         The default value, which should be returned, if the given resource id is invalid, as
      *         a {@link Float} value
@@ -967,58 +842,6 @@ public final class ThemeUtil {
         try {
             typedArray = obtainStyledAttributes(context, themeResourceId, resourceId);
             return typedArray.getFloat(0, defaultValue);
-        } finally {
-            if (typedArray != null) {
-                typedArray.recycle();
-            }
-        }
-    }
-
-    /**
-     * Obtains the resource id, which corresponds to a specific resource id, from a context's
-     * theme.
-     *
-     * @param context
-     *         The context, which should be used, as an instance of the class {@link Context}. The
-     *         context may not be null
-     * @param resourceId
-     *         The resource id of the attribute, which should be obtained, as an {@link Integer}
-     *         value. The resource id must corresponds to a valid theme attribute
-     * @return The resource id, which has been obtained, as an {@link Integer} value or 0, if the
-     * given resource id is invalid
-     * @deprecated Use the method {@link ThemeUtil#getResId(Context, int, int)} instead
-     */
-    @Deprecated
-    public static int getResourceId(@NonNull final Context context, @AttrRes final int resourceId) {
-        return getResourceId(context, -1, resourceId);
-    }
-
-    /**
-     * Obtains the resource id, which corresponds to a specific resource id, from a specific theme.
-     *
-     * @param context
-     *         The context, which should be used, as an instance of the class {@link Context}. The
-     *         context may not be null
-     * @param themeResourceId
-     *         The resource id of the theme, the attribute should be obtained from, as an {@link
-     *         Integer} value or -1, if the attribute should be obtained from the given context's
-     *         theme
-     * @param resourceId
-     *         The resource id of the attribute, which should be obtained, as an {@link Integer}
-     *         value. The resource id must correspond to a valid theme attribute
-     * @return The resource id, which has been obtained, as an {@link Integer} value or 0, if the
-     * given resource id is invalid
-     * @deprecated Use the method {@link ThemeUtil#getResId(Context, int, int, int)} instead
-     */
-    @Deprecated
-    public static int getResourceId(@NonNull final Context context,
-                                    @StyleRes final int themeResourceId,
-                                    @AttrRes final int resourceId) {
-        TypedArray typedArray = null;
-
-        try {
-            typedArray = obtainStyledAttributes(context, themeResourceId, resourceId);
-            return typedArray.getResourceId(0, 0);
         } finally {
             if (typedArray != null) {
                 typedArray.recycle();
