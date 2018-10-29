@@ -1,5 +1,14 @@
 # AndroidUtil - RELEASE NOTES
 
+## Version 2.0.0 (Oct. 29th 2018)
+
+A major release, which introduces the following changes:
+
+- Migrated the library to Android X.
+- Updated the targetSdkVersion to 28.
+- Added the dependency "JavaUtil". The classes `Condition`, `ClassUtil`, `StreamUtil`, `ListenerList` and `Triple` have been removed in favor of those that are provided by this library.
+- Removed all deprecated methods.
+
 ## Version 1.21.0 (Oct. 13th 2018)
 
 A feature release, which introduces the following changes:
