@@ -13,8 +13,8 @@
  */
 package de.mrapp.android.util.view;
 
-import android.support.annotation.IdRes;
-import android.support.annotation.NonNull;
+import androidx.annotation.IdRes;
+import androidx.annotation.NonNull;
 import android.view.View;
 
 import static de.mrapp.android.util.Condition.ensureNotNull;

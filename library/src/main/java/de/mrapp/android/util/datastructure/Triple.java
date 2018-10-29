@@ -13,7 +13,7 @@
  */
 package de.mrapp.android.util.datastructure;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 /**
  * A data structure, which eases to pass around a triple of three objects. This object provides a

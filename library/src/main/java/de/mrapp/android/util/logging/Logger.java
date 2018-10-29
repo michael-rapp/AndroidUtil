@@ -13,7 +13,7 @@
  */
 package de.mrapp.android.util.logging;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.Log;
 
 import static de.mrapp.android.util.ClassUtil.getTruncatedName;

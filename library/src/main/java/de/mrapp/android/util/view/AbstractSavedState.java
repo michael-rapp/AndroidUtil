@@ -16,9 +16,9 @@ package de.mrapp.android.util.view;
 import android.os.BadParcelableException;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.CallSuper;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.CallSuper;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.view.AbsSavedState;
 
 import static de.mrapp.android.util.Condition.ensureNotNull;

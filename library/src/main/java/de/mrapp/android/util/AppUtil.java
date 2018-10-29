@@ -21,9 +21,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresPermission;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresPermission;
 import android.text.TextUtils;
 
 import java.io.File;
