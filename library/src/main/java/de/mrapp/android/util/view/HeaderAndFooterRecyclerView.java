@@ -14,10 +14,6 @@
 package de.mrapp.android.util.view;
 
 import android.content.Context;
-import androidx.annotation.AttrRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,9 +22,12 @@ import android.widget.FrameLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.AttrRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 import de.mrapp.android.util.ViewUtil;
-
-import static de.mrapp.android.util.Condition.ensureNotNull;
+import de.mrapp.util.Condition;
 
 /**
  * A recycler view, which can contain multiple fixed views as headers and footers.
@@ -160,7 +159,7 @@ public class HeaderAndFooterRecyclerView extends RecyclerView
          *         Adapter}. The adapter may not be null
          */
         public AdapterWrapper(@NonNull final Adapter encapsulatedAdapter) {
-            ensureNotNull(encapsulatedAdapter, "The adapter may not be null");
+            Condition.INSTANCE.ensureNotNull(encapsulatedAdapter, "The adapter may not be null");
             this.encapsulatedAdapter = encapsulatedAdapter;
             this.encapsulatedAdapter.registerAdapterDataObserver(createDataObserver());
         }
@@ -310,14 +309,14 @@ public class HeaderAndFooterRecyclerView extends RecyclerView
 
     @Override
     public final void addHeaderView(@NonNull final View view) {
-        ensureNotNull(view, "The view may not be null");
+        Condition.INSTANCE.ensureNotNull(view, "The view may not be null");
         headers.add(view);
         notifyDataSetChanged();
     }
 
     @Override
     public final void removeHeaderView(@NonNull final View view) {
-        ensureNotNull(view, "The view may not be null");
+        Condition.INSTANCE.ensureNotNull(view, "The view may not be null");
 
         for (int i = getHeaderViewsCount() - 1; i >= 0; i--) {
             View header = headers.get(i);
@@ -357,14 +356,14 @@ public class HeaderAndFooterRecyclerView extends RecyclerView
 
     @Override
     public final void addFooterView(@NonNull final View view) {
-        ensureNotNull(view, "The view may not be null");
+        Condition.INSTANCE.ensureNotNull(view, "The view may not be null");
         footers.add(view);
         notifyDataSetChanged();
     }
 
     @Override
     public final void removeFooterView(@NonNull final View view) {
-        ensureNotNull(view, "The view may not be null");
+        Condition.INSTANCE.ensureNotNull(view, "The view may not be null");
 
         for (int i = getFooterViewsCount() - 1; i >= 0; i--) {
             View footer = footers.get(i);

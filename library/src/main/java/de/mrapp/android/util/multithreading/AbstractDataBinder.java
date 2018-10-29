@@ -16,10 +16,6 @@ package de.mrapp.android.util.multithreading;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.UiThread;
-import androidx.collection.LruCache;
 import android.view.View;
 
 import java.util.Collections;
@@ -28,11 +24,14 @@ import java.util.WeakHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import de.mrapp.android.util.datastructure.ListenerList;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.UiThread;
+import androidx.collection.LruCache;
 import de.mrapp.android.util.logging.LogLevel;
 import de.mrapp.android.util.logging.Logger;
-
-import static de.mrapp.android.util.Condition.ensureNotNull;
+import de.mrapp.util.Condition;
+import de.mrapp.util.datastructure.ListenerList;
 
 /**
  * An abstract base class for all data binders, which allow to asynchronously load data in order to
@@ -536,9 +535,9 @@ public abstract class AbstractDataBinder<DataType, KeyType, ViewType, ParamType>
     public AbstractDataBinder(@NonNull final Context context,
                               @NonNull final ExecutorService threadPool,
                               @NonNull final LruCache<KeyType, DataType> cache) {
-        ensureNotNull(context, "The context may not be null");
-        ensureNotNull(threadPool, "The executor service may not be null");
-        ensureNotNull(cache, "The cache may not be null");
+        Condition.INSTANCE.ensureNotNull(context, "The context may not be null");
+        Condition.INSTANCE.ensureNotNull(threadPool, "The executor service may not be null");
+        Condition.INSTANCE.ensureNotNull(cache, "The cache may not be null");
         this.context = context;
         this.logger = new Logger(LogLevel.INFO);
         this.listeners = new ListenerList<>();
@@ -648,9 +647,9 @@ public abstract class AbstractDataBinder<DataType, KeyType, ViewType, ParamType>
     @SafeVarargs
     public final void load(@NonNull final KeyType key, @NonNull final ViewType view,
                            final boolean async, @NonNull final ParamType... params) {
-        ensureNotNull(key, "The key may not be null");
-        ensureNotNull(view, "The view may not be null");
-        ensureNotNull(params, "The array may not be null");
+        Condition.INSTANCE.ensureNotNull(key, "The key may not be null");
+        Condition.INSTANCE.ensureNotNull(view, "The view may not be null");
+        Condition.INSTANCE.ensureNotNull(params, "The array may not be null");
         setCanceled(false);
         views.put(view, key);
         DataType data = getCachedData(key);
@@ -705,7 +704,7 @@ public abstract class AbstractDataBinder<DataType, KeyType, ViewType, ParamType>
      * otherwise
      */
     public final boolean isCached(@NonNull final KeyType key) {
-        ensureNotNull(key, "The key may not be null");
+        Condition.INSTANCE.ensureNotNull(key, "The key may not be null");
 
         synchronized (cache) {
             return cache.get(key) != null;

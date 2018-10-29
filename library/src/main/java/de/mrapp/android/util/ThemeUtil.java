@@ -25,8 +25,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StyleRes;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
-
-import static de.mrapp.android.util.Condition.ensureNotNull;
+import de.mrapp.util.Condition;
 
 /**
  * An utility class, which provides static methods for retrieving theme attributes.
@@ -55,7 +54,7 @@ public final class ThemeUtil {
     private static TypedArray obtainStyledAttributes(@NonNull final Context context,
                                                      @StyleRes final int themeResourceId,
                                                      @AttrRes final int resourceId) {
-        ensureNotNull(context, "The context may not be null");
+        Condition.INSTANCE.ensureNotNull(context, "The context may not be null");
         Theme theme = context.getTheme();
         int[] attrs = new int[]{resourceId};
 
@@ -223,7 +222,7 @@ public final class ThemeUtil {
     public static String getString(@NonNull final Context context,
                                    @StyleRes final int themeResourceId,
                                    @AttrRes final int resourceId) {
-        ensureNotNull(context, "The context may not be null");
+        Condition.INSTANCE.ensureNotNull(context, "The context may not be null");
         TypedArray typedArray = null;
 
         try {

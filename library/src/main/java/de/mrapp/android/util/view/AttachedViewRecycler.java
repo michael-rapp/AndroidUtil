@@ -13,9 +13,6 @@
  */
 package de.mrapp.android.util.view;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +22,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import static de.mrapp.android.util.Condition.ensureNotNull;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.util.Pair;
+import de.mrapp.util.Condition;
 
 /**
  * A recycler, which allows to cache views in order to be able to reuse them later instead of
@@ -156,7 +156,7 @@ public class AttachedViewRecycler<ItemType, ParamType>
                                 @NonNull final LayoutInflater inflater,
                                 @Nullable final Comparator<ItemType> comparator) {
         super(inflater);
-        ensureNotNull(parent, "The parent may not be null");
+        Condition.INSTANCE.ensureNotNull(parent, "The parent may not be null");
         this.parent = parent;
         this.comparator = comparator;
         this.items = new ArrayList<>();
@@ -164,7 +164,7 @@ public class AttachedViewRecycler<ItemType, ParamType>
 
     /**
      * Brings a previously inflated view, which is used to visualize a specific item, to the front.
-     *
+     * <p>
      * WARNING: This method should only be used, when not using a {@link Comparator} for determining
      * the order of attached views. Otherwise, calling this method may cause the order of views to
      * conflict with the order, which is given by the comparator. Instead, the {@link
@@ -177,8 +177,9 @@ public class AttachedViewRecycler<ItemType, ParamType>
      * @see AttachedViewRecycler#setComparator(Comparator)
      */
     public final void bringToFront(@NonNull final ItemType item) {
-        ensureNotNull(item, "The item may not be null");
-        ensureNotNull(getAdapter(), "No adapter has been set", IllegalStateException.class);
+        Condition.INSTANCE.ensureNotNull(item, "The item may not be null");
+        Condition.INSTANCE.ensureNotNull(getAdapter(), "No adapter has been set",
+                IllegalStateException.class);
 
         if (comparator != null) {
             getLogger().logWarn(getClass(),
@@ -247,8 +248,9 @@ public class AttachedViewRecycler<ItemType, ParamType>
     @Override
     public final Pair<View, Boolean> inflate(@NonNull final ItemType item, final boolean useCache,
                                              @NonNull final ParamType... params) {
-        ensureNotNull(params, "The array may not be null");
-        ensureNotNull(getAdapter(), "No adapter has been set", IllegalStateException.class);
+        Condition.INSTANCE.ensureNotNull(params, "The array may not be null");
+        Condition.INSTANCE.ensureNotNull(getAdapter(), "No adapter has been set",
+                IllegalStateException.class);
 
         View view = getView(item);
         boolean inflated = false;
@@ -292,8 +294,9 @@ public class AttachedViewRecycler<ItemType, ParamType>
 
     @Override
     public final void remove(@NonNull final ItemType item) {
-        ensureNotNull(item, "The item may not be null");
-        ensureNotNull(getAdapter(), "No adapter has been set", IllegalStateException.class);
+        Condition.INSTANCE.ensureNotNull(item, "The item may not be null");
+        Condition.INSTANCE.ensureNotNull(getAdapter(), "No adapter has been set",
+                IllegalStateException.class);
         int index = items.indexOf(item);
 
         if (index != -1) {
@@ -312,7 +315,8 @@ public class AttachedViewRecycler<ItemType, ParamType>
 
     @Override
     public final void removeAll() {
-        ensureNotNull(getAdapter(), "No adapter has been set", IllegalStateException.class);
+        Condition.INSTANCE.ensureNotNull(getAdapter(), "No adapter has been set",
+                IllegalStateException.class);
 
         for (int i = items.size() - 1; i >= 0; i--) {
             ItemType item = items.remove(i);

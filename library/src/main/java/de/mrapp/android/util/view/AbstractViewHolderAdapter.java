@@ -13,11 +13,11 @@
  */
 package de.mrapp.android.util.view;
 
-import androidx.annotation.IdRes;
-import androidx.annotation.NonNull;
 import android.view.View;
 
-import static de.mrapp.android.util.Condition.ensureNotNull;
+import androidx.annotation.IdRes;
+import androidx.annotation.NonNull;
+import de.mrapp.util.Condition;
 
 /**
  * An abstract base class for all classes, which should allow to customize the appearance of adapter
@@ -44,7 +44,7 @@ public abstract class AbstractViewHolderAdapter {
      *         parent view may not be null
      */
     protected final void setCurrentParentView(@NonNull final View currentParentView) {
-        ensureNotNull(currentParentView, "The parent view may not be null");
+        Condition.INSTANCE.ensureNotNull(currentParentView, "The parent view may not be null");
         this.currentParentView = currentParentView;
     }
 
@@ -64,7 +64,8 @@ public abstract class AbstractViewHolderAdapter {
      */
     @SuppressWarnings("unchecked")
     protected final <ViewType extends View> ViewType findViewById(@IdRes final int viewId) {
-        ensureNotNull(currentParentView, "No parent view set", IllegalStateException.class);
+        Condition.INSTANCE.ensureNotNull(currentParentView, "No parent view set",
+                IllegalStateException.class);
         ViewHolder viewHolder = (ViewHolder) currentParentView.getTag();
 
         if (viewHolder == null) {

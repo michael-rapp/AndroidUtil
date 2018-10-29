@@ -16,12 +16,12 @@ package de.mrapp.android.util.view;
 import android.os.BadParcelableException;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.view.AbsSavedState;
+
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.view.AbsSavedState;
-
-import static de.mrapp.android.util.Condition.ensureNotNull;
+import de.mrapp.util.Condition;
 
 /**
  * An abstract base class for all data structures, which allow to store the internal state of a
@@ -49,7 +49,7 @@ public abstract class AbstractSavedState implements Parcelable {
      *         may not be null
      */
     protected AbstractSavedState(@NonNull final Parcel source) {
-        ensureNotNull(source, "The parcel may not be null");
+        Condition.INSTANCE.ensureNotNull(source, "The parcel may not be null");
         superState = source.readParcelable(getClass().getClassLoader());
     }
 

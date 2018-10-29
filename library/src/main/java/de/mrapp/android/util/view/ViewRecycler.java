@@ -14,16 +14,16 @@
 package de.mrapp.android.util.view;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.Map;
 
-import static de.mrapp.android.util.Condition.ensureNotNull;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.util.Pair;
+import de.mrapp.util.Condition;
 
 /**
  * A recycler, which allows to cache views in order to be able to reuse them later, instead of
@@ -114,8 +114,9 @@ public class ViewRecycler<ItemType, ParamType> extends AbstractViewRecycler<Item
                                              @Nullable final ViewGroup parent,
                                              final boolean useCache,
                                              @NonNull final ParamType... params) {
-        ensureNotNull(params, "The array may not be null");
-        ensureNotNull(getAdapter(), "No adapter has been set", IllegalStateException.class);
+        Condition.INSTANCE.ensureNotNull(params, "The array may not be null");
+        Condition.INSTANCE.ensureNotNull(getAdapter(), "No adapter has been set",
+                IllegalStateException.class);
 
         View view = getView(item);
         boolean inflated = false;
@@ -156,8 +157,9 @@ public class ViewRecycler<ItemType, ParamType> extends AbstractViewRecycler<Item
 
     @Override
     public final void remove(@NonNull final ItemType item) {
-        ensureNotNull(item, "The item may not be null");
-        ensureNotNull(getAdapter(), "No adapter has been set", IllegalStateException.class);
+        Condition.INSTANCE.ensureNotNull(item, "The item may not be null");
+        Condition.INSTANCE.ensureNotNull(getAdapter(), "No adapter has been set",
+                IllegalStateException.class);
         View view = getActiveViews().remove(item);
 
         if (view != null) {
@@ -173,7 +175,8 @@ public class ViewRecycler<ItemType, ParamType> extends AbstractViewRecycler<Item
 
     @Override
     public final void removeAll() {
-        ensureNotNull(getAdapter(), "No adapter has been set", IllegalStateException.class);
+        Condition.INSTANCE.ensureNotNull(getAdapter(), "No adapter has been set",
+                IllegalStateException.class);
 
         for (Map.Entry<ItemType, View> entry : getActiveViews().entrySet()) {
             ItemType item = entry.getKey();

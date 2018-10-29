@@ -17,10 +17,6 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.os.Build;
-import androidx.annotation.AttrRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.StyleRes;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +33,11 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-import static de.mrapp.android.util.Condition.ensureNotNull;
+import androidx.annotation.AttrRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StyleRes;
+import de.mrapp.util.Condition;
 
 /**
  * A grid view, which can contain multiple fixed views as headers and footers.
@@ -131,7 +131,7 @@ public class HeaderAndFooterGridView extends GridView implements HeaderAndFooter
          */
         public FullWidthItem(@NonNull final View view, @Nullable final Object data,
                              final boolean selectable) {
-            ensureNotNull(view, "The view may not be null");
+            Condition.INSTANCE.ensureNotNull(view, "The view may not be null");
             this.view = new FullWidthContainer(view);
             this.data = data;
             this.selectable = selectable;
@@ -183,7 +183,7 @@ public class HeaderAndFooterGridView extends GridView implements HeaderAndFooter
          *         ListAdapter}. The adapter may not be null
          */
         public AdapterWrapper(@NonNull final ListAdapter encapsulatedAdapter) {
-            ensureNotNull(encapsulatedAdapter, "The adapter may not be null");
+            Condition.INSTANCE.ensureNotNull(encapsulatedAdapter, "The adapter may not be null");
             this.encapsulatedAdapter = encapsulatedAdapter;
             this.encapsulatedAdapter.registerDataSetObserver(createDataSetObserver());
         }
@@ -405,8 +405,8 @@ public class HeaderAndFooterGridView extends GridView implements HeaderAndFooter
 
     /**
      * Returns the width of the grid view's columns by either using the
-     * <code>getColumnWidth</code>-method on devices with API level 16 or greater, or via reflection
-     * on older devices.
+     * <code>getColumnWidth</code>-method on devices with API level 16 or greater, or via
+     * reflection on older devices.
      *
      * @return The width of the grid view's columns in pixels as an {@link Integer} value or -1, if
      * the layout is pending
@@ -625,7 +625,7 @@ public class HeaderAndFooterGridView extends GridView implements HeaderAndFooter
      */
     public final void addHeaderView(@NonNull final View view, @Nullable final Object data,
                                     final boolean selectable) {
-        ensureNotNull(view, "The view may not be null");
+        Condition.INSTANCE.ensureNotNull(view, "The view may not be null");
         headers.add(new FullWidthItem(view, data, selectable));
         notifyDataSetChanged();
     }
@@ -645,7 +645,7 @@ public class HeaderAndFooterGridView extends GridView implements HeaderAndFooter
      */
     public final void addFooterView(@NonNull final View view, @Nullable final Object data,
                                     final boolean selectable) {
-        ensureNotNull(view, "The view may not be null");
+        Condition.INSTANCE.ensureNotNull(view, "The view may not be null");
         footers.add(new FullWidthItem(view, data, selectable));
         notifyDataSetChanged();
     }
@@ -657,7 +657,7 @@ public class HeaderAndFooterGridView extends GridView implements HeaderAndFooter
 
     @Override
     public final void removeHeaderView(@NonNull final View view) {
-        ensureNotNull(view, "The view may not be null");
+        Condition.INSTANCE.ensureNotNull(view, "The view may not be null");
 
         for (int i = getHeaderViewsCount() - 1; i >= 0; i--) {
             FullWidthItem header = headers.get(i);
@@ -702,7 +702,7 @@ public class HeaderAndFooterGridView extends GridView implements HeaderAndFooter
 
     @Override
     public final void removeFooterView(@NonNull final View view) {
-        ensureNotNull(view, "The view may not be null");
+        Condition.INSTANCE.ensureNotNull(view, "The view may not be null");
 
         for (int i = getFooterViewsCount() - 1; i >= 0; i--) {
             FullWidthItem footer = footers.get(i);

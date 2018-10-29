@@ -26,12 +26,11 @@ import android.graphics.RadialGradient;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.SweepGradient;
+
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
+import de.mrapp.util.Condition;
 
-import static de.mrapp.android.util.Condition.ensureAtLeast;
-import static de.mrapp.android.util.Condition.ensureAtMaximum;
-import static de.mrapp.android.util.Condition.ensureNotNull;
 import static de.mrapp.android.util.DisplayUtil.dpToPixels;
 
 /**
@@ -821,11 +820,11 @@ public final class ElevationUtil {
     public static Bitmap createElevationShadow(@NonNull final Context context, final int elevation,
                                                @NonNull final Orientation orientation,
                                                final boolean parallelLight) {
-        ensureNotNull(context, "The context may not be null");
-        ensureAtLeast(elevation, 0, "The elevation must be at least 0");
-        ensureAtMaximum(elevation, MAX_ELEVATION,
+        Condition.INSTANCE.ensureNotNull(context, "The context may not be null");
+        Condition.INSTANCE.ensureAtLeast(elevation, 0, "The elevation must be at least 0");
+        Condition.INSTANCE.ensureAtMaximum(elevation, MAX_ELEVATION,
                 "The elevation must be at maximum " + MAX_ELEVATION);
-        ensureNotNull(orientation, "The orientation may not be null");
+        Condition.INSTANCE.ensureNotNull(orientation, "The orientation may not be null");
 
         switch (orientation) {
             case LEFT:

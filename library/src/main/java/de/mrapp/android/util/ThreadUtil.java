@@ -15,9 +15,9 @@ package de.mrapp.android.util;
 
 import android.os.Handler;
 import android.os.Looper;
-import androidx.annotation.NonNull;
 
-import static de.mrapp.android.util.Condition.ensureNotNull;
+import androidx.annotation.NonNull;
+import de.mrapp.util.Condition;
 
 /**
  * An utility class, which provides static methods, which allow to handle threads.
@@ -42,7 +42,7 @@ public class ThreadUtil {
      *         The runnable may not be null
      */
     public static void runOnUiThread(@NonNull final Runnable runnable) {
-        ensureNotNull(runnable, "The runnable may not be null");
+        Condition.INSTANCE.ensureNotNull(runnable, "The runnable may not be null");
         new Handler(Looper.getMainLooper()).post(runnable);
     }
 

@@ -28,11 +28,6 @@ import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import androidx.annotation.ColorInt;
-import androidx.annotation.DrawableRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.util.Pair;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -41,13 +36,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import static de.mrapp.android.util.Condition.ensureAtLeast;
-import static de.mrapp.android.util.Condition.ensureAtMaximum;
-import static de.mrapp.android.util.Condition.ensureFileIsNoDirectory;
-import static de.mrapp.android.util.Condition.ensureGreater;
-import static de.mrapp.android.util.Condition.ensureNotEmpty;
-import static de.mrapp.android.util.Condition.ensureNotNull;
-import static de.mrapp.android.util.Condition.ensureSmaller;
+import androidx.annotation.ColorInt;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.util.Pair;
+import de.mrapp.util.Condition;
+import de.mrapp.util.StreamUtil;
+
 import static de.mrapp.android.util.DisplayUtil.getDensity;
 
 /**
@@ -80,9 +76,9 @@ public final class BitmapUtil {
      */
     private static int getSampleSize(@NonNull final Pair<Integer, Integer> imageDimensions,
                                      final int maxWidth, final int maxHeight) {
-        ensureNotNull(imageDimensions, "The image dimensions may not be null");
-        ensureAtLeast(maxWidth, 1, "The maximum width must be at least 1");
-        ensureAtLeast(maxHeight, 1, "The maximum height must be at least 1");
+        Condition.INSTANCE.ensureNotNull(imageDimensions, "The image dimensions may not be null");
+        Condition.INSTANCE.ensureAtLeast(maxWidth, 1, "The maximum width must be at least 1");
+        Condition.INSTANCE.ensureAtLeast(maxHeight, 1, "The maximum height must be at least 1");
         int width = imageDimensions.first;
         int height = imageDimensions.second;
         int sampleSize = 1;
@@ -117,7 +113,7 @@ public final class BitmapUtil {
      * @return The clipped bitmap as an instance of the class {@link Bitmap}
      */
     public static Bitmap clipCircle(@NonNull final Bitmap bitmap) {
-        ensureNotNull(bitmap, "The bitmap may not be null");
+        Condition.INSTANCE.ensureNotNull(bitmap, "The bitmap may not be null");
         return clipCircle(bitmap,
                 bitmap.getWidth() >= bitmap.getHeight() ? bitmap.getHeight() : bitmap.getWidth());
     }
@@ -168,7 +164,7 @@ public final class BitmapUtil {
      */
     public static Bitmap clipCircle(@NonNull final Bitmap bitmap, final int borderWidth,
                                     @ColorInt final int borderColor) {
-        ensureNotNull(bitmap, "The bitmap may not be null");
+        Condition.INSTANCE.ensureNotNull(bitmap, "The bitmap may not be null");
         return clipCircle(bitmap,
                 bitmap.getWidth() >= bitmap.getHeight() ? bitmap.getHeight() : bitmap.getWidth(),
                 borderWidth, borderColor);
@@ -194,7 +190,7 @@ public final class BitmapUtil {
      */
     public static Bitmap clipCircle(@NonNull final Bitmap bitmap, final int size,
                                     final int borderWidth, @ColorInt final int borderColor) {
-        ensureAtLeast(borderWidth, 0, "The border width must be at least 0");
+        Condition.INSTANCE.ensureAtLeast(borderWidth, 0, "The border width must be at least 0");
         Bitmap clippedBitmap = clipCircle(bitmap, size);
         Bitmap result = Bitmap.createBitmap(clippedBitmap.getWidth(), clippedBitmap.getHeight(),
                 Bitmap.Config.ARGB_8888);
@@ -232,7 +228,7 @@ public final class BitmapUtil {
      * @return The clipped bitmap as an instance of the class {@link Bitmap}
      */
     public static Bitmap clipSquare(@NonNull final Bitmap bitmap) {
-        ensureNotNull(bitmap, "The bitmap may not be null");
+        Condition.INSTANCE.ensureNotNull(bitmap, "The bitmap may not be null");
         return clipSquare(bitmap,
                 bitmap.getWidth() >= bitmap.getHeight() ? bitmap.getHeight() : bitmap.getWidth());
     }
@@ -251,8 +247,8 @@ public final class BitmapUtil {
      */
     @SuppressWarnings("SuspiciousNameCombination")
     public static Bitmap clipSquare(@NonNull final Bitmap bitmap, final int size) {
-        ensureNotNull(bitmap, "The bitmap may not be null");
-        ensureAtLeast(size, 1, "The size must be at least 1");
+        Condition.INSTANCE.ensureNotNull(bitmap, "The bitmap may not be null");
+        Condition.INSTANCE.ensureAtLeast(size, 1, "The size must be at least 1");
         Bitmap clippedBitmap = bitmap;
         int width = bitmap.getWidth();
         int height = bitmap.getHeight();
@@ -288,7 +284,7 @@ public final class BitmapUtil {
      */
     public static Bitmap clipSquare(@NonNull final Bitmap bitmap, final int borderWidth,
                                     @ColorInt final int borderColor) {
-        ensureNotNull(bitmap, "The bitmap may not be null");
+        Condition.INSTANCE.ensureNotNull(bitmap, "The bitmap may not be null");
         return clipSquare(bitmap,
                 bitmap.getWidth() >= bitmap.getHeight() ? bitmap.getHeight() : bitmap.getWidth(),
                 borderWidth, borderColor);
@@ -314,7 +310,7 @@ public final class BitmapUtil {
      */
     public static Bitmap clipSquare(@NonNull final Bitmap bitmap, final int size,
                                     final int borderWidth, @ColorInt final int borderColor) {
-        ensureAtLeast(borderWidth, 0, "The border width must be at least 0");
+        Condition.INSTANCE.ensureAtLeast(borderWidth, 0, "The border width must be at least 0");
         Bitmap clippedBitmap = clipSquare(bitmap, size);
         Bitmap result = Bitmap.createBitmap(clippedBitmap.getWidth(), clippedBitmap.getHeight(),
                 Bitmap.Config.ARGB_8888);
@@ -356,9 +352,9 @@ public final class BitmapUtil {
      * @return The resized bitmap as an instance of the class {@link Bitmap}
      */
     public static Bitmap resize(@NonNull final Bitmap bitmap, final int width, final int height) {
-        ensureNotNull(bitmap, "The bitmap may not be null");
-        ensureAtLeast(width, 1, "The width must be at least 1");
-        ensureAtLeast(height, 1, "The height must be at least 1");
+        Condition.INSTANCE.ensureNotNull(bitmap, "The bitmap may not be null");
+        Condition.INSTANCE.ensureAtLeast(width, 1, "The width must be at least 1");
+        Condition.INSTANCE.ensureAtLeast(height, 1, "The height must be at least 1");
         return Bitmap.createScaledBitmap(bitmap, width, height, false);
     }
 
@@ -389,9 +385,9 @@ public final class BitmapUtil {
      */
     public static Pair<Bitmap, Bitmap> splitHorizontally(@NonNull final Bitmap bitmap,
                                                          final int splitPoint) {
-        ensureNotNull(bitmap, "The bitmap may not be null");
-        ensureGreater(splitPoint, 0, "The split point must be greater than 0");
-        ensureSmaller(splitPoint, bitmap.getHeight(),
+        Condition.INSTANCE.ensureNotNull(bitmap, "The bitmap may not be null");
+        Condition.INSTANCE.ensureGreater(splitPoint, 0, "The split point must be greater than 0");
+        Condition.INSTANCE.ensureSmaller(splitPoint, bitmap.getHeight(),
                 "The split point must be smaller than " + bitmap.getHeight());
         Bitmap topBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), splitPoint);
         Bitmap bottomBitmap = Bitmap.createBitmap(bitmap, 0, splitPoint, bitmap.getWidth(),
@@ -426,9 +422,9 @@ public final class BitmapUtil {
      */
     public static Pair<Bitmap, Bitmap> splitVertically(@NonNull final Bitmap bitmap,
                                                        final int splitPoint) {
-        ensureNotNull(bitmap, "The bitmap may not be null");
-        ensureGreater(splitPoint, 0, "The split point must be greater than 0");
-        ensureSmaller(splitPoint, bitmap.getWidth(),
+        Condition.INSTANCE.ensureNotNull(bitmap, "The bitmap may not be null");
+        Condition.INSTANCE.ensureGreater(splitPoint, 0, "The split point must be greater than 0");
+        Condition.INSTANCE.ensureSmaller(splitPoint, bitmap.getWidth(),
                 "The split point must be smaller than " + bitmap.getWidth());
         Bitmap leftBitmap = Bitmap.createBitmap(bitmap, 0, 0, splitPoint, bitmap.getHeight());
         Bitmap rightBitmap =
@@ -452,9 +448,9 @@ public final class BitmapUtil {
      * @return The bitmap, which has been created as an instance of the class {@link Bitmap}
      */
     public static Bitmap tile(final Bitmap bitmap, final int width, final int height) {
-        ensureNotNull(bitmap, "The bitmap may not be null");
-        ensureAtLeast(width, 1, "The width must be at least 1");
-        ensureAtLeast(height, 1, "The height must be at least 1");
+        Condition.INSTANCE.ensureNotNull(bitmap, "The bitmap may not be null");
+        Condition.INSTANCE.ensureAtLeast(width, 1, "The width must be at least 1");
+        Condition.INSTANCE.ensureAtLeast(height, 1, "The height must be at least 1");
         Bitmap result = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(result);
         int originalWidth = bitmap.getWidth();
@@ -484,7 +480,7 @@ public final class BitmapUtil {
      * @return The bitmap, which has been created, as an instance of the class {@link Bitmap}
      */
     public static Bitmap tint(@NonNull final Bitmap bitmap, @ColorInt final int color) {
-        ensureNotNull(bitmap, "The bitmap may not be null");
+        Condition.INSTANCE.ensureNotNull(bitmap, "The bitmap may not be null");
         Canvas canvas = new Canvas(bitmap);
         Paint paint = new Paint();
         paint.setColor(color);
@@ -501,7 +497,7 @@ public final class BitmapUtil {
      * @return The bitmap, which has been created, as an instance of the class {@link Bitmap}
      */
     public static Bitmap drawableToBitmap(@NonNull final Drawable drawable) {
-        ensureNotNull(drawable, "The drawable may not be null");
+        Condition.INSTANCE.ensureNotNull(drawable, "The drawable may not be null");
 
         if (drawable instanceof BitmapDrawable) {
             BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
@@ -593,10 +589,10 @@ public final class BitmapUtil {
                                       @NonNull final CharSequence text, final float textSize,
                                       @ColorInt final int textColor,
                                       @Nullable final Typeface typeface) {
-        ensureNotNull(context, "The context may not be null");
-        ensureNotNull(text, "The text may not be null");
-        ensureNotEmpty(text, "The text may not be empty");
-        ensureAtLeast(textSize, 1, "The text size must be at least 1");
+        Condition.INSTANCE.ensureNotNull(context, "The context may not be null");
+        Condition.INSTANCE.ensureNotNull(text, "The text may not be null");
+        Condition.INSTANCE.ensureNotEmpty(text, "The text may not be empty");
+        Condition.INSTANCE.ensureAtLeast(textSize, 1, "The text size must be at least 1");
         Bitmap bitmap = colorToBitmap(width, height, backgroundColor);
         Canvas canvas = new Canvas(bitmap);
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -629,8 +625,8 @@ public final class BitmapUtil {
      */
     public static Bitmap colorToBitmap(final int width, final int height,
                                        @ColorInt final int color) {
-        ensureAtLeast(width, 1, "The width must be at least 1");
-        ensureAtLeast(height, 1, "The height must be at least 1");
+        Condition.INSTANCE.ensureAtLeast(width, 1, "The width must be at least 1");
+        Condition.INSTANCE.ensureAtLeast(height, 1, "The height must be at least 1");
         Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
         Paint paint = new Paint();
@@ -653,8 +649,9 @@ public final class BitmapUtil {
      */
     public static Pair<Integer, Integer> getImageDimensions(@NonNull final File file)
             throws IOException {
-        ensureNotNull(file, "The file may not be null");
-        ensureFileIsNoDirectory(file, "The file must exist and must not be a directory");
+        Condition.INSTANCE.ensureNotNull(file, "The file may not be null");
+        Condition.INSTANCE
+                .ensureFileIsNoDirectory(file, "The file must exist and must not be a directory");
         String path = file.getPath();
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
@@ -687,7 +684,7 @@ public final class BitmapUtil {
     public static Pair<Integer, Integer> getImageDimensions(@NonNull final Context context,
                                                             @DrawableRes final int resourceId)
             throws IOException {
-        ensureNotNull(context, "The context may not be null");
+        Condition.INSTANCE.ensureNotNull(context, "The context may not be null");
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeResource(context.getResources(), resourceId, options);
@@ -796,11 +793,11 @@ public final class BitmapUtil {
     public static void compressToFile(@NonNull final Bitmap bitmap, @NonNull final File file,
                                       @NonNull final CompressFormat format, final int quality)
             throws IOException {
-        ensureNotNull(bitmap, "The bitmap may not be null");
-        ensureNotNull(file, "The file may not be null");
-        ensureNotNull(format, "The format may not be null");
-        ensureAtLeast(quality, 0, "The quality must be at least 0");
-        ensureAtMaximum(quality, 100, "The quality must be at maximum 100");
+        Condition.INSTANCE.ensureNotNull(bitmap, "The bitmap may not be null");
+        Condition.INSTANCE.ensureNotNull(file, "The file may not be null");
+        Condition.INSTANCE.ensureNotNull(format, "The format may not be null");
+        Condition.INSTANCE.ensureAtLeast(quality, 0, "The quality must be at least 0");
+        Condition.INSTANCE.ensureAtMaximum(quality, 100, "The quality must be at maximum 100");
         OutputStream outputStream = null;
 
         try {
@@ -813,7 +810,7 @@ public final class BitmapUtil {
                                 format + " and quality " + quality);
             }
         } finally {
-            StreamUtil.close(outputStream);
+            StreamUtil.INSTANCE.close(outputStream);
         }
     }
 
@@ -838,10 +835,10 @@ public final class BitmapUtil {
     public static byte[] compressToByteArray(@NonNull final Bitmap bitmap,
                                              @NonNull final CompressFormat format,
                                              final int quality) throws IOException {
-        ensureNotNull(bitmap, "The bitmap may not be null");
-        ensureNotNull(format, "The format may not be null");
-        ensureAtLeast(quality, 0, "The quality must be at least 0");
-        ensureAtMaximum(quality, 100, "The quality must be at maximum 100");
+        Condition.INSTANCE.ensureNotNull(bitmap, "The bitmap may not be null");
+        Condition.INSTANCE.ensureNotNull(format, "The format may not be null");
+        Condition.INSTANCE.ensureAtLeast(quality, 0, "The quality must be at least 0");
+        Condition.INSTANCE.ensureAtMaximum(quality, 100, "The quality must be at maximum 100");
         ByteArrayOutputStream outputStream = null;
 
         try {
@@ -855,7 +852,7 @@ public final class BitmapUtil {
             throw new IOException("Failed to compress bitmap to byte array using format " + format +
                     " and quality " + quality);
         } finally {
-            StreamUtil.close(outputStream);
+            StreamUtil.INSTANCE.close(outputStream);
         }
     }
 

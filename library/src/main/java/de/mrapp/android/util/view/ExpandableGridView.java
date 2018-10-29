@@ -17,11 +17,6 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.os.Build;
-import androidx.annotation.AttrRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.StyleRes;
-import androidx.core.util.Pair;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +28,12 @@ import android.widget.ListAdapter;
 import java.util.HashSet;
 import java.util.Set;
 
-import static de.mrapp.android.util.Condition.ensureNotNull;
+import androidx.annotation.AttrRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StyleRes;
+import androidx.core.util.Pair;
+import de.mrapp.util.Condition;
 
 /**
  * A grid view, which can contain multiple groups, which can individually be expanded to show their
@@ -143,7 +143,7 @@ public class ExpandableGridView extends HeaderAndFooterGridView {
          *         ExpandableListAdapter}. The adapter may not be null
          */
         public AdapterWrapper(@NonNull final ExpandableListAdapter encapsulatedAdapter) {
-            ensureNotNull(encapsulatedAdapter, "The adapter may not be null");
+            Condition.INSTANCE.ensureNotNull(encapsulatedAdapter, "The adapter may not be null");
             this.encapsulatedAdapter = encapsulatedAdapter;
             this.encapsulatedAdapter.registerDataSetObserver(createDataSetObserver());
         }

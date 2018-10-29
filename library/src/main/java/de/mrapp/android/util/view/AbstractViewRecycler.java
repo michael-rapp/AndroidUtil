@@ -14,9 +14,6 @@
 package de.mrapp.android.util.view;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.util.Pair;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,10 +24,12 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.util.Pair;
 import de.mrapp.android.util.logging.LogLevel;
 import de.mrapp.android.util.logging.Logger;
-
-import static de.mrapp.android.util.Condition.ensureNotNull;
+import de.mrapp.util.Condition;
 
 /**
  * An abstract base class for all recyclers, which allow to cache views in order to be able to reuse
@@ -292,7 +291,7 @@ public abstract class AbstractViewRecycler<ItemType, ParamType> {
      *         class {@link LayoutInflater}. The layout inflater may not be null
      */
     public AbstractViewRecycler(@NonNull final LayoutInflater inflater) {
-        ensureNotNull(inflater, "The layout inflater may not be null");
+        Condition.INSTANCE.ensureNotNull(inflater, "The layout inflater may not be null");
         this.context = inflater.getContext();
         this.inflater = inflater;
         this.activeViews = new HashMap<>();
@@ -429,7 +428,7 @@ public abstract class AbstractViewRecycler<ItemType, ParamType> {
      */
     @Nullable
     public final View getView(@NonNull final ItemType item) {
-        ensureNotNull(item, "The item may not be null");
+        Condition.INSTANCE.ensureNotNull(item, "The item may not be null");
         return activeViews.get(item);
     }
 
@@ -460,7 +459,7 @@ public abstract class AbstractViewRecycler<ItemType, ParamType> {
     @SuppressWarnings("unchecked")
     public final void notifyItemChanged(@NonNull final ItemType item,
                                         @NonNull final ParamType... params) {
-        ensureNotNull(item, "The item may not be null");
+        Condition.INSTANCE.ensureNotNull(item, "The item may not be null");
         View view = getView(item);
 
         if (view != null) {

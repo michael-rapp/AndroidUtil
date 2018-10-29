@@ -13,9 +13,7 @@
  */
 package de.mrapp.android.util.gesture;
 
-import static de.mrapp.android.util.Condition.ensureAtLeast;
-import static de.mrapp.android.util.Condition.ensureGreater;
-import static de.mrapp.android.util.Condition.ensureSmaller;
+import de.mrapp.util.Condition;
 
 /**
  * A helper class, which may be used to measure the distance and speed of drag gestures.
@@ -94,7 +92,7 @@ public class DragHelper {
      *         Integer} value. The value must be at least 0
      */
     public DragHelper(final int threshold) {
-        ensureAtLeast(threshold, 0, "The threshold must be at least 0");
+        Condition.INSTANCE.ensureAtLeast(threshold, 0, "The threshold must be at least 0");
         this.threshold = threshold;
         this.distance = 0;
         this.thresholdReachedPosition = -1;
@@ -216,7 +214,7 @@ public class DragHelper {
      */
     public final void setMaxDragDistance(final float maxDragDistance) {
         if (maxDragDistance != 0) {
-            ensureGreater(maxDragDistance, threshold,
+            Condition.INSTANCE.ensureGreater(maxDragDistance, threshold,
                     "The maximum drag distance must be greater than " + threshold);
         }
 
@@ -242,7 +240,7 @@ public class DragHelper {
      */
     public final void setMinDragDistance(final float minDragDistance) {
         if (minDragDistance != 0) {
-            ensureSmaller(minDragDistance, -threshold,
+            Condition.INSTANCE.ensureSmaller(minDragDistance, -threshold,
                     "The minimum drag distance must be smaller than " + -threshold);
         }
 

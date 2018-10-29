@@ -13,12 +13,11 @@
  */
 package de.mrapp.android.util;
 
-import androidx.annotation.NonNull;
-
 import java.io.File;
 import java.io.IOException;
 
-import static de.mrapp.android.util.Condition.ensureNotNull;
+import androidx.annotation.NonNull;
+import de.mrapp.util.Condition;
 
 /**
  * An utility class, which provides static methods, which allow to handle files.
@@ -42,7 +41,7 @@ public final class FileUtil {
      */
     private static void mkdir(@NonNull final File directory, final boolean createParents)
             throws IOException {
-        ensureNotNull(directory, "The directory may not be null");
+        Condition.INSTANCE.ensureNotNull(directory, "The directory may not be null");
         boolean result = createParents ? directory.mkdirs() : directory.mkdir();
 
         if (!result && !directory.exists()) {
@@ -98,7 +97,7 @@ public final class FileUtil {
      *         The exception, which is thrown, if an error occurred while deleting the file
      */
     public static void delete(@NonNull final File file) throws IOException {
-        ensureNotNull(file, "The file may not be null");
+        Condition.INSTANCE.ensureNotNull(file, "The file may not be null");
         boolean result = file.delete();
 
         if (!result && file.exists()) {
@@ -123,7 +122,7 @@ public final class FileUtil {
      *         directory
      */
     public static void deleteRecursively(@NonNull final File file) throws IOException {
-        ensureNotNull(file, "The file or directory may not be null");
+        Condition.INSTANCE.ensureNotNull(file, "The file or directory may not be null");
 
         if (file.isDirectory()) {
             for (File child : file.listFiles()) {
@@ -162,7 +161,7 @@ public final class FileUtil {
      */
     public static void createNewFile(@NonNull final File file, final boolean overwrite)
             throws IOException {
-        ensureNotNull(file, "The file may not be null");
+        Condition.INSTANCE.ensureNotNull(file, "The file may not be null");
         boolean result = file.createNewFile();
 
         if (!result) {

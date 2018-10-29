@@ -14,8 +14,7 @@
 package de.mrapp.android.util;
 
 import androidx.annotation.NonNull;
-
-import static de.mrapp.android.util.Condition.ensureNotNull;
+import de.mrapp.util.Condition;
 
 /**
  * An utility class, which provides static methods, which allow to handle arrays.
@@ -44,7 +43,7 @@ public final class ArrayUtil {
      * Integer} value or -1, if no item of the array equals the value
      */
     public static int indexOf(@NonNull final boolean[] array, final boolean value) {
-        ensureNotNull(array, "The array may not be null");
+        Condition.INSTANCE.ensureNotNull(array, "The array may not be null");
         for (int i = 0; i < array.length; i++) {
             if (array[i] == value) {
                 return i;
@@ -66,7 +65,7 @@ public final class ArrayUtil {
      * Integer} value or -1, if no item of the array equals the value
      */
     public static int lastIndexOf(@NonNull final boolean[] array, final boolean value) {
-        ensureNotNull(array, "The array may not be null");
+        Condition.INSTANCE.ensureNotNull(array, "The array may not be null");
         for (int i = array.length - 1; i >= 0; i--) {
             if (array[i] == value) {
                 return i;

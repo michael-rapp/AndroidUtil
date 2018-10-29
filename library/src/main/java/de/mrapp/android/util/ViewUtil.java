@@ -15,15 +15,15 @@ package de.mrapp.android.util;
 
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.ViewTreeObserver;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 
-import static de.mrapp.android.util.Condition.ensureNotNull;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import de.mrapp.util.Condition;
 
 /**
  * An utility class, which provides static methods for handling instances of the class {@link
@@ -56,7 +56,7 @@ public final class ViewUtil {
     @SuppressWarnings("deprecation")
     public static void setBackground(@NonNull final View view,
                                      @Nullable final Drawable background) {
-        ensureNotNull(view, "The view may not be null");
+        Condition.INSTANCE.ensureNotNull(view, "The view may not be null");
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             view.setBackground(background);
@@ -79,7 +79,7 @@ public final class ViewUtil {
     @SuppressWarnings("deprecation")
     public static void removeOnGlobalLayoutListener(@NonNull final ViewTreeObserver observer,
                                                     @Nullable final OnGlobalLayoutListener listener) {
-        ensureNotNull(observer, "The view tree observer may not be null");
+        Condition.INSTANCE.ensureNotNull(observer, "The view tree observer may not be null");
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             observer.removeOnGlobalLayoutListener(listener);
@@ -96,7 +96,7 @@ public final class ViewUtil {
      *         View}. The view may not be null
      */
     public static void removeFromParent(@NonNull final View view) {
-        ensureNotNull(view, "The view may not be null");
+        Condition.INSTANCE.ensureNotNull(view, "The view may not be null");
         ViewParent parent = view.getParent();
 
         if (parent instanceof ViewGroup) {

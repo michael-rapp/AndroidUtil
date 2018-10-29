@@ -15,15 +15,14 @@ package de.mrapp.android.util.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.util.AttributeSet;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 import androidx.appcompat.widget.AppCompatImageView;
-import android.util.AttributeSet;
-
 import de.mrapp.android.util.R;
-
-import static de.mrapp.android.util.Condition.ensureNotNull;
+import de.mrapp.util.Condition;
 
 /**
  * A custom view, which is extended from the view {@link android.widget.ImageView} in order to
@@ -224,7 +223,7 @@ public class SquareImageView extends AppCompatImageView {
      *         either be {@link Edge#HORIZONTAL} or {@link Edge#VERTICAL}
      */
     public final void setScaledEdge(final Edge edge) {
-        ensureNotNull(edge, "The edge may not be null");
+        Condition.INSTANCE.ensureNotNull(edge, "The edge may not be null");
         this.scaledEdge = edge;
         requestLayout();
     }

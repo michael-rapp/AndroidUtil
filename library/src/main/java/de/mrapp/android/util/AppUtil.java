@@ -21,17 +21,14 @@ import android.content.Intent;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.provider.Settings;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresPermission;
 import android.text.TextUtils;
 
 import java.io.File;
 
-import static de.mrapp.android.util.Condition.ensureFileIsNoDirectory;
-import static de.mrapp.android.util.Condition.ensureNotEmpty;
-import static de.mrapp.android.util.Condition.ensureNotNull;
-import static de.mrapp.android.util.Condition.ensureTrue;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresPermission;
+import de.mrapp.util.Condition;
 
 /**
  * An utility class, which provides static methods, which allow to start system apps.
@@ -65,8 +62,9 @@ public final class AppUtil {
      */
     public static void startCameraApp(@NonNull final Activity activity, final int requestCode,
                                       @NonNull final File file) {
-        ensureNotNull(file, "The file may not be null");
-        ensureFileIsNoDirectory(file, "The file must exist and must not be a directory");
+        Condition.INSTANCE.ensureNotNull(file, "The file may not be null");
+        Condition.INSTANCE
+                .ensureFileIsNoDirectory(file, "The file must exist and must not be a directory");
         startCameraApp(activity, requestCode, Uri.fromFile(file));
     }
 
@@ -87,8 +85,8 @@ public final class AppUtil {
      */
     public static void startCameraApp(@NonNull final Activity activity, final int requestCode,
                                       @NonNull final Uri uri) {
-        ensureNotNull(activity, "The activity may not be null");
-        ensureNotNull(uri, "The URI may not be null");
+        Condition.INSTANCE.ensureNotNull(activity, "The activity may not be null");
+        Condition.INSTANCE.ensureNotNull(uri, "The URI may not be null");
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
 
@@ -112,7 +110,7 @@ public final class AppUtil {
      *         activity, as an {@link Integer} value
      */
     public static void startGalleryApp(@NonNull final Activity activity, final int requestCode) {
-        ensureNotNull(activity, "The activity may not be null");
+        Condition.INSTANCE.ensureNotNull(activity, "The activity may not be null");
         Intent intent =
                 new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
@@ -136,8 +134,9 @@ public final class AppUtil {
      *         directory.
      */
     public static void startGalleryApp(@NonNull final Context context, @NonNull final File file) {
-        ensureNotNull(file, "The file may not be null");
-        ensureFileIsNoDirectory(file, "The file must exist and must not be a directory");
+        Condition.INSTANCE.ensureNotNull(file, "The file may not be null");
+        Condition.INSTANCE
+                .ensureFileIsNoDirectory(file, "The file must exist and must not be a directory");
         startGalleryApp(context, Uri.parse("file://" + file.getAbsolutePath()));
     }
 
@@ -153,8 +152,8 @@ public final class AppUtil {
      *         The URI may not be null and must be valid
      */
     public static void startGalleryApp(@NonNull final Context context, @NonNull final Uri uri) {
-        ensureNotNull(context, "The context may not be null");
-        ensureNotNull(uri, "The URI may not be null");
+        Condition.INSTANCE.ensureNotNull(context, "The context may not be null");
+        Condition.INSTANCE.ensureNotNull(uri, "The URI may not be null");
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setDataAndType(uri, "image/*");
 
@@ -177,8 +176,8 @@ public final class AppUtil {
      *         empty
      */
     public static void startWebBrowser(@NonNull final Context context, @NonNull final String uri) {
-        ensureNotNull(uri, "The URI may not be null");
-        ensureNotEmpty(uri, "The URI may not be empty");
+        Condition.INSTANCE.ensureNotNull(uri, "The URI may not be null");
+        Condition.INSTANCE.ensureNotEmpty(uri, "The URI may not be empty");
         startWebBrowser(context, Uri.parse(
                 (uri.startsWith("http://") || uri.startsWith("https://")) ? uri :
                         ("http://" + uri)));
@@ -196,8 +195,8 @@ public final class AppUtil {
      *         not be null
      */
     public static void startWebBrowser(@NonNull final Context context, @NonNull final Uri uri) {
-        ensureNotNull(context, "The context may not be null");
-        ensureNotNull(uri, "The URI may not be null");
+        Condition.INSTANCE.ensureNotNull(context, "The context may not be null");
+        Condition.INSTANCE.ensureNotNull(uri, "The URI may not be null");
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 
         if (intent.resolveActivity(context.getPackageManager()) == null) {
@@ -244,8 +243,8 @@ public final class AppUtil {
                                        @NonNull final String emailAddress,
                                        @Nullable final String subject,
                                        @Nullable final String text) {
-        ensureNotNull(emailAddress, "The e-mail address may not be null");
-        ensureNotEmpty(emailAddress, "The e-mail address may not be empty");
+        Condition.INSTANCE.ensureNotNull(emailAddress, "The e-mail address may not be null");
+        Condition.INSTANCE.ensureNotEmpty(emailAddress, "The e-mail address may not be empty");
         startMailClient(context, new String[]{emailAddress}, subject, text);
     }
 
@@ -286,9 +285,9 @@ public final class AppUtil {
                                        @NonNull final String[] emailAddresses,
                                        @Nullable final String subject,
                                        @Nullable final String text) {
-        ensureNotNull(context, "The context may not be null");
-        ensureNotNull(emailAddresses, "The array may not be null");
-        ensureTrue(emailAddresses.length > 0, "The array may not be empty");
+        Condition.INSTANCE.ensureNotNull(context, "The context may not be null");
+        Condition.INSTANCE.ensureNotNull(emailAddresses, "The array may not be null");
+        Condition.INSTANCE.ensureTrue(emailAddresses.length > 0, "The array may not be empty");
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("message/rfc822");
         intent.putExtra(Intent.EXTRA_EMAIL, emailAddresses);
@@ -352,9 +351,9 @@ public final class AppUtil {
      */
     public static void startDialer(@NonNull final Context context,
                                    @NonNull final String phoneNumber) {
-        ensureNotNull(context, "The context may not be null");
-        ensureNotNull(phoneNumber, "The phone number may not be null");
-        ensureNotEmpty(phoneNumber, "The phone number may not be empty");
+        Condition.INSTANCE.ensureNotNull(context, "The context may not be null");
+        Condition.INSTANCE.ensureNotNull(phoneNumber, "The phone number may not be null");
+        Condition.INSTANCE.ensureNotEmpty(phoneNumber, "The phone number may not be empty");
         Uri uri = Uri.parse(phoneNumber.startsWith("tel:") ? phoneNumber : "tel:" + phoneNumber);
         Intent intent = new Intent(Intent.ACTION_DIAL, uri);
 
@@ -415,9 +414,9 @@ public final class AppUtil {
     @RequiresPermission(Manifest.permission.CALL_PHONE)
     public static void startCall(@NonNull final Context context,
                                  @NonNull final String phoneNumber) {
-        ensureNotNull(context, "The context may not be null");
-        ensureNotNull(phoneNumber, "The phone number may not be null");
-        ensureNotEmpty(phoneNumber, "The phone number may not be empty");
+        Condition.INSTANCE.ensureNotNull(context, "The context may not be null");
+        Condition.INSTANCE.ensureNotNull(phoneNumber, "The phone number may not be null");
+        Condition.INSTANCE.ensureNotEmpty(phoneNumber, "The phone number may not be empty");
         Uri uri = Uri.parse(phoneNumber.startsWith("tel:") ? phoneNumber : "tel:" + phoneNumber);
         Intent intent = new Intent(Intent.ACTION_CALL, uri);
 
@@ -451,9 +450,9 @@ public final class AppUtil {
      */
     public static void showAppInfo(@NonNull final Context context,
                                    @NonNull final String packageName) {
-        ensureNotNull(context, "The context may not be null");
-        ensureNotNull(packageName, "The package name may not be null");
-        ensureNotEmpty(packageName, "The package name may not be empty");
+        Condition.INSTANCE.ensureNotNull(context, "The context may not be null");
+        Condition.INSTANCE.ensureNotNull(packageName, "The package name may not be null");
+        Condition.INSTANCE.ensureNotEmpty(packageName, "The package name may not be empty");
         Intent intent = new Intent();
         intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
         Uri uri = Uri.fromParts("package", packageName, null);

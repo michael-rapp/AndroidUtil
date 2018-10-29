@@ -17,15 +17,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import java.util.Collection;
 import java.util.LinkedList;
 
-import static de.mrapp.android.util.Condition.ensureNotEmpty;
-import static de.mrapp.android.util.Condition.ensureNotNull;
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import de.mrapp.util.Condition;
 
 /**
  * An utility class, which provides static methods, which allow to handle runtime permissions.
@@ -57,9 +56,9 @@ public final class PermissionUtil {
      */
     public static boolean isPermissionGranted(@NonNull final Context context,
                                               @NonNull final String permission) {
-        ensureNotNull(context, "The context may not be null");
-        ensureNotNull(permission, "The permission may not be null");
-        ensureNotEmpty(permission, "The permission may not be empty");
+        Condition.INSTANCE.ensureNotNull(context, "The context may not be null");
+        Condition.INSTANCE.ensureNotNull(permission, "The permission may not be null");
+        Condition.INSTANCE.ensureNotEmpty(permission, "The permission may not be empty");
         return Build.VERSION.SDK_INT < Build.VERSION_CODES.M ||
                 ContextCompat.checkSelfPermission(context, permission) ==
                         PackageManager.PERMISSION_GRANTED;
@@ -79,8 +78,8 @@ public final class PermissionUtil {
      */
     public static boolean areAllPermissionsGranted(@NonNull final Context context,
                                                    @NonNull final String... permissions) {
-        ensureNotNull(context, "The context may not be null");
-        ensureNotNull(permissions, "The array may not be null");
+        Condition.INSTANCE.ensureNotNull(context, "The context may not be null");
+        Condition.INSTANCE.ensureNotNull(permissions, "The array may not be null");
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             for (String permission : permissions) {
@@ -108,7 +107,7 @@ public final class PermissionUtil {
     @NonNull
     public static String[] getNotGrantedPermissions(@NonNull final Context context,
                                                     @NonNull final String... permissions) {
-        ensureNotNull(permissions, "The array may not be null");
+        Condition.INSTANCE.ensureNotNull(permissions, "The array may not be null");
         Collection<String> notGrantedPermissions = new LinkedList<>();
 
         for (String permission : permissions) {
@@ -127,7 +126,7 @@ public final class PermissionUtil {
      * shown, or not. A rationale should only be shown, if the permissions are not already granted
      * and if the context, in which the permissions are requested, does not clearly communicate to
      * the user what would be the benefit from granting the permissions.
-     *
+     * <p>
      * For example, if you write a camera app, requesting the camera permission would be expected by
      * the user and no rationale for why it is requested is needed. If however, the app needs
      * location for tagging photos then a non-tech savvy user may wonder how location is related to
@@ -144,8 +143,8 @@ public final class PermissionUtil {
      */
     public static boolean shouldShowRequestPermissionRationale(@NonNull final Activity activity,
                                                                @NonNull final String... permissions) {
-        ensureNotNull(activity, "The activity may not be null");
-        ensureNotNull(permissions, "The array may not be null");
+        Condition.INSTANCE.ensureNotNull(activity, "The activity may not be null");
+        Condition.INSTANCE.ensureNotNull(permissions, "The array may not be null");
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             for (String permission : permissions) {

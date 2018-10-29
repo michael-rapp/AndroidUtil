@@ -15,20 +15,18 @@ package de.mrapp.android.util.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.util.AttributeSet;
+
 import androidx.annotation.AttrRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 import androidx.appcompat.widget.AppCompatImageView;
-import android.util.AttributeSet;
-
 import de.mrapp.android.util.ElevationUtil;
 import de.mrapp.android.util.ElevationUtil.Orientation;
 import de.mrapp.android.util.R;
+import de.mrapp.util.Condition;
 
-import static de.mrapp.android.util.Condition.ensureAtLeast;
-import static de.mrapp.android.util.Condition.ensureAtMaximum;
-import static de.mrapp.android.util.Condition.ensureNotNull;
 import static de.mrapp.android.util.DisplayUtil.pixelsToDp;
 import static de.mrapp.android.util.ElevationUtil.createElevationShadow;
 
@@ -234,8 +232,8 @@ public class ElevationShadowView extends AppCompatImageView {
      *         The elevation must be at least 0 and at maximum 16
      */
     public final void setShadowElevation(final int elevation) {
-        ensureAtLeast(elevation, 0, "The elevation must be at least 0");
-        ensureAtMaximum(elevation, ElevationUtil.MAX_ELEVATION,
+        Condition.INSTANCE.ensureAtLeast(elevation, 0, "The elevation must be at least 0");
+        Condition.INSTANCE.ensureAtMaximum(elevation, ElevationUtil.MAX_ELEVATION,
                 "The elevation must be at maximum " + ElevationUtil.MAX_ELEVATION);
         this.elevation = elevation;
         adaptElevationShadow();
@@ -263,7 +261,7 @@ public class ElevationShadowView extends AppCompatImageView {
      *         <code>BOTTOM_LEFT</code> or <code>BOTTOM_RIGHT</code>
      */
     public final void setShadowOrientation(@NonNull final Orientation orientation) {
-        ensureNotNull(orientation, "The orientation may not be null");
+        Condition.INSTANCE.ensureNotNull(orientation, "The orientation may not be null");
         this.orientation = orientation;
         adaptElevationShadow();
     }

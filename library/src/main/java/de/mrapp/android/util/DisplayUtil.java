@@ -19,8 +19,7 @@ import android.util.DisplayMetrics;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
-
-import static de.mrapp.android.util.Condition.ensureNotNull;
+import de.mrapp.util.Condition;
 
 /**
  * An utility class, which provides static methods, which are related to a device's display
@@ -146,7 +145,7 @@ public class DisplayUtil {
      * @return The calculated dp value as an {@link Integer} value. The value might be rounded
      */
     public static int pixelsToDp(@NonNull final Context context, final int pixels) {
-        ensureNotNull(context, "The context may not be null");
+        Condition.INSTANCE.ensureNotNull(context, "The context may not be null");
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         return Math.round(pixels / (displayMetrics.densityDpi / PIXEL_DP_RATIO));
     }
@@ -163,7 +162,7 @@ public class DisplayUtil {
      * @return The calculated dp value as an {@link Long} value. The value might be rounded
      */
     public static long pixelsToDp(@NonNull final Context context, final long pixels) {
-        ensureNotNull(context, "The context may not be null");
+        Condition.INSTANCE.ensureNotNull(context, "The context may not be null");
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         return Math.round(pixels / (displayMetrics.densityDpi / PIXEL_DP_RATIO));
     }
@@ -180,7 +179,7 @@ public class DisplayUtil {
      * @return The calculated dp value as a {@link Float} value
      */
     public static float pixelsToDp(@NonNull final Context context, final float pixels) {
-        ensureNotNull(context, "The context may not be null");
+        Condition.INSTANCE.ensureNotNull(context, "The context may not be null");
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         return pixels / (displayMetrics.densityDpi / PIXEL_DP_RATIO);
     }
@@ -197,7 +196,7 @@ public class DisplayUtil {
      * @return The calculated dp value as a {@link Double} value
      */
     public static double pixelsToDp(@NonNull final Context context, final double pixels) {
-        ensureNotNull(context, "The context may not be null");
+        Condition.INSTANCE.ensureNotNull(context, "The context may not be null");
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         return pixels / (displayMetrics.densityDpi / PIXEL_DP_RATIO);
     }
@@ -214,7 +213,7 @@ public class DisplayUtil {
      * @return The calculated pixel value as an {@link Integer} value. The value might be rounded
      */
     public static int dpToPixels(@NonNull final Context context, final int dp) {
-        ensureNotNull(context, "The context may not be null");
+        Condition.INSTANCE.ensureNotNull(context, "The context may not be null");
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         return Math.round(dp * (displayMetrics.densityDpi / PIXEL_DP_RATIO));
     }
@@ -231,7 +230,7 @@ public class DisplayUtil {
      * @return The calculated pixel value as an {@link Integer} value. The value might be rounded
      */
     public static long dpToPixels(@NonNull final Context context, final long dp) {
-        ensureNotNull(context, "The context may not be null");
+        Condition.INSTANCE.ensureNotNull(context, "The context may not be null");
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         return Math.round(dp * (displayMetrics.densityDpi / PIXEL_DP_RATIO));
     }
@@ -248,7 +247,7 @@ public class DisplayUtil {
      * @return The calculated pixel value as a {@link Float} value
      */
     public static float dpToPixels(@NonNull final Context context, final float dp) {
-        ensureNotNull(context, "The context may not be null");
+        Condition.INSTANCE.ensureNotNull(context, "The context may not be null");
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         return dp * (displayMetrics.densityDpi / PIXEL_DP_RATIO);
     }
@@ -265,7 +264,7 @@ public class DisplayUtil {
      * @return The calculated pixel value as a {@link Double} value
      */
     public static double dpToPixels(@NonNull final Context context, final double dp) {
-        ensureNotNull(context, "The context may not be null");
+        Condition.INSTANCE.ensureNotNull(context, "The context may not be null");
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         return dp * (displayMetrics.densityDpi / PIXEL_DP_RATIO);
     }
@@ -281,7 +280,7 @@ public class DisplayUtil {
      * <code>SQUARE</code>
      */
     public static Orientation getOrientation(@NonNull final Context context) {
-        ensureNotNull(context, "The context may not be null");
+        Condition.INSTANCE.ensureNotNull(context, "The context may not be null");
         int orientation = context.getResources().getConfiguration().orientation;
 
         if (orientation == Configuration.ORIENTATION_UNDEFINED) {
@@ -314,7 +313,7 @@ public class DisplayUtil {
      * be <code>PHONE</code>, <code>PHABLET</code> or <code>TABLET</code>
      */
     public static DeviceType getDeviceType(@NonNull final Context context) {
-        ensureNotNull(context, "The context may not be null");
+        Condition.INSTANCE.ensureNotNull(context, "The context may not be null");
         return DeviceType.fromValue(context.getString(R.string.device_type));
     }
 
@@ -327,7 +326,7 @@ public class DisplayUtil {
      * @return The width of the device's display in pixels as an {@link Integer} value
      */
     public static int getDisplayWidth(@NonNull final Context context) {
-        ensureNotNull(context, "The context may not be null");
+        Condition.INSTANCE.ensureNotNull(context, "The context may not be null");
         return context.getResources().getDisplayMetrics().widthPixels;
     }
 
@@ -340,7 +339,7 @@ public class DisplayUtil {
      * @return The height of the device's display in pixels as an {@link Integer} value
      */
     public static int getDisplayHeight(@NonNull final Context context) {
-        ensureNotNull(context, "The context may not be null");
+        Condition.INSTANCE.ensureNotNull(context, "The context may not be null");
         return context.getResources().getDisplayMetrics().heightPixels;
     }
 
@@ -358,7 +357,7 @@ public class DisplayUtil {
      * @return The logical density of the device's display as a {@link Float} value
      */
     public static float getDensity(@NonNull final Context context) {
-        ensureNotNull(context, "The context may not be null");
+        Condition.INSTANCE.ensureNotNull(context, "The context may not be null");
         return context.getResources().getDisplayMetrics().density;
     }
 
