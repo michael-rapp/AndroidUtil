@@ -4,19 +4,15 @@
 
 "AndroidUtil" is an Android-library, which provides various utility classes for use in Android app development. The library currently provides the following features:
 
-- The class `Condition` provides methods, which allow to ensure that variables or objects fulfill certain conditions by throwing exceptions, if conditions are violated, e.g. when an object is null.
 - The class `BitmapUtil` provides methods, which allow to create and edit bitmaps, e.g. clipping them.
-- The class `ClassUtil` provides methods, which allow to handle class names.
 - The class `DisplayUtil` provides methods, which are related to a device's display metrics, e.g. converting DP values to pixel values and vice versa.
 - The class `ElevationUtil` provides methods, which can be used to emulate elevations of views on pre-Lollipop devices. The view `ElevationShadowView` can be used to easily visualize such an elevation within a layout.
 - The class `AppUtil` provides methods, which allow to start system apps.
 - The class `PermissionUtil` provides methods, which allow to handle runtime permissions.
 - The class `ViewUtil` provides methods, which allow to handle views.
 - The class `FileUtil` provides methods, which allow to handle files.
-- The class `StreamUtil` provides methods, which allow to handle streams.
 - The class `ThreadUtil` provides methods, which allow to handle threads.
 - The class `ArrayUtil` provides methods, which allow to handle arrays.
-- The class `Triple` is a generic data structure, which eases to pass around a triple of three objects.
 - The view `UnfocusableToolbar` extends the AppCompat support library's `Toolbar` to enable touch events to be passed to other views in the event processing chain.
 - The view `SquareImageView` implements an `ImageView` whose height is enforced to be equal to its width.
 - The view `ScrimInsetsLayout` implements a layout, which allows to show a `Drawable` in the insets, which are passed to its `fitSystemWindows`-method. This can for example be used to implement a navigation drawer, which appears to be located behind the device's status bar.
@@ -29,7 +25,8 @@
 - The class `DragHelper` allows to measure the distance and speed of drag gestures.
 - The classes `ViewRecycler` and `AttachedViewRecycler` allow to cache views in order to reuse them instead of inflating new instances.
 - The class `AbstractDataBinder` allows to asynchronously load data in order to display it by using recyclable views.
-- The class `ListenerList` is a data structure, which is meant to be used for managing event listeners.
+
+This library depends on the library [JavaUtil](https://github.com/michael-rapp/JavaUtil) that provides additional utility classes.
 
 ## License Agreement
 
