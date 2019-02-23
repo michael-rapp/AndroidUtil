@@ -1,5 +1,13 @@
 # AndroidUtil - RELEASE NOTES
 
+## Version 2.0.1 (Feb. 23th 2019)
+
+A minor release, which introduces the following changes:
+
+- Updated dependency "JavaUtil" to version 2.1.1.
+- Updated annotation support library to version 1.0.1.
+- Updated AppCompat support library to version 1.0.2.
+
 ## Version 2.0.0 (Oct. 29th 2018)
 
 A major release, which introduces the following changes:
