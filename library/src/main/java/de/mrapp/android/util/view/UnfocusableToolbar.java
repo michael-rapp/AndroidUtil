@@ -14,19 +14,20 @@
 package de.mrapp.android.util.view;
 
 import android.content.Context;
+import android.util.AttributeSet;
+import android.view.MotionEvent;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 import androidx.appcompat.widget.Toolbar;
-import android.util.AttributeSet;
-import android.view.MotionEvent;
 
 /**
- * By default, the AppCompat support library's Toolbar does consume all touch events,
- * regardless of whether the "focusable" attribute is set, or not. This class extend the class
- * Toolbar to enable touch events to be passed to other views in the event processing chain,
- * if the "focusable" attribute is set to false. If it is set to true, the toolbar behaves exactly
- * like the original one.
+ * By default, the AppCompat support library's Toolbar does consume all touch events, regardless of
+ * whether the "focusable" attribute is set, or not. This class extend the class Toolbar to enable
+ * touch events to be passed to other views in the event processing chain, if the "focusable"
+ * attribute is set to false. If it is set to true, the toolbar behaves exactly like the original
+ * one.
  *
  * @author Michael Rapp
  * @since 1.16.0
@@ -83,9 +84,14 @@ public class UnfocusableToolbar extends Toolbar {
     }
 
     @Override
-    public final boolean onTouchEvent(final MotionEvent event) {
+    public boolean onTouchEvent(final MotionEvent event) {
         boolean handled = super.onTouchEvent(event);
         return isFocusable() && handled;
+    }
+    
+    @Override
+    public boolean performClick() {
+        return super.performClick();
     }
 
 }
