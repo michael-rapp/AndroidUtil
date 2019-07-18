@@ -162,6 +162,7 @@ public class HeaderAndFooterRecyclerView extends RecyclerView
             Condition.INSTANCE.ensureNotNull(encapsulatedAdapter, "The adapter may not be null");
             this.encapsulatedAdapter = encapsulatedAdapter;
             this.encapsulatedAdapter.registerAdapterDataObserver(createDataObserver());
+            setHasStableIds(encapsulatedAdapter.hasStableIds());
         }
 
         /**
@@ -233,7 +234,18 @@ public class HeaderAndFooterRecyclerView extends RecyclerView
 
         @Override
         public long getItemId(final int position) {
-            return position;
+            final int prime = 31;
+            int result = 1;
+            int viewType = getItemViewType(position);
+            result = prime * result + viewType;
+
+            if (viewType != VIEW_TYPE_HEADER && viewType != VIEW_TYPE_FOOTER) {
+                long itemId = encapsulatedAdapter.getItemId(position - getHeaderViewsCount());
+                long temp = Double.doubleToLongBits(itemId);
+                result = prime * result + (int) (temp ^ (temp >>> 32));
+            }
+
+            return result;
         }
 
     }
