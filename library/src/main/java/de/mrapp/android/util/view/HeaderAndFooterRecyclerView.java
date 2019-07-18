@@ -56,7 +56,7 @@ public class HeaderAndFooterRecyclerView extends RecyclerView
              *         The view group, which should be used to visualize the header views, as an
              *         instance of the class {@link ViewGroup}. The view group may not be null
              */
-            public HeaderViewHolder(@NonNull final ViewGroup itemView) {
+            HeaderViewHolder(@NonNull final ViewGroup itemView) {
                 super(itemView);
             }
         }
@@ -175,8 +175,9 @@ public class HeaderAndFooterRecyclerView extends RecyclerView
             return encapsulatedAdapter;
         }
 
+        @NonNull
         @Override
-        public ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
+        public ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, final int viewType) {
             if (viewType == VIEW_TYPE_HEADER) {
                 ViewGroup view = new FrameLayout(getContext());
                 view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
@@ -194,7 +195,7 @@ public class HeaderAndFooterRecyclerView extends RecyclerView
 
         @SuppressWarnings("unchecked")
         @Override
-        public void onBindViewHolder(final ViewHolder holder, final int position) {
+        public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
             if (holder instanceof HeaderViewHolder) {
                 ViewGroup parentView = (ViewGroup) holder.itemView;
                 parentView.removeAllViews();
