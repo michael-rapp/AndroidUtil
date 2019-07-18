@@ -21,6 +21,9 @@ import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.util.AttributeSet;
+import android.widget.FrameLayout;
+
 import androidx.annotation.AttrRes;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
@@ -28,9 +31,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
-import android.util.AttributeSet;
-import android.widget.FrameLayout;
-
 import de.mrapp.android.util.R;
 
 /**
@@ -320,7 +320,6 @@ public class ScrimInsetsLayout extends FrameLayout {
         }
     }
 
-    @SuppressWarnings("deprecation")
     @Override
     protected boolean fitSystemWindows(final Rect insets) {
         this.insets = new Rect(insets);
