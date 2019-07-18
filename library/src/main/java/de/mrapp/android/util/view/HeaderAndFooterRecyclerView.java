@@ -81,12 +81,12 @@ public class HeaderAndFooterRecyclerView extends RecyclerView
         /**
          * The view type of a header.
          */
-        private static final int VIEW_TYPE_HEADER = 4319;
+        public static final int VIEW_TYPE_HEADER = 4319;
 
         /**
          * The view type of a footer.
          */
-        private static final int VIEW_TYPE_FOOTER = 4320;
+        public static final int VIEW_TYPE_FOOTER = 4320;
 
         /**
          * The encapsulated adapter.
