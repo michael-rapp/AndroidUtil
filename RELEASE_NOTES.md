@@ -4,6 +4,7 @@
 
 A minor release, which introduces the following changes:
 
+- The `HeadAndFooterRecyclerView` now supports stable ids.
 - The constants `HeaderAndFooterRecyclerView#VIEW_TYPE_FOOTER` and `HeaderAndFooterRecyclerView#VIEW_TYPE_HEADER` are now public.
 - Updated dependency "JavaUtil" to version 2.4.0.
 - Updated annotation support library to version 1.1.0.
