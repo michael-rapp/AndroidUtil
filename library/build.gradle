@@ -19,7 +19,7 @@ android {
 }
 
 dependencies {
-    api 'com.github.michael-rapp:java-util:2.1.1'
+    api 'com.github.michael-rapp:java-util:2.4.0'
     api 'androidx.annotation:annotation:1.0.1'
     api 'androidx.appcompat:appcompat:1.0.2'
     api 'androidx.legacy:legacy-support-v4:1.0.0'
