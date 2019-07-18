@@ -238,13 +238,15 @@ public class HeaderAndFooterRecyclerView extends RecyclerView
             int result = 1;
             int viewType = getItemViewType(position);
             result = prime * result + viewType;
+            int itemHash = 0;
 
             if (viewType != VIEW_TYPE_HEADER && viewType != VIEW_TYPE_FOOTER) {
                 long itemId = encapsulatedAdapter.getItemId(position - getHeaderViewsCount());
                 long temp = Double.doubleToLongBits(itemId);
-                result = prime * result + (int) (temp ^ (temp >>> 32));
+                itemHash = (int) (temp ^ (temp >>> 32));
             }
 
+            result = prime * result + itemHash;
             return result;
         }
 
