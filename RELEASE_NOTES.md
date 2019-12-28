@@ -1,5 +1,14 @@
 # AndroidUtil - RELEASE NOTES
 
+## Version 2.1.0 (Dec. 28th 2019)
+
+A feature release, which introduces the following changes:
+
+- Removed class `FileUtil`. It is now provided by the dependency "JavaUtil".
+- Updated dependency "JavaUtil" to version 2.5.0.
+- Updated AppCompat support library to version 1.1.0.
+- Updated RecyclerView support library to version 1.1.0.
+
 ## Version 2.0.2 (Jul. 19th 2019)
 
 A minor release, which introduces the following changes:
