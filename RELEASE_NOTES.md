@@ -5,6 +5,7 @@
 A feature release, which introduces the following changes:
 
 - Removed class `FileUtil`. It is now provided by the dependency "JavaUtil".
+- Marked class `ArrayUtil` as deprecated.
 - Updated dependency "JavaUtil" to version 2.5.0.
 - Updated AppCompat support library to version 1.1.0.
 - Updated RecyclerView support library to version 1.1.0.
