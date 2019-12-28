@@ -19,9 +19,11 @@ import de.mrapp.util.Condition;
 /**
  * An utility class, which provides static methods, which allow to handle arrays.
  *
+ * @deprecated This class will be removed in a feature version of the library
  * @author Michael Rapp
  * @since 1.11.0
  */
+@Deprecated
 public final class ArrayUtil {
 
     /**
